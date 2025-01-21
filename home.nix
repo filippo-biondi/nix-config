@@ -1,80 +1,50 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
-{
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
+let 
+  openfoam-container = pkgs.fetchgit {
+    url = "https://develop.openfoam.com/packaging/containers.git";
+    rev = "50f4b8c77ca610ec33d1ba7ba336157091f018d8";
+    sha256 = "sha256-wv2QoHFIiV+Gsz+pwVt42ithHJ1LL1KL8pZ5PbAgDXk=";
+  };
+
+  openfoam-docker = pkgs.runCommand "openfoam-docker" {} ''
+    mkdir -p $out/bin
+    cp ${openfoam-container}/openfoam-docker $out/bin/openfoam-docker
+    chmod +x $out/bin/openfoam-docker
+  '';
+in {
   home.username = "filippo";
   home.homeDirectory = "/home/filippo";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
     kitty
     lshw
+    discord
+    pkgs-unstable.zotero
+    telegram-desktop
+    pkgs-unstable.jetbrains.gateway
+    pkgs-unstable.jetbrains.pycharm-professional
+    # (pkgs-unstable.jetbrains.plugins.addPlugins pkgs-unstable.jetbrains.pycharm-professional [ "17718" ])
+    openfoam-docker
+    vlc
+    obs-studio
+    doxygen
+    quickemu
+    step-cli
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+    #".local/bin/openfoam-docker" = {
+    #  source = "${openfoam-container}/openfoam-docker";
+    #  executable = true;
+    #};
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/filippo/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "vim";
   };
-
-  # Let Home Manager install and manage itself.
-  programs.bash.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -84,23 +54,68 @@
   
     shellAliases = {
       ll = "ls -l";
-      update = "sudo nixos-rebuild switch";
+      update = "sudo nixos-rebuild switch --flake .";
+      cineca-login = "step ssh login filippo.biondi@santannapisa.it --provisioner cineca-hpc";
     };
     history = {
       size = 10000;
       path = "${config.xdg.dataHome}/zsh/history";
     };
+    initExtra = ''
+      bindkey "^[[1;5C" forward-word
+      bindkey "^[[1;5D" backward-word
+    '';
   };
 
-  programs.neovim = {
+#  wayland.windowManager.hyprland = {
+#    enable = true;
+#    # set the flake package
+#    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+#  };
+
+  programs.git = {
     enable = true;
-    vimAlias = true;
+    userName = "Filippo Biondi";
+    userEmail = "filibiondi2000@gmail.com";
+    aliases = {
+      undo = "reset HEAD~1 --mixed";
+    };
+    extraConfig = {
+      color = {
+        ui = "auto";
+      };
+    };
+  };
+
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      ms-vscode-remote.remote-ssh
+      ms-vscode-remote.remote-containers
+      dracula-theme.theme-dracula
+      vscodevim.vim
+      yzhang.markdown-all-in-one
+    ];
+  };
+
+  programs.tmux = {
+    enable = true;
+    keyMode = "vi";
+    shell = "${pkgs.zsh}/bin/zsh";
+    prefix = "C-h";
   };
   
-  wayland.windowManager.hyprland = {
+  programs.ssh = {
     enable = true;
-    # set the flake package
-    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    matchBlocks = {
+      "g100" = {
+        hostname = "login.g100.cineca.it";
+        user = "fbiondi0";
+        extraOptions = {
+          StrictHostKeyChecking = "no";
+        };
+      };
+    };
   };
 
   programs.home-manager.enable = true;

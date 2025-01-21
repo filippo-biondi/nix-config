@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.connecttunnel-nix.nixosModule
+      ./surfshark-vpn.nix
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -17,7 +19,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
   };
 
@@ -68,6 +70,7 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
+  hardware.nvidia-container-toolkit.enable = true;
  
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -78,6 +81,9 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  networking.nameservers = [ "162.252.172.57" "149.154.159.92" ];
+  networking.networkmanager.dns = "none";
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -111,7 +117,7 @@
   };
 
   # Configure console keymap
-  console.keyMap = "dvorak";
+  console.keyMap = "qwerty/us";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -132,6 +138,8 @@
     #media-session.enable = true;
   };
 
+  virtualisation.docker.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -139,16 +147,22 @@
   users.users.filippo = {
     isNormalUser = true;
     description = "Filippo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird
     ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  programs.zsh.enable = true;
+  users.users.filippo.shell = pkgs.zsh;
 
+  programs.firefox.enable = true;
+  
   programs.hyprland.enable = true;
+	
+  programs.connect-tunnel.enable = true;
+
+  nixpkgs.overlays = [ inputs.nvim.overlays.default ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -156,10 +170,40 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim
+    nvim-pkg
     git
     wget
     curl
+    usbutils
+    htop
+    unzip
+    paraview
+    nerdfonts
+    spotify
+    wl-clipboard
+    (python3.withPackages (ps: with ps; [
+      pip
+      venvShellHook
+      numpy
+      pandas
+      requests
+      debugpy
+    ]))
+    clang-tools
+    cmake
+    codespell
+    conan
+    cppcheck
+    doxygen
+    gtest
+    lcov
+    vcpkg
+    vcpkg-tool
+    gnumake
+    texliveFull
+    # miraclecast
+    gnome-network-displays
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -172,8 +216,22 @@
 
   # List services that you want to enable:
 
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
+  services.locate.enable = true;
+
+#  systemd.services.miracle-wifid = {
+#    wantedBy = [ "multi-user.target" ];
+#    serviceConfig = {
+#      ExecStart = "${pkgs.miraclecast}/bin/miracle-wifid";
+#    };
+#  };
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  programs.ssh.startAgent = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
