@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 
 let 
   openfoam-container = pkgs.fetchgit {
@@ -22,17 +22,17 @@ in {
     kitty
     lshw
     discord
-    pkgs-unstable.zotero
+    zotero
     telegram-desktop
-    pkgs-unstable.jetbrains.gateway
-    pkgs-unstable.jetbrains.pycharm-professional
-    # (pkgs-unstable.jetbrains.plugins.addPlugins pkgs-unstable.jetbrains.pycharm-professional [ "17718" ])
+    unstable.jetbrains.gateway
+    unstable.jetbrains.pycharm-professional
     openfoam-docker
     vlc
     obs-studio
     doxygen
     quickemu
     step-cli
+    kicad
   ];
 
   home.file = {

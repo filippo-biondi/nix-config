@@ -4,48 +4,48 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     
-    unstable-nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # hyprland.url = "github:hyprwm/Hyprland";
-    
     nvim.url = "github:filippo-biondi/nvim-config";
     # nvim.url = "path:/home/filippo/nvim-config";
 
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: 
-    let system = "x86_64-linux"; in {
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          inherit system;
-	        specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./configuration.nix
-          ];
-        };
-      };
-      homeConfigurations."filippo@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          config.allowUnfree = true; # Enable unfree packages
-          inherit system;
-        };
-        extraSpecialArgs = {
-          pkgs-unstable = import inputs.unstable-nixpkgs {
+  outputs = inputs@{ nixpkgs, home-manager, ... }: {
+    nixosConfigurations = {
+      nixos = let 
+        system = "x86_64-linux";
+        overlay-unstable = final: prev: {
+          unstable = import inputs.nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;
           };
         };
+      in nixpkgs.lib.nixosSystem {
+        inherit system;
         modules = [
-          ./home.nix
+          ({ config, pkgs, ... }: { 
+            nixpkgs.overlays = [ 
+              inputs.nvim.overlays.default 
+              overlay-unstable 
+            ];
+            nixpkgs.config.allowUnfree = true;
+          })
+          inputs.connecttunnel-nix.nixosModule
+          ./configuration.nix
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.filippo = import ./home.nix;
+          }
         ];
       };
     };
+  };
 }
