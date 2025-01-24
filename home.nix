@@ -16,7 +16,9 @@ in {
   home.username = "filippo";
   home.homeDirectory = "/home/filippo";
 
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.file = {
+
+  };
 
   home.packages = with pkgs; [
     kitty
@@ -27,20 +29,14 @@ in {
     unstable.jetbrains.gateway
     unstable.jetbrains.pycharm-professional
     openfoam-docker
+    paraview
+    spotify
     vlc
     obs-studio
-    doxygen
     quickemu
     step-cli
     kicad
   ];
-
-  home.file = {
-    #".local/bin/openfoam-docker" = {
-    #  source = "${openfoam-container}/openfoam-docker";
-    #  executable = true;
-    #};
-  };
 
   home.sessionVariables = {
     EDITOR = "vim";
@@ -66,12 +62,6 @@ in {
       bindkey "^[[1;5D" backward-word
     '';
   };
-
-#  wayland.windowManager.hyprland = {
-#    enable = true;
-#    # set the flake package
-#    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-#  };
 
   programs.git = {
     enable = true;
@@ -119,4 +109,6 @@ in {
   };
 
   programs.home-manager.enable = true;
+
+  home.stateVersion = "24.05"; # Please read the comment before changing.
 }
