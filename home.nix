@@ -51,6 +51,8 @@ in {
     shellAliases = {
       ll = "ls -l";
       update = "sudo nixos-rebuild switch --flake .";
+      push-update = "git push && update";
+      test-update = "sudo nixos-rebuild test --flake .";
       cineca-login = "step ssh login filippo.biondi@santannapisa.it --provisioner cineca-hpc";
     };
     history = {
