@@ -21,7 +21,6 @@ in {
   };
 
   home.packages = with pkgs; [
-    kitty
     lshw
     discord
     zotero
@@ -40,6 +39,16 @@ in {
 
   home.sessionVariables = {
     EDITOR = "vim";
+  };
+
+  programs.kitty = {
+    enable = true;
+    settings = {
+      confirm_os_window_close = 0;
+    };
+    keybindings = {
+      "ctrl+shift+c" = "no_op";
+    };
   };
 
   programs.zsh = {

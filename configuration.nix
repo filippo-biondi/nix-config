@@ -31,8 +31,8 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  networking.nameservers = [ "162.252.172.57" "149.154.159.92" ];
-  networking.networkmanager.dns = "none";
+  # networking.nameservers = [ "162.252.172.57" "149.154.159.92" ];
+  # networking.networkmanager.dns = "none";
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
