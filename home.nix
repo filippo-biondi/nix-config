@@ -50,6 +50,7 @@ in {
   
     shellAliases = {
       ll = "ls -l";
+      ".." = "cd ..";
       update = "sudo nixos-rebuild switch --flake .";
       push-update = "git push && update";
       test-update = "sudo nixos-rebuild test --flake .";
@@ -62,6 +63,7 @@ in {
     initExtra = ''
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
+      bindkey "^H" backward-kill-word
     '';
   };
 
