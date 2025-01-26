@@ -21,6 +21,7 @@ in {
   };
 
   home.packages = with pkgs; [
+    nvim-pkg
     lshw
     discord
     zotero
@@ -41,15 +42,25 @@ in {
     EDITOR = "vim";
   };
 
-  programs.kitty = {
-    enable = true;
-    settings = {
-      confirm_os_window_close = 0;
-    };
-    keybindings = {
-      "ctrl+shift+c" = "no_op";
-    };
+  home.file = {
   };
+
+  # programs.kitty = {
+  #   enable = true;
+  #   settings = {
+  #     confirm_os_window_close = 0;
+  #   };
+  #   keybindings = {
+  #     "ctrl+shift+c" = "no_op";
+  #     "ctrl+alt+shift+c" = "copy_to_clipboard";
+  #     "alt+s" = "show_scrollback";
+  #   };
+  #   extraConfig = ''
+  #     scrollback_pager nvim +"source ~/.config/kitty/vi-mode.lua"
+  #   '';
+  # };
+  
+  programs.alacritty.enable = true;
 
   programs.zsh = {
     enable = true;
