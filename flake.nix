@@ -25,16 +25,14 @@
           unstable = import inputs.nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;
+            overlays = [ inputs.nvim.overlays.default ];
           };
         };
       in nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           ({ config, pkgs, ... }: { 
-            nixpkgs.overlays = [ 
-              inputs.nvim.overlays.default 
-              overlay-unstable 
-            ];
+            nixpkgs.overlays = [ overlay-unstable ];
             nixpkgs.config.allowUnfree = true;
           })
           inputs.connecttunnel-nix.nixosModule
