@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./surfshark-vpn.nix
+      ./nvidia.nix
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
