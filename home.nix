@@ -21,7 +21,7 @@ in {
   };
 
   home.packages = with pkgs; [
-    nvim-pkg
+    unstable.nvim-pkg
     lshw
     discord
     zotero
@@ -43,24 +43,54 @@ in {
   };
 
   home.file = {
+    ".config/alacritty/themes".source = pkgs.fetchgit {
+      url = "https://github.com/alacritty/alacritty-theme";
+      rev = "69d07c3bc280add63906a1cebf6be326687bc9eb"; 
+      sha256 = "sha256-O7kMi5m/fuqQZXmAMZ0hXF1ANUifK843Yfq/pEDCspE=";
+    };
   };
-
-  # programs.kitty = {
-  #   enable = true;
-  #   settings = {
-  #     confirm_os_window_close = 0;
-  #   };
-  #   keybindings = {
-  #     "ctrl+shift+c" = "no_op";
-  #     "ctrl+alt+shift+c" = "copy_to_clipboard";
-  #     "alt+s" = "show_scrollback";
-  #   };
-  #   extraConfig = ''
-  #     scrollback_pager nvim +"source ~/.config/kitty/vi-mode.lua"
-  #   '';
-  # };
   
-  programs.alacritty.enable = true;
+  programs.alacritty = {
+    enable = true;
+    settings = { 
+      general.import = [ "~/.config/alacritty/themes/themes/catppuccin_mocha.toml" ];
+      env.TERM = "xterm-256color";
+      window.startup_mode = "Maximized";
+      keyboard.bindings = [
+        { 
+          key = "C"; 
+          mods = "Control|Shift";
+          mode = "Alt";
+          action = "ReceiveChar";
+        }
+        { 
+          key = "C"; 
+          mods = "Control|Shift";
+          mode = "~Alt";
+          action = "Copy";
+        }
+        {
+          key = "C";
+          mods = "Control|Shift|Alt";
+          action = "Copy";
+        }
+
+        {
+          key = "ArrowLeft";
+          mods = "Control";
+          mode = "Vi|~Search";
+          action = "SemanticLeft";
+        }
+        {
+          key = "ArrowRight";
+          mods = "Control";
+          mode = "Vi|~Search";
+          action = "SemanticRight";
+        }
+      ];
+      mouse.hide_when_typing = true;
+    };
+  };
 
   programs.zsh = {
     enable = true;
@@ -84,6 +114,18 @@ in {
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
       bindkey "^H" backward-kill-word
+
+      # fg-bg toggle via c-z
+      function fg-bg {
+          if [[ $#BUFFER -eq 0 ]]; then
+              BUFFER=fg
+              zle accept-line
+          else
+              zle push-input
+          fi
+      }
+      zle -N fg-bg
+      bindkey '^z' fg-bg
     '';
   };
 
