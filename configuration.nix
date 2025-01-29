@@ -135,6 +135,7 @@
     vcpkg-tool
     gnumake
     texliveFull
+    nvtopPackages.full
   ];
 
   # List services that you want to enable:
