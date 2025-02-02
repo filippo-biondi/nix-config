@@ -115,14 +115,14 @@
     unzip
     nerdfonts
     wl-clipboard
-    (python3.withPackages (ps: with ps; [
-      pip
-      venvShellHook
-      numpy
-      pandas
-      requests
-      debugpy
-    ]))
+    # (python3.withPackages (ps: with ps; [
+    #   pip
+    #   venvShellHook
+    #   numpy
+    #   pandas
+    #   requests
+    #   debugpy
+    # ]))
     clang-tools
     cmake
     codespell
