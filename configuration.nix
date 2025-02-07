@@ -144,6 +144,7 @@
     gnumake
     texliveFull
     nvtopPackages.full
+    xorg.xhost
   ];
 
   # List services that you want to enable:
