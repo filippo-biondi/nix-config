@@ -137,9 +137,8 @@ in {
       undo = "reset HEAD~1 --mixed";
     };
     extraConfig = {
-      color = {
-        ui = "auto";
-      };
+      init.defaultBranch = "main";
+      color.ui = "auto";
     };
   };
 
