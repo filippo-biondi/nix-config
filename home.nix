@@ -106,6 +106,7 @@ in {
       push-update = "git push && update";
       test-update = "sudo nixos-rebuild test --flake .";
       cineca-login = "step ssh login filippo.biondi@santannapisa.it --provisioner cineca-hpc";
+      vpn-login = "sudo openfortivpn fvs.santannapisa.it:443 -u fi.biondi";
     };
     history = {
       size = 10000;
@@ -170,6 +171,10 @@ in {
         extraOptions = {
           StrictHostKeyChecking = "no";
         };
+      };
+      "giovanni" = {
+        hostname = "192.168.83.20";
+        user = "fbiondi";
       };
     };
   };
