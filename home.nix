@@ -36,6 +36,7 @@ in {
     quickemu
     step-cli
     kicad
+    openfortivpn
   ];
 
   home.sessionVariables = {
