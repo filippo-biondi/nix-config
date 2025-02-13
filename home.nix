@@ -37,6 +37,7 @@ in {
     step-cli
     kicad
     openfortivpn
+    iotop
   ];
 
   home.sessionVariables = {
