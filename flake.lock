@@ -310,11 +310,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1739182984,
-        "narHash": "sha256-VjXdon5tsZZCNxQExII8BUm9RaiWsDzwsjCvZdQR45g=",
+        "lastModified": 1739529909,
+        "narHash": "sha256-zWvmnCMuM8LBClBnVajljOJV7bLFhZ95Nz1g2sVt4CA=",
         "owner": "filippo-biondi",
         "repo": "nvim-config",
-        "rev": "73f2b0ba70fc88229914ef0bd9d4f7fa87d3fb4c",
+        "rev": "a556c6c00cccf1e1a682dd68c28db40806a31f17",
         "type": "github"
       },
       "original": {
