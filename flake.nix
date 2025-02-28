@@ -54,7 +54,6 @@
 
     homeConfigurations = {
         fbiondi = home-manager.lib.homeManagerConfiguration {
-          inherit system;
           pkgs = pkgs;
           # Here, ./home.nix is your home-manager configuration.
           modules = [ ./home.nix ];
