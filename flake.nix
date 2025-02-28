@@ -17,33 +17,48 @@
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      nixos = let 
-        system = "x86_64-linux";
-        overlay-unstable = final: prev: {
-          unstable = import inputs.nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = [ inputs.nvim.overlays.default ];
-          };
+  outputs = inputs@{ nixpkgs, home-manager, ... }: 
+    let
+      system = "x86_64-linux";
+      overlay-unstable = final: prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ inputs.nvim.overlays.default ];
         };
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ({ config, pkgs, ... }: { 
-            nixpkgs.overlays = [ overlay-unstable ];
-            nixpkgs.config.allowUnfree = true;
-          })
-          inputs.connecttunnel-nix.nixosModule
-          ./configuration.nix
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.filippo = import ./home.nix;
-          }
-        ];
       };
-    };
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ overlay-unstable ];
+      };
+    in {
+      nixosConfigurations = {
+        nixos = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ({ config, pkgs, ... }: { 
+              nixpkgs.overlays = [ overlay-unstable ];
+              nixpkgs.config.allowUnfree = true;
+            })
+            inputs.connecttunnel-nix.nixosModule
+            ./configuration.nix
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.filippo = import ./home.nix;
+            }
+          ];
+        };
+      };
+
+    homeConfigurations = {
+        fbiondi = home-manager.lib.homeConfiguration {
+          inherit system;
+          pkgs = pkgs;
+          # Here, ./home.nix is your home-manager configuration.
+          configuration = import ./home.nix;
+        };
+      };
   };
 }

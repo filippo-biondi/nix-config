@@ -13,9 +13,6 @@ let
     chmod +x $out/bin/openfoam-docker
   '';
 in {
-  home.username = "filippo";
-  home.homeDirectory = "/home/filippo";
-
   home.file = {
 
   };
