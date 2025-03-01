@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let 
+let
   openfoam-container = pkgs.fetchgit {
     url = "https://develop.openfoam.com/packaging/containers.git";
     rev = "50f4b8c77ca610ec33d1ba7ba336157091f018d8";
@@ -44,26 +44,26 @@ in {
   home.file = {
     ".config/alacritty/themes".source = pkgs.fetchgit {
       url = "https://github.com/alacritty/alacritty-theme";
-      rev = "69d07c3bc280add63906a1cebf6be326687bc9eb"; 
+      rev = "69d07c3bc280add63906a1cebf6be326687bc9eb";
       sha256 = "sha256-O7kMi5m/fuqQZXmAMZ0hXF1ANUifK843Yfq/pEDCspE=";
     };
   };
-  
+
   programs.alacritty = {
     enable = true;
-    settings = { 
+    settings = {
       general.import = [ "~/.config/alacritty/themes/themes/catppuccin_mocha.toml" ];
       env.TERM = "xterm-256color";
       window.startup_mode = "Maximized";
       keyboard.bindings = [
-        { 
-          key = "C"; 
+        {
+          key = "C";
           mods = "Control|Shift";
           mode = "Alt";
           action = "ReceiveChar";
         }
-        { 
-          key = "C"; 
+        {
+          key = "C";
           mods = "Control|Shift";
           mode = "~Alt";
           action = "Copy";
@@ -96,7 +96,7 @@ in {
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-  
+
     shellAliases = {
       ll = "ls -l";
       ".." = "cd ..";
@@ -159,7 +159,7 @@ in {
     shell = "${pkgs.zsh}/bin/zsh";
     prefix = "C-h";
   };
-  
+
   programs.ssh = {
     enable = true;
     matchBlocks = {

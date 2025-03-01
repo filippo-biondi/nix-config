@@ -30,10 +30,10 @@
   hardware.graphics = {
     enable = true;
   };
-  
+
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
- 
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -109,7 +109,7 @@
   users.users.filippo.shell = pkgs.zsh;
 
   programs.firefox.enable = true;
-  
+
   programs.connect-tunnel.enable = true;
 
   # List packages installed in system profile. To search, run:

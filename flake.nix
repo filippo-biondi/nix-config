@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    
+
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
@@ -17,7 +17,7 @@
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: 
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
       overlay-unstable = final: prev: {
@@ -37,7 +37,7 @@
         nixos = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            ({ config, pkgs, ... }: { 
+            ({ config, pkgs, ... }: {
               nixpkgs.overlays = [ overlay-unstable ];
               nixpkgs.config.allowUnfree = true;
             })
