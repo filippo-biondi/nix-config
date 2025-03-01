@@ -12,7 +12,7 @@
     };
 
     nvim.url = "github:filippo-biondi/nvim-config";
-    # nvim.url = "path:/home/filippo/nvim-config";
+    # nvim.url = "path:/home/filippo/.config/nvim";
 
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
   };
@@ -24,23 +24,18 @@
         unstable = import inputs.nixpkgs-unstable {
           inherit system;
           config.allowUnfree = true;
-          overlays = [ inputs.nvim.overlays.default ];
         };
       };
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ overlay-unstable ];
+        overlays = [ overlay-unstable inputs.nvim.overlays.default ];
       };
     in {
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
-          inherit system;
+          inherit system pkgs;
           modules = [
-            ({ config, pkgs, ... }: {
-              nixpkgs.overlays = [ overlay-unstable ];
-              nixpkgs.config.allowUnfree = true;
-            })
             inputs.connecttunnel-nix.nixosModule
             ./configuration.nix
             home-manager.nixosModules.home-manager {

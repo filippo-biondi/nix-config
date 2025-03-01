@@ -18,7 +18,7 @@ in {
   };
 
   home.packages = with pkgs; [
-    unstable.nvim-pkg
+    nvim-pkg
     lshw
     discord
     zotero
