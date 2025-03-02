@@ -2,12 +2,12 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -15,44 +15,63 @@
     # nvim.url = "path:/home/filippo/.config/nvim";
 
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
-      system = "x86_64-linux";
-      overlay-unstable = final: prev: {
-        unstable = import inputs.nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
+      inherit (self) outputs;
+
+      get_user = name:
+        let users = rec {
+          filippo = {
+            fullName = "Filippo Biondi";
+            email = "filibiondi2000@gmail.com";
+            # gitKey = "C5810093"; ??
+            inherit name;
+          };
+          fbiondi = filippo // {
+            email = "filippo.biondi@santanna.it";
+          };
         };
-      };
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ overlay-unstable inputs.nvim.overlays.default ];
+        in users.${name};
+
+      mkNixosConfiguration = system: hostname: username:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs hostname;
+            userConfig = get_user username;
+            nixosModules = "${self}/modules/nixos";
+          };
+          modules = [
+            ./hosts/${hostname}
+            inputs.connecttunnel-nix.nixosModule
+            ];
+        };
+
+      mkHomeConfiguration = system: hostname: username:
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { inherit system; };
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          userConfig = get_user username;
+          nhModules = "${self}/modules/home-manager";
+        };
+        modules = [
+          ./home/${hostname}/${username}
+          inputs.catppuccin.homeManagerModules.catppuccin
+        ];
       };
     in {
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          modules = [
-            inputs.connecttunnel-nix.nixosModule
-            ./configuration.nix
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.filippo = import ./home.nix;
-            }
-          ];
-        };
+        msi = mkNixosConfiguration "x86_64-linux" "msi" "filippo";
       };
 
-    homeConfigurations = {
-        fbiondi = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs;
-          # Here, ./home.nix is your home-manager configuration.
-          modules = [ ./home.nix ];
-        };
+      homeConfigurations = {
+        "filippo@msi" = mkHomeConfiguration "x86_64-linux" "msi" "filippo";
+        "fbiondi@giova-sssa" = mkHomeConfiguration "x86_64-linux" "giova-sssa" "fbiondi";
       };
-  };
+      overlays = import ./overlays { inherit inputs; };
+    };
 }
