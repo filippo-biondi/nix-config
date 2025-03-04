@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     "${nixosModules}/common"
     "${nixosModules}/desktop"
+    "${nixosModules}/nvidia"
     "${nixosModules}/programs/surfshark"
   ];
 
