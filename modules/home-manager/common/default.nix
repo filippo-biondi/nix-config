@@ -35,7 +35,6 @@
       nvim-pkg
       step-cli
       openfortivpn
-      python3
       nerd-fonts.jetbrains-mono
     ];
 
