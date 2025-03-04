@@ -10,10 +10,10 @@
 
     shellAliases = {
       ll = "ls -l";
-      ".." = "cd ..";
-      update = "sudo nixos-rebuild switch --flake .";
-      push-update = "git push && update";
-      test-update = "sudo nixos-rebuild test --flake .";
+      update-os = "sudo nixos-rebuild switch --flake .";
+      update-hm = "home manager switch --flake .";
+      push-update = "git push && update-os && update-hm";
+      test-update-os = "sudo nixos-rebuild test --flake .";
       cineca-login = "step ssh login filippo.biondi@santannapisa.it --provisioner cineca-hpc";
       vpn-login = "sudo openfortivpn fvs.santannapisa.it:443 -u fi.biondi";
     };
