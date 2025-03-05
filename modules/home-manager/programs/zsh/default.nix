@@ -8,6 +8,11 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
+    oh-my-zsh = {
+      enable = true;
+      theme = "fletcherm";
+    };
+
     shellAliases = {
       ll = "ls -l";
       update-os = "sudo nixos-rebuild switch --flake .";
