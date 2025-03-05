@@ -12,6 +12,8 @@
       "giovanni" = {
         hostname = "192.168.83.20";
         user = "fbiondi";
+        forwardX11 = true;
+        forwardX11Trusted = true;
       };
     };
   };
