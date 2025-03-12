@@ -66,9 +66,6 @@
     };
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # User configuration
   users.users.${userConfig.name} = {
     isNormalUser = true;

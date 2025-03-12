@@ -9,6 +9,7 @@
     "${nixosModules}/desktop"
     "${nixosModules}/nvidia"
     "${nixosModules}/programs/surfshark"
+    "${nixosModules}/print"
   ];
 
   networking.hostName = hostname;
