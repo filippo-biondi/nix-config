@@ -6,6 +6,8 @@
     "${nhModules}/common"
   ];
 
+  targets.genericLinux.enable = true;
+
   # Enable home-manager
   programs.home-manager.enable = true;
 
