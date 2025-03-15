@@ -1,7 +1,12 @@
 {
+  pkgs,
   config,
   ...
 }: {
+  home.packages = with pkgs; [
+    zsh-you-should-use
+  ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -11,6 +16,14 @@
     oh-my-zsh = {
       enable = true;
       theme = "fletcherm";
+      plugins = [
+        "git"
+        "docker"
+        "ssh"
+        "sudo"
+        "systemd"
+        "vi-mode"
+      ];
     };
 
     shellAliases = {
@@ -42,6 +55,8 @@
       }
       zle -N fg-bg
       bindkey '^z' fg-bg
+
+      source ${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh
     '';
   };
 }
