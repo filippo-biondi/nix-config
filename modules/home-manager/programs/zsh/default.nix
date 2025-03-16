@@ -40,9 +40,12 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
     initExtra = ''
-      bindkey "^[[1;5C" forward-word
-      bindkey "^[[1;5D" backward-word
       bindkey "^H" backward-kill-word
+
+      ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=()
+      ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(forward-word)
+      bindkey "^[[1;5F" autosuggest-accept
+
 
       # fg-bg toggle via c-z
       function fg-bg {
