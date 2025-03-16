@@ -19,5 +19,6 @@
     obs-studio
     quickemu
     wl-clipboard
+    bitwarden-desktop
   ];
 }
