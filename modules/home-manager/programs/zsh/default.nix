@@ -59,6 +59,8 @@
       zle -N fg-bg
       bindkey '^z' fg-bg
 
+      export export VI_MODE_SET_CURSOR=true
+
       source ${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh
     '';
   };
