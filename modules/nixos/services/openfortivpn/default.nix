@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -7,7 +8,7 @@
     description = "OpenFortiVPN Service";
     after = [ "network-online.target"];
     wants = [ "network-online.target" "systemd-networkd-wait-online.service"];
-    enable = false;
+    wantedBy = lib.mkForce [];
 
     serviceConfig = {
       ExecStart = "${pkgs.openfortivpn}/bin/openfortivpn -c ${config.sops.secrets."openfortivpn/config".path}";
