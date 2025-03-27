@@ -92,6 +92,7 @@
 
       homeConfigurations = {
         "filippo@msi" = mkHomeConfiguration "x86_64-linux" "msi" "filippo";
+        "filippo@macbook-pro" = mkHomeConfiguration "aarch64-darwin" "macbook-pro" "filippo";
         "fbiondi@giova-sssa" = mkHomeConfiguration "x86_64-linux" "giova-sssa" "fbiondi";
       };
       overlays = import ./overlays { inherit inputs; };
