@@ -11,7 +11,6 @@
     ../programs/zsh
     ../programs/direnv
     ../scripts
-    ../sops
   ];
 
   # Nixpkgs configuration

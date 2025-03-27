@@ -5,7 +5,6 @@
   imports = [
     "${nhModules}/common"
     "${nhModules}/desktop"
-    "${nhModules}/services/openfortivpn"
   ];
 
   # Enable home-manager
