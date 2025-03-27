@@ -41,10 +41,8 @@
   # System settings
   system = {
     defaults = {
-      ".GlobalPreferences" = {
-        "com.apple.mouse.tapBehavior" = 1;
-      };
       NSGlobalDomain = {
+        "com.apple.mouse.tapBehavior" = 1;
         AppleInterfaceStyle = "Dark";
         AppleShowAllExtensions = true;
         NSDocumentSaveNewDocumentsToCloud = false;
