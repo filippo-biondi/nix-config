@@ -6,19 +6,26 @@
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix.url = "github:Mic92/sops-nix";
+
     nvim.url = "github:filippo-biondi/nvim-config";
 
-    connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-    sops-nix.url = "github:Mic92/sops-nix";
+    connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, ... }:
     let
       inherit (self) outputs;
 
@@ -48,6 +55,19 @@
             ];
         };
 
+      mkDarwinConfiguration = hostname: username:
+        nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs outputs hostname;
+            userConfig = get_user username;
+          };
+          modules = [
+            ./hosts/${hostname}
+            home-manager.darwinModules.home-manager
+            inputs.nix-homebrew.darwinModule
+          ];
+        };
+
       mkHomeConfiguration = system: hostname: username:
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { inherit system; };
@@ -64,6 +84,11 @@
       nixosConfigurations = {
         msi = mkNixosConfiguration "x86_64-linux" "msi" "filippo";
       };
+
+      darwinConfigurations = {
+        "macbook-pro" = mkDarwinConfiguration "macbook-pro" "filippo";
+      };
+
 
       homeConfigurations = {
         "filippo@msi" = mkHomeConfiguration "x86_64-linux" "msi" "filippo";
