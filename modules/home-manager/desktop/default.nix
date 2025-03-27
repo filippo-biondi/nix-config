@@ -11,6 +11,7 @@
     discord
     zotero
     telegram-desktop
+    signal-desktop
     jetbrains.pycharm-professional
     jetbrains.gateway
     jetbrains.webstorm
