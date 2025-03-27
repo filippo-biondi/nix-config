@@ -12,11 +12,10 @@
     };
 
     nvim.url = "github:filippo-biondi/nvim-config";
-    # nvim.url = "path:/home/filippo/.config/nvim";
 
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
 
-    catppuccin.url = "github:catppuccin/nix";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
@@ -28,7 +27,6 @@
           filippo = {
             fullName = "Filippo Biondi";
             email = "filibiondi2000@gmail.com";
-            # gitKey = "C5810093"; ??
             inherit name;
           };
           fbiondi = filippo // {
@@ -60,7 +58,6 @@
         };
         modules = [
           ./home/${hostname}/${username}
-          inputs.catppuccin.homeManagerModules.catppuccin
         ];
       };
     in {

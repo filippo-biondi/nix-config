@@ -11,6 +11,7 @@
     ../programs/zsh
     ../programs/direnv
     ../scripts
+    ../sops
   ];
 
   # Nixpkgs configuration
@@ -35,17 +36,12 @@
   home.packages = with pkgs; [
       nvim-pkg
       step-cli
-      openfortivpn
       nerd-fonts.jetbrains-mono
+      sops
     ];
 
   # Set the default editor
   home.sessionVariables = {
     EDITOR = "vim";
-  };
-
-  catppuccin = {
-    flavor = "mocha";
-    accent = "sapphire";
   };
 }

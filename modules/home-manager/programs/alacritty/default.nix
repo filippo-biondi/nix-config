@@ -30,9 +30,9 @@
           action = "Copy";
         }
         {
-          key = "C";
-          mods = "Control|Shift|Alt";
-          action = "Copy";
+          key = "End";
+          mods = "Shift";
+          action = "ReceiveChar";
         }
 
         {

@@ -42,9 +42,15 @@
     initExtra = ''
       bindkey "^H" backward-kill-word
 
+      function forward_word_alias() {
+          zle forward-word
+      }
+      zle -N autsuggest-partial-accept forward_word_alias
+
       ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=()
-      ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(forward-word)
-      bindkey "^[[1;5F" autosuggest-accept
+      ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(autsuggest-partial-accept)
+      bindkey "^[[1;2F" autosuggest-accept
+      bindkey "^[[1;2C" autsuggest-partial-accept
 
 
       # fg-bg toggle via c-z

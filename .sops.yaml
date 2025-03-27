@@ -1,0 +1,7 @@
+keys:
+  - &filippo_msi age18asfdry0rx3t6zzvdrpu94cyeax2595wfwegy7g7zj67egyn2alql8k9rs
+creation_rules:
+  - path_regex: secrets/common.yaml$
+    key_groups:
+    - age:
+      - *filippo_msi
