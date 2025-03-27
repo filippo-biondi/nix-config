@@ -64,7 +64,7 @@
           modules = [
             ./hosts/${hostname}
             home-manager.darwinModules.home-manager
-            inputs.nix-homebrew.darwinModule
+            inputs.nix-homebrew.darwinModules.nix-homebrew
           ];
         };
 
