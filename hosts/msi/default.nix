@@ -8,8 +8,10 @@
     "${nixosModules}/common"
     "${nixosModules}/desktop"
     "${nixosModules}/nvidia"
+    "${nixosModules}/sops"
     "${nixosModules}/programs/surfshark"
-    "${nixosModules}/print"
+    "${nixosModules}/services/print"
+    "${nixosModules}/services/openfortivpn"
   ];
 
   networking.hostName = hostname;

@@ -100,7 +100,6 @@
   # Connect tunnel configuration
   programs.connect-tunnel.enable = true;
 
-  # Catpuccin flavor and accent
   # Additional services
   services.devmon.enable = true;
   services.locate.enable = true;

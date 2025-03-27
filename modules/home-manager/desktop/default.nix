@@ -13,6 +13,7 @@
     telegram-desktop
     jetbrains.pycharm-professional
     jetbrains.gateway
+    jetbrains.webstorm
     paraview
     spotify
     vlc
@@ -20,5 +21,6 @@
     quickemu
     wl-clipboard
     bitwarden-desktop
+    freecad-wayland
   ];
 }
