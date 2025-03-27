@@ -9,7 +9,6 @@
     enable = true;
     enableRosetta = true;
     user = "${userConfig.name}";
-    autoMigrate = true;
   };
 
   # Nixpkgs configuration
@@ -94,11 +93,6 @@
     nerd-fonts.jetbrains-mono
     roboto
   ];
-
-  homebrew = {
-    enable = true;
-    enableRosetta = true;
-  };
 
   # Used for backwards compatibility, please read the changelog before changing.
   system.stateVersion = 6;
