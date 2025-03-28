@@ -44,7 +44,6 @@
   system = {
     defaults = {
       NSGlobalDomain = {
-        "com.apple.mouse.tapBehavior" = 1;
         AppleInterfaceStyle = "Dark";
         AppleShowAllExtensions = true;
         NSDocumentSaveNewDocumentsToCloud = false;
@@ -55,8 +54,7 @@
         LSQuarantine = false;
       };
       trackpad = {
-        TrackpadRightClick = true;
-        TrackpadThreeFingerDrag = true;
+        Dragging = true;
         Clicking = true;
       };
       finder = {
