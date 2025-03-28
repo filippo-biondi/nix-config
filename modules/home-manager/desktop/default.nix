@@ -16,14 +16,14 @@
     jetbrains.gateway
     jetbrains.webstorm
     spotify
-    vlc
-    obs-studio
-    quickemu
-    wl-clipboard
-    bitwarden-desktop
-    freecad-wayland
   ]
   ++ lib.optionals (!stdenv.isDarwin) [
     paraview
+    vlc
+    obs-studio
+    quickemu
+    freecad-wayland
+    wl-clipboard
+    bitwarden-desktop
   ];
 }
