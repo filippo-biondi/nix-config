@@ -18,18 +18,18 @@
       font.normal.family = "JetBrainsMono Nerd Font";
       window.startup_mode = "Maximized";
       keyboard.bindings = [
-        {
-          key = "C";
-          mods = "Control|Shift";
-          mode = "Alt";
-          action = "ReceiveChar";
-        }
-        {
-          key = "C";
-          mods = "Control|Shift";
-          mode = "~Alt";
-          action = "Copy";
-        }
+        # {
+        #   key = "C";
+        #   mods = "Control|Shift";
+        #   mode = "Alt";
+        #   action = "ReceiveChar";
+        # }
+        # {
+        #   key = "C";
+        #   mods = "Control|Shift";
+        #   mode = "~Alt";
+        #   action = "Copy";
+        # }
         {
           key = "End";
           mods = "Shift";
@@ -38,16 +38,17 @@
 
         {
           key = "ArrowLeft";
-          mods = "Control";
+          mods = "Super";
           mode = "Vi|~Search";
           action = "SemanticLeft";
         }
         {
           key = "ArrowRight";
-          mods = "Control";
+          mods = "Super";
           mode = "Vi|~Search";
           action = "SemanticRight";
         }
+        # TODO maybe add also command keybindings for mac
       ];
       mouse.hide_when_typing = true;
     };
