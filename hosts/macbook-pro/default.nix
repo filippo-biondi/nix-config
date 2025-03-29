@@ -2,7 +2,7 @@
   darwinModules,
   ...
 }: {
-  import = [
+  imports = [
     "${darwinModules}/common"
     "${darwinModules}/settings"
   ];
