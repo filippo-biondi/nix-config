@@ -7,7 +7,6 @@
   imports = [
     ../programs/git
     ../programs/ssh
-    ../programs/tmux
     ../programs/zsh
     ../programs/direnv
     ../scripts
