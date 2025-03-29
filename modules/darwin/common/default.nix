@@ -30,9 +30,6 @@
     overlays = [
       outputs.overlays.nvim
     ];
-
-    hostPlatform = "aarch64-darwin";
-
     config.allowUnfree = true;
   };
 
