@@ -15,6 +15,7 @@
     settings = {
       general.import = [ "~/.config/alacritty/themes/themes/catppuccin_mocha.toml" ];
       env.TERM = "xterm-256color";
+      font.normal.family = "JetBrainsMono Nerd Font";
       window.startup_mode = "Maximized";
       keyboard.bindings = [
         {
