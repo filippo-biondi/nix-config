@@ -6,9 +6,10 @@
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
     nix-darwin = {
-      url = "github:LnL7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     home-manager = {
@@ -55,16 +56,26 @@
             ];
         };
 
-      mkDarwinConfiguration = hostname: username:
+      mkDarwinConfiguration = system: hostname: username:
         nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit inputs outputs hostname;
             userConfig = get_user username;
+            darwinModules = "${self}/modules/darwin";
           };
           modules = [
             ./hosts/${hostname}
-            home-manager.darwinModules.home-manager
             inputs.nix-homebrew.darwinModules.nix-homebrew
+             home-manager.darwinModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit inputs outputs;
+                userConfig = get_user username;
+                nhModules = "${self}/modules/home-manager";
+              };
+              home-manager.users.${username} = import ./home/${hostname}/${username};
+            }
           ];
         };
 
@@ -86,13 +97,12 @@
       };
 
       darwinConfigurations = {
-        "macbook-pro" = mkDarwinConfiguration "macbook-pro" "filippo";
+        "macbook-pro" = mkDarwinConfiguration "aarch64-darwin" "macbook-pro" "filippo";
       };
 
 
       homeConfigurations = {
         "filippo@msi" = mkHomeConfiguration "x86_64-linux" "msi" "filippo";
-        "filippo@macbook-pro" = mkHomeConfiguration "aarch64-darwin" "macbook-pro" "filippo";
         "fbiondi@giova-sssa" = mkHomeConfiguration "x86_64-linux" "giova-sssa" "fbiondi";
       };
       overlays = import ./overlays { inherit inputs; };

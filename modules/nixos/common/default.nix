@@ -1,6 +1,5 @@
 {
   inputs,
-  outputs,
   lib,
   userConfig,
   pkgs,
@@ -8,10 +7,6 @@
 }: {
   # Nixpkgs configuration
   nixpkgs = {
-    overlays = [
-      outputs.overlays.stable-packages
-    ];
-
     config = {
       allowUnfree = true;
     };
@@ -81,6 +76,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    git
     gcc
     glib
     wget
