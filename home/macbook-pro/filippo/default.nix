@@ -5,6 +5,7 @@
   imports = [
     "${nhModules}/common"
     "${nhModules}/desktop"
+    "${nhModules}/darwin/remapping"
   ];
 
   # Enable home-manager

@@ -42,6 +42,7 @@
         type = "png";
         disable-shadow = true;
       };
+      spaces.spans-displays = true;
       CustomUserPreferences = {
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {

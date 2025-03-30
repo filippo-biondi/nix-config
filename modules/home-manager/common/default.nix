@@ -15,7 +15,6 @@
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
-      outputs.overlays.stable-packages
       outputs.overlays.nvim
     ];
 
