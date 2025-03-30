@@ -17,7 +17,7 @@
       env.TERM = "xterm-256color";
       font = {
         normal.family = "JetBrainsMono Nerd Font";
-        size = 20;
+        size = 14;
       };
       window.startup_mode = "Maximized";
       keyboard.bindings = [
