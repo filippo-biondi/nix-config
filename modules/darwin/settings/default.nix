@@ -42,6 +42,16 @@
         type = "png";
         disable-shadow = true;
       };
+      CustomUserPreferences = {
+        "com.apple.symbolichotkeys" = {
+          AppleSymbolicHotKeys = {
+            # Disable 'Cmd + Space' for Spotlight Search
+            "64" = {
+              enabled = false;
+            };
+          };
+        };
+      };
     };
   };
 }
