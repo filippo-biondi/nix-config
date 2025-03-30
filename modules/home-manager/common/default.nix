@@ -35,9 +35,10 @@
   # Ensure common packages are installed
   home.packages = with pkgs; [
       nvim-pkg
+      sops
       step-cli
       nerd-fonts.jetbrains-mono
-      sops
+      lmstudio
     ];
 
   # Set the default editor
