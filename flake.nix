@@ -107,7 +107,6 @@
         "macbook-pro" = mkDarwinConfiguration "aarch64-darwin" "macbook-pro" "filippo";
       };
 
-
       homeConfigurations = {
         "fbiondi@giova-sssa" = mkHomeConfiguration "x86_64-linux" "giova-sssa" "fbiondi";
       };

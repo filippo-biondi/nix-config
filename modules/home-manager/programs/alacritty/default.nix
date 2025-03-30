@@ -34,6 +34,12 @@
         #   action = "Copy";
         # }
         {
+          key = "Back";
+          mods = "Control";
+          mode = "~Alt";
+          chars = "\\u0008"; # double slash is needed because one disappear in the final toml file
+        }
+        {
           key = "End";
           mods = "Shift";
           action = "ReceiveChar";
@@ -51,7 +57,6 @@
           mode = "Vi|~Search";
           action = "SemanticRight";
         }
-        # TODO maybe add also command keybindings for mac
       ];
       mouse.hide_when_typing = true;
     };
