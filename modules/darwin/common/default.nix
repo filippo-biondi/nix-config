@@ -14,7 +14,9 @@
   homebrew = {
     enable = true;
     brews = [];
-    casks = [];
+    casks = [
+      "paraview"
+    ];
     taps = [];
     masApps = {};
     global.autoUpdate = false;
