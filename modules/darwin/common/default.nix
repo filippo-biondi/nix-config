@@ -54,6 +54,11 @@
   # Zsh configuration
   programs.zsh.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    asitop
+    raycast
+  ];
+
   # Fonts configuration
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
