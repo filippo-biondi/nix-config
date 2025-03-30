@@ -4,33 +4,15 @@
   userConfig,
   ...
 }:{
- # Add nix-homebrew configuration
-  nix-homebrew = {
-    enable = true;
-    enableRosetta = true;
-    user = "${userConfig.name}";
-  };
-
-  homebrew = {
-    enable = true;
-    brews = [];
-    casks = [
-      "paraview"
-    ];
-    taps = [];
-    masApps = {};
-    global.autoUpdate = false;
-    onActivation = {
-      autoUpdate = true;
-      cleanup = "zap";
-      upgrade = true;
-    };
-  };
+  imports = [
+    ../programs/aerospace
+    ../programs/homebrew
+  ];
 
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
-      outputs.overlays.nvim
+      outputs.overlays.old-packages
     ];
     config.allowUnfree = true;
   };
@@ -59,6 +41,13 @@
   environment.systemPackages = with pkgs; [
     asitop
   ];
+
+
+  # When karabiner will be fixed renable this
+  # services.karabiner-elements = {
+  #   enable = true;
+  #   package = pkgs.old.karabiner-elements;
+  # };
 
   # Fonts configuration
   fonts.packages = with pkgs; [

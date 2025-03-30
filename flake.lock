@@ -297,6 +297,22 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/eb9ceca17df2ea50a250b6b27f7bf6ab0186f198.tar.gz"
       }
     },
+    "nixpkgs-old": {
+      "locked": {
+        "lastModified": 1735563628,
+        "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b134951a4c9f3c995fd7be05f3243f8ecd65d798",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1740865531,
@@ -429,11 +445,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1743159396,
-        "narHash": "sha256-IPxmwMx+3W+vLJcq6yzRzFSaZ75gKsRVY5siYyZY+hI=",
+        "lastModified": 1743363088,
+        "narHash": "sha256-D4Qk7OYtQZb/aszbDKfdgAfH4LbNX3BXXVHbyNS2Ip0=",
         "owner": "filippo-biondi",
         "repo": "nvim-config",
-        "rev": "367c7ea248ac7833499097c1c360508595e796ab",
+        "rev": "9506d9d98403c5b16220a2d4e46eb65dab85cddd",
         "type": "github"
       },
       "original": {
@@ -449,6 +465,7 @@
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-stable": "nixpkgs-stable",
         "nvim": "nvim",
         "sops-nix": "sops-nix"

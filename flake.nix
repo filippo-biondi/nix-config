@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-24.05";
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -82,6 +83,7 @@
                 nhModules = "${self}/modules/home-manager";
               };
               home-manager.users.${username} = import ./home/${hostname}/${username};
+              home-manager.backupFileExtension = "backup";
             }
           ];
         };

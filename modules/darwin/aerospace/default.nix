@@ -1,5 +1,0 @@
-{ ... }: {
-  services.aerospace = {
-    enable = true;
-  };
-}

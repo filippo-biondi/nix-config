@@ -21,18 +21,18 @@
       };
       window.startup_mode = "Maximized";
       keyboard.bindings = [
-        # {
-        #   key = "C";
-        #   mods = "Control|Shift";
-        #   mode = "Alt";
-        #   action = "ReceiveChar";
-        # }
-        # {
-        #   key = "C";
-        #   mods = "Control|Shift";
-        #   mode = "~Alt";
-        #   action = "Copy";
-        # }
+        {
+          key = "C";
+          mods = "Control|Shift";
+          mode = "Alt";
+          action = "ReceiveChar";
+        }
+        {
+          key = "C";
+          mods = "Control|Shift";
+          mode = "~Alt";
+          action = "Copy";
+        }
         {
           key = "Back";
           mods = "Control";
