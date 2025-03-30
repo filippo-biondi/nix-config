@@ -25,5 +25,8 @@
     freecad-wayland
     wl-clipboard
     bitwarden-desktop
+  ]
+  ++ lib.optionals (stdenv.isDarwin) [
+    raycast
   ];
 }

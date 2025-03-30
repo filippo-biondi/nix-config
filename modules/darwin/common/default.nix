@@ -58,7 +58,6 @@
 
   environment.systemPackages = with pkgs; [
     asitop
-    raycast
   ];
 
   # Fonts configuration
