@@ -1,9 +1,14 @@
 {
+  pkgs,
   nhModules,
   ...
 }: {
   imports = [
     "${nhModules}/common"
+  ];
+
+  home.packages = with pkgs; [
+    paraview
   ];
 
   targets.genericLinux.enable = true;
