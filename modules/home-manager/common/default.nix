@@ -37,6 +37,7 @@
       sops
       step-cli
       nerd-fonts.jetbrains-mono
+      btop
       lmstudio
     ];
 
