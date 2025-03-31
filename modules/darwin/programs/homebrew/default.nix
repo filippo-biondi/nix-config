@@ -14,6 +14,7 @@
     casks = [
       "paraview"
       "karabiner-elements"
+      "battery"
     ];
     taps = [];
     masApps = {};
