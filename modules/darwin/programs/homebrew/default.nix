@@ -15,6 +15,8 @@
       "paraview"
       "karabiner-elements"
       "battery"
+      "ukelele"
+      "lm-studio"
     ];
     taps = [];
     masApps = {};

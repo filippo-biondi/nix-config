@@ -38,7 +38,6 @@
       step-cli
       nerd-fonts.jetbrains-mono
       btop
-      lmstudio
     ];
 
   # Set the default editor
