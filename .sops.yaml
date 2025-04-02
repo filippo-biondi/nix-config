@@ -1,7 +1,9 @@
 keys:
   - &filippo_msi age18asfdry0rx3t6zzvdrpu94cyeax2595wfwegy7g7zj67egyn2alql8k9rs
+  - &filippo_macbook-pro age10hekr2fzda03xna7gc9hpwcqh8yscwny2v03t94wudfuu3ylmd0q0grctk
 creation_rules:
   - path_regex: secrets/common.yaml$
     key_groups:
     - age:
       - *filippo_msi
+      - *filippo_macbook-pro
