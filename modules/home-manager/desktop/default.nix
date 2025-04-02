@@ -16,6 +16,7 @@
     jetbrains.gateway
     jetbrains.webstorm
     spotify
+    neovide
   ]
   ++ lib.optionals (!stdenv.isDarwin) [
     paraview
