@@ -20,7 +20,9 @@
       "whatsapp"
     ];
     taps = [];
-    masApps = {};
+    masApps = {
+      Bitwarden = 1352778147;
+    };
     global.autoUpdate = false;
     onActivation = {
       autoUpdate = true;
