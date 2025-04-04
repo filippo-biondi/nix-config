@@ -41,6 +41,9 @@
   environment.systemPackages = with pkgs; [
     asitop
     swift-quit
+    colima
+    docker
+    docker-compose
   ];
 
 
