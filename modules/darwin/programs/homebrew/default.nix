@@ -17,6 +17,7 @@
       "battery"
       "ukelele"
       "lm-studio"
+      "whatsapp"
     ];
     taps = [];
     masApps = {};
