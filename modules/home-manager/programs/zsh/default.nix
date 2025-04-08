@@ -27,11 +27,11 @@
     };
 
     shellAliases = {
-      ll = "ls -l";
-      update-os = "sudo nixos-rebuild switch --flake .";
-      update-hm = "home-manager switch --flake .";
-      push-update = "git push && update-os && update-hm";
-      test-update-os = "sudo nixos-rebuild test --flake .";
+      ll = "ls -lh";
+      os-update = "sudo nixos-rebuild switch --flake .";
+      hm-update = "home-manager switch --flake .";
+      darwin-update = "darwin-rebuild switch --flake .";
+      test-os-update = "sudo nixos-rebuild test --flake .";
       cineca-login = "step ssh login filippo.biondi@santannapisa.it --provisioner cineca-hpc";
       vpn-login = "sudo openfortivpn fvs.santannapisa.it:443 -u fi.biondi";
     };
