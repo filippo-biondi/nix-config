@@ -10,7 +10,10 @@
 
   homebrew = {
     enable = true;
-    brews = [];
+    taps = [ "FelixKratz/formulae" ];
+    brews = [
+      # "svim"
+   ];
     casks = [
       "paraview"
       "karabiner-elements"
