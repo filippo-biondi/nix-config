@@ -13,6 +13,10 @@
     defaultSopsFormat = "yaml";
 
     secrets = {
+      "password" = {
+        sopsFile = "${../../../secrets/msi/secrets.yaml}";
+        neededForUsers = true;
+      };
       "openfortivpn/config" = {
         restartUnits = [ "openfortivpn.service" ];
       };
