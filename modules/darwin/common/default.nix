@@ -44,6 +44,7 @@
     colima
     docker
     docker-compose
+    mos
   ];
 
 
