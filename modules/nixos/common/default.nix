@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  config,
   userConfig,
   pkgs,
   ...
@@ -65,13 +66,10 @@
   users.users.${userConfig.name} = {
     isNormalUser = true;
     description = userConfig.fullName;
+    hashedPasswordFile = config.sops.secrets."password".path;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
   };
-
-  # Passwordless sudo
-  security.sudo.wheelNeedsPassword = false;
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
