@@ -5,6 +5,7 @@
   imports = [
     ../programs/alacritty
     ../programs/vscode
+    ../programs/zathura
   ];
 
   home.packages = with pkgs; [
