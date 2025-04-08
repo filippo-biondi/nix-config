@@ -85,6 +85,7 @@
     mesa
     killall
     btop
+    docker-compose
   ];
 
   # Docker configuration

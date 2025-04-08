@@ -14,9 +14,11 @@
 
     secrets = {
       "openfortivpn/config" = {
-      restartUnits = [ "openfortivpn.service" ];
+        restartUnits = [ "openfortivpn.service" ];
       };
-      "tailscale-authkey" = {};
+      "tailscale/authkey" = {
+        sopsFile = "${../../../secrets/msi/secrets.yaml}";
+      };
     };
   };
 }

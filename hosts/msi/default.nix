@@ -12,6 +12,7 @@
     "${nixosModules}/programs/surfshark"
     "${nixosModules}/services/print"
     "${nixosModules}/services/openfortivpn"
+    "${nixosModules}/services/tailscale"
   ];
 
   networking.hostName = hostname;
