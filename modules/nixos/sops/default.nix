@@ -12,8 +12,11 @@
     defaultSopsFile = ../../../secrets/common.yaml;
     defaultSopsFormat = "yaml";
 
-    secrets."openfortivpn/config" = {
+    secrets = {
+      "openfortivpn/config" = {
       restartUnits = [ "openfortivpn.service" ];
+      };
+      "tailscale-authkey" = {};
     };
   };
 }
