@@ -7,6 +7,7 @@
   imports = [
     ../programs/aerospace
     ../programs/homebrew
+    ../services/tailscale
   ];
 
   # Nixpkgs configuration
