@@ -15,6 +15,10 @@
         forwardX11 = true;
         forwardX11Trusted = true;
       };
+      "msi" = {
+        hostname = "100.118.250.64";
+        user = "filippo";
+      };
     };
   };
 }
