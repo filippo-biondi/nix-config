@@ -18,6 +18,7 @@
     jetbrains.webstorm
     spotify
     neovide
+    element-desktop
   ]
   ++ lib.optionals (!stdenv.isDarwin) [
     paraview
