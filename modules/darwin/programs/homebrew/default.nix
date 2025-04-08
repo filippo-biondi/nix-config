@@ -21,11 +21,9 @@
       "ukelele"
       "lm-studio"
       "whatsapp"
+      "homerow"
     ];
-    taps = [];
-    masApps = {
-      Bitwarden = 1352778147;
-    };
+    masApps = {};
     global.autoUpdate = false;
     onActivation = {
       autoUpdate = true;
