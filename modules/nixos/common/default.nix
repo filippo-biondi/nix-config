@@ -63,12 +63,19 @@
   };
 
   # User configuration
-  users.users.${userConfig.name} = {
-    isNormalUser = true;
-    description = userConfig.fullName;
-    hashedPasswordFile = config.sops.secrets."password".path;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    shell = pkgs.zsh;
+  users.users = {
+    ${userConfig.name} = {
+      isNormalUser = true;
+      description = userConfig.fullName;
+      hashedPasswordFile = config.sops.secrets."password".path;
+      extraGroups = [ "networkmanager" "wheel" "docker" ];
+      shell = pkgs.zsh;
+    };
+    "matteo" = {
+      isNormalUser = true;
+      description = "Matteo Tolloso";
+      extraGroups = [ "docker" ];
+      shell = pkgs.bash;
   };
 
   # List packages installed in system profile. To search, run:
