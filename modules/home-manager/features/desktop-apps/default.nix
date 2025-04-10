@@ -2,12 +2,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ../programs/alacritty
-    ../programs/vscode
-    ../programs/zathura
-  ];
-
   home.packages = with pkgs; [
     discord
     zotero
@@ -28,8 +22,5 @@
     freecad-wayland
     wl-clipboard
     bitwarden-desktop
-  ]
-  ++ lib.optionals (stdenv.isDarwin) [
-    raycast
   ];
 }

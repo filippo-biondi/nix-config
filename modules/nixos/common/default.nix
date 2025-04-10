@@ -1,11 +1,14 @@
 {
   inputs,
   lib,
-  config,
-  userConfig,
   pkgs,
+  hostname,
   ...
 }: {
+  imports = [
+    ./users
+  ];
+
   # Nixpkgs configuration
   nixpkgs = {
     config = {
@@ -39,7 +42,10 @@
   };
 
   # Networking
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = hostname;
+    networkmanager.enable = true;
+  };
 
   console.keyMap = "qwerty/us-acentos";
 
@@ -60,22 +66,6 @@
       LC_TELEPHONE = "it_IT.UTF-8";
       LC_TIME = "it_IT.UTF-8";
     };
-  };
-
-  # User configuration
-  users.users = {
-    ${userConfig.name} = {
-      isNormalUser = true;
-      description = userConfig.fullName;
-      hashedPasswordFile = config.sops.secrets."password".path;
-      extraGroups = [ "networkmanager" "wheel" "docker" ];
-      shell = pkgs.zsh;
-    };
-    "matteo" = {
-      isNormalUser = true;
-      description = "Matteo Tolloso";
-      extraGroups = [ "docker" ];
-      shell = pkgs.bash;
   };
 
   # List packages installed in system profile. To search, run:

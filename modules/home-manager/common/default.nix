@@ -4,14 +4,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ../programs/git
-    ../programs/ssh
-    ../programs/zsh
-    ../programs/direnv
-    ../scripts
-  ];
-
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
@@ -25,10 +17,10 @@
 
   # Home-Manager configuration for the user's home environment
   home = {
-    username = "${userConfig.name}";
+    username = "${userConfig.username}";
     homeDirectory = if pkgs.stdenv.isDarwin
-                    then "/Users/${userConfig.name}"
-                    else "/home/${userConfig.name}";
+                    then "/Users/${userConfig.username}"
+                    else "/home/${userConfig.username}";
   };
 
   # Ensure common packages are installed

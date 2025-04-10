@@ -4,8 +4,10 @@
 }: {
   imports = [
     "${darwinModules}/common"
-    "${darwinModules}/settings"
-    "${darwinModules}/sops"
+    "${darwinModules}/features/sops"
+    "${darwinModules}/features/customUX"
+    "${darwinModules}/features/homebrew"
+    "${darwinModules}/features/tailscale"
   ];
 
   # Used for backwards compatibility, please read the changelog before changing.

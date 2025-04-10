@@ -5,9 +5,8 @@
   ...
 }:{
   imports = [
-    ../programs/aerospace
-    ../programs/homebrew
-    ../services/tailscale
+    ./users
+    ./settings
   ];
 
   # Nixpkgs configuration
@@ -27,14 +26,12 @@
     package = pkgs.nix;
   };
 
-  # User configuration
-  users.users.${userConfig.name} = {
-    name = "${userConfig.name}";
-    home = "/Users/${userConfig.name}";
-  };
-
   # Add ability to use TouchID for sudo
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  # Power configration
+  power.sleep.display = 10;
+  power.sleep.computer = "never";
 
   # Zsh configuration
   programs.zsh.enable = true;
@@ -43,16 +40,10 @@
     asitop
     colima
     docker
-    docker-compose
-    mos
   ];
 
-
   # When karabiner will be fixed renable this
-  # services.karabiner-elements = {
-  #   enable = true;
-  #   package = pkgs.old.karabiner-elements;
-  # };
+  # services.karabiner-elements.enable = true;
 
   # Fonts configuration
   fonts.packages = with pkgs; [

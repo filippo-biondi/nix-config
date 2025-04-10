@@ -4,8 +4,15 @@
 }: {
   imports = [
     "${nhModules}/common"
-    "${nhModules}/desktop"
-    "${nhModules}/darwin/remapping"
+    "${nhModules}/features/desktop-apps"
+    "${nhModules}/features/alacritty"
+    "${nhModules}/features/direnv"
+    "${nhModules}/features/git"
+    "${nhModules}/features/ssh"
+    "${nhModules}/features/vscode"
+    "${nhModules}/features/zathura"
+    "${nhModules}/features/zsh"
+    "${nhModules}/scripts"
   ];
 
   # Enable home-manager

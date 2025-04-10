@@ -1,21 +1,18 @@
 {
-  hostname,
   nixosModules,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
     "${nixosModules}/common"
-    "${nixosModules}/desktop"
+    "${nixosModules}/graphics"
     "${nixosModules}/nvidia"
-    "${nixosModules}/sops"
-    "${nixosModules}/programs/surfshark"
-    "${nixosModules}/services/print"
-    "${nixosModules}/services/openfortivpn"
-    "${nixosModules}/services/tailscale"
+    "${nixosModules}/features/sops"
+    "${nixosModules}/features/surfshark"
+    "${nixosModules}/features/print"
+    "${nixosModules}/features/openfortivpn"
+    "${nixosModules}/features/tailscale"
   ];
-
-  networking.hostName = hostname;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
