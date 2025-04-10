@@ -18,6 +18,8 @@
       trackpad = {
         Dragging = true;
         Clicking = true;
+        TrackpadThreeFingerDrag = true;
+        TrackpadRightClick = true;
       };
       finder = {
         AppleShowAllFiles = true;
@@ -38,7 +40,7 @@
         persistent-apps = [];
       };
       screencapture = {
-        location = "/Users/${userConfig.name}/Downloads/temp";
+        location = "/Users/${userConfig.username}/Downloads/temp";
         type = "png";
         disable-shadow = true;
       };

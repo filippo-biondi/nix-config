@@ -5,23 +5,25 @@
   nix-homebrew = {
     enable = true;
     enableRosetta = true;
-    user = "${userConfig.name}";
+    user = "${userConfig.username}";
   };
 
   homebrew = {
     enable = true;
-    taps = [ "FelixKratz/formulae" ];
+    taps = [
+      "FelixKratz/formulae"
+      "gerlero/openfoam"
+    ];
     brews = [
       # "svim"
    ];
     casks = [
       "paraview"
-      "karabiner-elements"
       "battery"
-      "ukelele"
       "lm-studio"
       "whatsapp"
       "homerow"
+      "openfoam"
     ];
     masApps = {};
     global.autoUpdate = false;

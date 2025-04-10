@@ -30,61 +30,82 @@
     let
       inherit (self) outputs;
 
-      get_user = name:
-        let users = rec {
-          filippo = {
-            fullName = "Filippo Biondi";
-            email = "filibiondi2000@gmail.com";
-            inherit name;
+      get_users = hostname:
+        let config = rec {
+          msi = {
+            filippo = {
+              fullName = "Filippo Biondi";
+              email = "filibiondi2000@gmail.com";
+              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFA6LkXL8IGDKkMd+nJ9KnVm5VfMa6IErOg1cfO4u3W" ];
+              shell = "zsh";
+            };
+            matteo = {
+              fullName = "Matteo Tolloso";
+              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYhWjAETWEB1YdT3Hn1xDEiJWbtAScaoi5+auEq1SQM" ];
+              shell = "bash";
+            };
+            vornao = {
+              fullName = "Luca Miglior";
+              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF65PNkzAPb12J2BV/Jzc79+BZ8RIlLJPDz6tOta21Cj" ];
+              shell = "bash";
+            };
           };
-          fbiondi = filippo // {
-            email = "filippo.biondi@santanna.it";
+          giova-sssa = {
+            fbiondi = msi.filippo // {
+              email = "filippo.biondi@santannapisa.it";
+              sshKeys = [
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFA6LkXL8IGDKkMd+nJ9KnVm5VfMa6IErOg1cfO4u3W"
+              ];
+            };
+          };
+          macbook-pro = {
+            filippo = msi.filippo // {
+              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT" ];
+            };
           };
         };
-        in users.${name};
+        in nixpkgs.lib.mapAttrs (name: value: value // { username = name; }) config.${hostname};
+
+      home-manager-args = hostname: username: userConfig: {
+        home-manager.extraSpecialArgs = {
+          inherit inputs outputs userConfig;
+          nhModules = "${self}/modules/home-manager";
+        };
+        home-manager.users.${username} = import ./home/${hostname}/${username};
+      };
 
       mkNixosConfiguration = system: hostname: username:
-        nixpkgs.lib.nixosSystem {
+        let
+          users = get_users hostname;
+          userConfig = users.${username};
+        in nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit inputs outputs hostname;
-            userConfig = get_user username;
+            inherit inputs outputs hostname users userConfig;
             nixosModules = "${self}/modules/nixos";
           };
           modules = [
             ./hosts/${hostname}
             inputs.connecttunnel-nix.nixosModule
-            home-manager.nixosModules.home-manager {
-              home-manager.extraSpecialArgs = {
-                inherit inputs outputs;
-                userConfig = get_user username;
-                nhModules = "${self}/modules/home-manager";
-              };
-              home-manager.users.${username} = import ./home/${hostname}/${username};
-            }
+            home-manager.nixosModules.home-manager (home-manager-args hostname username userConfig)
           ];
         };
 
       mkDarwinConfiguration = system: hostname: username:
-        nix-darwin.lib.darwinSystem {
+        let
+          users = get_users hostname;
+          userConfig = users.${username};
+        in nix-darwin.lib.darwinSystem {
           inherit system;
           specialArgs = {
-            inherit inputs outputs hostname;
-            userConfig = get_user username;
+            inherit inputs outputs hostname users userConfig;
             darwinModules = "${self}/modules/darwin";
           };
           modules = [
             ./hosts/${hostname}
             inputs.nix-homebrew.darwinModules.nix-homebrew
-             home-manager.darwinModules.home-manager {
-              home-manager.extraSpecialArgs = {
-                inherit inputs outputs;
-                userConfig = get_user username;
-                nhModules = "${self}/modules/home-manager";
-              };
-              home-manager.users.${username} = import ./home/${hostname}/${username};
-              home-manager.backupFileExtension = "backup";
-            }
+            home-manager.darwinModules.home-manager (home-manager-args hostname username userConfig)
           ];
         };
 
@@ -93,7 +114,7 @@
         pkgs = import nixpkgs { inherit system; };
         extraSpecialArgs = {
           inherit inputs outputs;
-          userConfig = get_user username;
+          userConfig = (get_users hostname).${username};
           nhModules = "${self}/modules/home-manager";
         };
         modules = [

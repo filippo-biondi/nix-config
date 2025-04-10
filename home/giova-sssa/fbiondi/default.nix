@@ -5,6 +5,12 @@
 }: {
   imports = [
     "${nhModules}/common"
+    "${nhModules}/features/alacritty"
+    "${nhModules}/features/direnv"
+    "${nhModules}/features/git"
+    "${nhModules}/features/ssh"
+    "${nhModules}/features/zsh"
+    "${nhModules}/scripts"
   ];
 
   home.packages = with pkgs; [
