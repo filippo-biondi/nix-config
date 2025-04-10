@@ -4,10 +4,11 @@
   config,
   users,
   userConfig,
+  ...
 }: {
-  users.users = let
-    isMainUser = name: name == userConfig.username;
-  in lib.mapAttrs (name: value: {
+  users.users = lib.mapAttrs (name: value: let
+    isMainUser = name == userConfig.username;
+  in {
     isNormalUser = true;
     description = value.fullName;
     extraGroups = if isMainUser
