@@ -5,6 +5,6 @@
 }: {
   services.tailscale = {
     enable = true;
-      authKeyFile = "${config.sops.secrets.${hostname}."tailscale/authkey".path}";
+      authKeyFile = "${config.sops.secrets."${hostname}-tailscale/authkey".path}";
   };
 }

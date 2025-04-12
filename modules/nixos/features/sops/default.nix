@@ -13,14 +13,19 @@
     defaultSopsFormat = "yaml";
 
     secrets = {
-      msi = {
-        "password" = {
-          sopsFile = ../../../../secrets/msi/secrets.yaml;
-          neededForUsers = true;
-        };
-        "tailscale/authkey" = {
-          sopsFile = ../../../../secrets/msi/secrets.yaml;
-        };
+      "msi-password" = {
+        sopsFile = ../../../../secrets/msi/secrets.yaml;
+        neededForUsers = true;
+      };
+      "msi-tailscale/authkey" = {
+        sopsFile = ../../../../secrets/msi/secrets.yaml;
+      };
+      "server-stella-password" = {
+        sopsFile = ../../../../secrets/server-stella/secrets.yaml;
+        neededForUsers = true;
+      };
+      "server-stella-tailscale/authkey" = {
+        sopsFile = ../../../../secrets/server-stella/secrets.yaml;
       };
       "openfortivpn/config" = {
         restartUnits = [ "openfortivpn.service" ];
