@@ -97,6 +97,12 @@
   services.locate.enable = true;
 
   # Ssh configuration
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
+  };
   programs.ssh.startAgent = true;
 }

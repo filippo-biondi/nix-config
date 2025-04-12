@@ -13,15 +13,17 @@
     defaultSopsFormat = "yaml";
 
     secrets = {
-      "password" = {
-        sopsFile = ../../../../secrets/msi/secrets.yaml;
-        neededForUsers = true;
+      msi = {
+        "password" = {
+          sopsFile = ../../../../secrets/msi/secrets.yaml;
+          neededForUsers = true;
+        };
+        "tailscale/authkey" = {
+          sopsFile = ../../../../secrets/msi/secrets.yaml;
+        };
       };
       "openfortivpn/config" = {
         restartUnits = [ "openfortivpn.service" ];
-      };
-      "tailscale/authkey" = {
-        sopsFile = ../../../../secrets/msi/secrets.yaml;
       };
     };
   };
