@@ -50,6 +50,9 @@
               shell = "bash";
             };
           };
+
+          server-stella = msi;
+
           giova-sssa = {
             fbiondi = msi.filippo // {
               email = "filippo.biondi@santannapisa.it";
@@ -59,6 +62,7 @@
               ];
             };
           };
+
           macbook-pro = {
             filippo = msi.filippo // {
               sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT" ];
@@ -124,6 +128,7 @@
     in {
       nixosConfigurations = {
         msi = mkNixosConfiguration "x86_64-linux" "msi" "filippo";
+        server-stella = mkNixosConfiguration "x86_64-linux" "server-stella" "filippo";
       };
 
       darwinConfigurations = {
