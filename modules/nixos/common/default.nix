@@ -96,6 +96,12 @@
   services.devmon.enable = true;
   services.locate.enable = true;
 
+  # Prevent sleep
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
+
   # Ssh configuration
   services.openssh = {
     enable = true;
