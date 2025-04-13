@@ -4,6 +4,7 @@
 }: {
   imports = [
     ./aerospace
+    ./vimMode
   ];
 
   environment.systemPackages = with pkgs; [
