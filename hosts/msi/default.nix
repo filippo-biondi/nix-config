@@ -4,6 +4,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    "${nixosModules}/features/boot/uefi"
     "${nixosModules}/common"
     "${nixosModules}/graphics"
     "${nixosModules}/nvidia"
