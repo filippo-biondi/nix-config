@@ -1,5 +1,6 @@
 {
   inputs,
+  outputs,
   lib,
   pkgs,
   hostname,
@@ -14,6 +15,9 @@
     config = {
       allowUnfree = true;
     };
+    overlays = [
+      outputs.overlays.nightly-packages
+    ];
   };
 
   # Register flake inputs for nix commands

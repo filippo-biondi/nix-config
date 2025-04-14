@@ -13,5 +13,11 @@
       config.allowUnfree = true;
     };
   };
+  nightly-packages = final: _prev: {
+    nightly = import inputs.nixpkgs-nightly {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
   nvim = inputs.nvim.overlays.default;
 }

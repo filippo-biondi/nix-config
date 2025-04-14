@@ -20,6 +20,9 @@
       "msi-tailscale/authkey" = {
         sopsFile = ../../../../secrets/msi/secrets.yaml;
       };
+      "msi-factorio/password" = {
+        sopsFile = ../../../../secrets/msi/secrets.yaml;
+      };
       "server-stella-password" = {
         sopsFile = ../../../../secrets/server-stella/secrets.yaml;
         neededForUsers = true;
