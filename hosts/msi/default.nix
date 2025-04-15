@@ -4,11 +4,11 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./sops
     "${nixosModules}/features/boot/uefi"
     "${nixosModules}/common"
     "${nixosModules}/graphics"
     "${nixosModules}/nvidia"
-    "${nixosModules}/features/sops"
     "${nixosModules}/features/surfshark"
     "${nixosModules}/features/print"
     "${nixosModules}/features/openfortivpn"

@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  hostname,
   users,
   userConfig,
   ...
@@ -13,7 +12,7 @@
       isMainUser = name == userConfig.username;
       mainUserConfig = {
         extraGroups = [ "networkmanager" "wheel" "docker" ];
-        hashedPasswordFile = config.sops.secrets."${hostname}-password".path;
+        hashedPasswordFile = config.sops.secrets."password".path;
       };
       otherUserConfig = {
         extraGroups = [ "docker" ];

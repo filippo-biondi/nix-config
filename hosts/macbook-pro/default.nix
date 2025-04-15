@@ -4,7 +4,7 @@
 }: {
   imports = [
     "${darwinModules}/common"
-    "${darwinModules}/features/sops"
+    "${darwinModules}/sops"
     "${darwinModules}/features/customUX"
     "${darwinModules}/features/homebrew"
     "${darwinModules}/features/tailscale"

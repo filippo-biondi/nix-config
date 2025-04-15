@@ -8,7 +8,7 @@
     enable = true;
     package = pkgs.nightly.factorio-headless;
     username = "Dielink";
-    extraSettingsFile = config.sops.secrets."${hostname}-factorio/password".path;
+    extraSettingsFile = config.sops.secrets."factorio/password".path;
     admins = [ "Dielink" ];
     allowedPlayers = [ "Dielink" "JustoFranko" "MatteOne17" ];
     public = true;

@@ -4,6 +4,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./sops
     "${nixosModules}/features/boot/bios"
     "${nixosModules}/common"
     "${nixosModules}/graphics"
