@@ -10,7 +10,8 @@
     username = "Dielink";
     extraSettingsFile = config.sops.secrets."${hostname}-factorio/password".path;
     admins = [ "Dielink" ];
-    allowedPlayers = [ "Dielink" ];
+    allowedPlayers = [ "Dielink" "JustoFranko" "MatteOne17" ];
+    public = true;
     lan = true;
     game-name = "MSI Factorio Server";
     description = "A beautiful Factorio server hosted on msi-server";
