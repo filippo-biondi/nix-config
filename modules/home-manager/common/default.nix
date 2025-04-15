@@ -2,14 +2,21 @@
   outputs,
   userConfig,
   pkgs,
+  system,
   ...
-}: {
+}:
+  let
+    isDarwin = system == "aarch64-darwin" || system == "x86_64-darwin";
+  in {
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
       outputs.overlays.nvim
-      outputs.overlays.qt_fix
-    ];
+    ] ++ (if isDarwin then [ outputs.overlays.qt_fix ] else []);
+    # overlays = [
+    #   outputs.overlays.nvim
+    #   outputs.overlays.qt_fix
+    # ];
 
     config = {
       allowUnfree = true;
