@@ -13,6 +13,7 @@
   nixpkgs = {
     overlays = [
       outputs.overlays.old-packages
+      outputs.overlays.qt_fix
     ];
     config.allowUnfree = true;
   };
