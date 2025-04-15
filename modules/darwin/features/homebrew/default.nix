@@ -11,12 +11,9 @@
   homebrew = {
     enable = true;
     taps = [
-      "FelixKratz/formulae"
       "gerlero/openfoam"
     ];
-    brews = [
-      # "svim"
-   ];
+    brews = [];
     casks = [
       "paraview"
       "battery"
@@ -24,6 +21,8 @@
       "whatsapp"
       "homerow"
       "openfoam"
+      "surfshark"
+      "steam"
     ];
     masApps = {};
     global.autoUpdate = false;
