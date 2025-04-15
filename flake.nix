@@ -72,9 +72,9 @@
         };
         in nixpkgs.lib.mapAttrs (name: value: value // { username = name; }) config.${hostname};
 
-      home-manager-args = hostname: username: userConfig: {
+      home-manager-args = system: hostname: username: userConfig: {
         home-manager.extraSpecialArgs = {
-          inherit inputs outputs userConfig;
+          inherit inputs outputs system userConfig;
           nhModules = "${self}/modules/home-manager";
         };
         home-manager.users.${username} = import ./home/${hostname}/${username};
@@ -93,7 +93,7 @@
           modules = [
             ./hosts/${hostname}
             inputs.connecttunnel-nix.nixosModule
-            home-manager.nixosModules.home-manager (home-manager-args hostname username userConfig)
+            home-manager.nixosModules.home-manager (home-manager-args system hostname username userConfig)
           ];
         };
 
@@ -110,7 +110,7 @@
           modules = [
             ./hosts/${hostname}
             inputs.nix-homebrew.darwinModules.nix-homebrew
-            home-manager.darwinModules.home-manager (home-manager-args hostname username userConfig)
+            home-manager.darwinModules.home-manager (home-manager-args system hostname username userConfig)
           ];
         };
 
@@ -118,7 +118,7 @@
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { inherit system; };
         extraSpecialArgs = {
-          inherit inputs outputs;
+          inherit inputs outputs system;
           userConfig = (get_users hostname).${username};
           nhModules = "${self}/modules/home-manager";
         };
