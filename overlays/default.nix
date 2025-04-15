@@ -7,6 +7,7 @@
       config.allowUnfree = true;
     };
   };
+
   old-packages = final: _prev: {
     old = import inputs.nixpkgs-old {
       system = final.system;
@@ -19,5 +20,16 @@
       config.allowUnfree = true;
     };
   };
+
   nvim = inputs.nvim.overlays.default;
+
+  qt_fix = final: prev: {
+    qt6 = prev.qt6.overrideScope (final: prev: {
+      qtbase = prev.qtbase.overrideAttrs (old: {
+        patches = (old.patches or []) ++ [
+          ./qtbase-shortcut.patch
+        ];
+      });
+    });
+  };
 }

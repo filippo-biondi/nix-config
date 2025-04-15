@@ -8,6 +8,7 @@
   nixpkgs = {
     overlays = [
       outputs.overlays.nvim
+      outputs.overlays.qt_fix
     ];
 
     config = {
