@@ -8,6 +8,7 @@ creation_rules:
     - age:
       - *filippo_msi
       - *filippo_macbook-pro
+      - *filippo_server-stella
   - path_regex: secrets/msi/secrets.yaml$
     key_groups:
     - age:
