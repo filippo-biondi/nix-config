@@ -4,17 +4,21 @@
 }: {
   imports = [
     ./aerospace
-    ./vimMode
   ];
 
   environment.systemPackages = with pkgs; [
     raycast
     mos
+    qutebrowser
   ];
 
   homebrew = {
-    taps = [];
-    brews = [];
+    taps = [
+      # "FelixKratz/formulae"
+    ];
+    brews = [
+      # "svim"
+    ];
     casks = [
       "homerow"
       "karabiner-elements"
