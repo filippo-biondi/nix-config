@@ -23,13 +23,13 @@
       "msi-factorio/password" = {
         sopsFile = ../../../../secrets/msi/secrets.yaml;
       };
-      "server-stella-password" = {
-        sopsFile = ../../../../secrets/server-stella/secrets.yaml;
-        neededForUsers = true;
-      };
-      "server-stella-tailscale/authkey" = {
-        sopsFile = ../../../../secrets/server-stella/secrets.yaml;
-      };
+      # "server-stella-password" = {
+      #   sopsFile = ../../../../secrets/server-stella/secrets.yaml;
+      #   neededForUsers = true;
+      # };
+      # "server-stella-tailscale/authkey" = {
+      #   sopsFile = ../../../../secrets/server-stella/secrets.yaml;
+      # };
       "openfortivpn/config" = {
         restartUnits = [ "openfortivpn.service" ];
       };
