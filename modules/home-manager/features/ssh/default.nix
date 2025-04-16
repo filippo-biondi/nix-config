@@ -26,6 +26,10 @@
         forwardX11 = true;
         forwardX11Trusted = true;
       };
+      "server-stella" = {
+        hostname = "100.76.194.108";
+        user = "filippo";
+      };
     };
   };
 }
