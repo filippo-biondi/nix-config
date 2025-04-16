@@ -2,7 +2,22 @@
   pkgs,
   config,
   ...
-}: {
+}: let
+  customDir = pkgs.stdenv.mkDerivation {
+    src = pkgs.fetchFromGitHub {
+      owner = "ohmyzsh";
+      repo = "ohmyzsh";
+      rev = "a84a0332a822a78ddf3f66d0e1ed3990d4badd12";
+      sha256 = "sha256-oBSs8DuPI7DgKaSSbuK5FgFwmGIVAp2B+YI9Hr1/mRw=";
+    };
+    name = "custom-oh-my-zsh";
+    patches = [ ./fletcherm.patch ];
+    installPhase = ''
+      mkdir -p $out/themes
+      cp themes/fletcherm.zsh-theme $out/themes/my-fletcherm.zsh-theme
+    '';
+  };
+in {
   home.packages = with pkgs; [
     zsh-you-should-use
   ];
@@ -15,7 +30,7 @@
 
     oh-my-zsh = {
       enable = true;
-      theme = "fletcherm";
+      theme = "my-fletcherm";
       plugins = [
         "git"
         "docker"
@@ -24,6 +39,7 @@
         "systemd"
         "vi-mode"
       ];
+      custom = "${customDir}";
     };
 
     shellAliases = {

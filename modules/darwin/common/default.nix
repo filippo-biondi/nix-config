@@ -1,7 +1,7 @@
 {
   outputs,
   pkgs,
-  userConfig,
+  hostname,
   ...
 }:{
   imports = [
@@ -26,6 +26,8 @@
     optimise.automatic = true;
     package = pkgs.nix;
   };
+
+  networking.hostName = hostname;
 
   # Add ability to use TouchID for sudo
   security.pam.services.sudo_local.touchIdAuth = true;
