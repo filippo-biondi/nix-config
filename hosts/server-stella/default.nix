@@ -8,11 +8,10 @@
     "${nixosModules}/features/boot/bios"
     "${nixosModules}/common"
     "${nixosModules}/graphics"
-    "${nixosModules}/features/sops"
+    "${nixosModules}/sops"
     "${nixosModules}/features/print"
     "${nixosModules}/features/tailscale"
   ];
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
