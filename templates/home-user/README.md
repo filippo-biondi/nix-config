@@ -45,6 +45,11 @@ home-manager switch --flake .
 ---
 
 ## 🛠️ Troubleshooting
+- If you get an error like:
+  ```bash
+  error: Package ‘<package-name>’ in /nix/store/<path> has an unfree license (‘unfree’), refusing to evaluate.
+  ```
+  ensure you have set `config.allowUnfree = true;` in your flake.nix
 
 - Make sure you're using **Nix 2.4+**
 - Enable flakes with:
@@ -53,7 +58,7 @@ home-manager switch --flake .
   echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
   ```
 
-- If you get errors, try running:
+- To update the flake, run:
 
   ```bash
   nix flake update
