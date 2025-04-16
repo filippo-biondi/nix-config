@@ -140,9 +140,7 @@
         "fbiondi@giova-sssa" = mkHomeConfiguration "x86_64-linux" "giova-sssa" "fbiondi";
       };
       overlays = import ./overlays { inherit inputs; };
-      templates.home-user = {
-        path = ./templates/home-user;
-        description = "A flake-based Home Manager config for a regular user";
-      };
+
+      templates = import ./templates {};
     };
 }
