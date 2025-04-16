@@ -23,6 +23,7 @@
       "openfoam"
       "surfshark"
       "steam"
+      "balenaetcher"
     ];
     masApps = {};
     global.autoUpdate = false;
