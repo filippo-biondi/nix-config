@@ -7,7 +7,7 @@
   ...
 }: {
   users = {
-    mutableUsers = true;
+    mutableUsers = false;
     users = lib.mapAttrs (name: value: let
       isMainUser = name == userConfig.username;
       mainUserConfig = {

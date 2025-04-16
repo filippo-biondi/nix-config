@@ -37,7 +37,7 @@
             filippo = {
               fullName = "Filippo Biondi";
               email = "filibiondi2000@gmail.com";
-              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFA6LkXL8IGDKkMd+nJ9KnVm5VfMa6IErOg1cfO4u3W" ];
+              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArV7DUbiqZYLwtF5tZVQTskVPYJzaltXqZzVYJrxJwy" ];
               shell = "zsh";
             };
             matteo = {
@@ -59,7 +59,7 @@
               email = "filippo.biondi@santannapisa.it";
               sshKeys = [
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT"
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFA6LkXL8IGDKkMd+nJ9KnVm5VfMa6IErOg1cfO4u3W"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArV7DUbiqZYLwtF5tZVQTskVPYJzaltXqZzVYJrxJwy"
               ];
             };
           };
