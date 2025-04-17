@@ -1,4 +1,4 @@
-# 🧊 My NixOS Configuration (Flakes)
+# My NixOS Configuration (Flakes)
 
 > Fully declarative, reproducible system configuration using [Nix flakes](https://nixos.wiki/wiki/Flakes).
 
@@ -32,7 +32,7 @@
 
 ---
 
-## 🛠️ Setup
+## Setup
 
 Here are the steps to set up different systems
 
@@ -167,9 +167,9 @@ After having install nix-darwin, follow the steps [6-11](#install-nixos-on-the-h
 
 ---
 
-#### ✅ Test & Apply Configuration
+#### Test & Apply Configuration
 
-##### 🔧 Build the system:
+##### Build the system:
 
 ```bash
 sudo darwin-rebuild build --flake .
@@ -177,7 +177,7 @@ sudo darwin-rebuild build --flake .
 
 Unfortunately I'm not aware of a way to test the configuration without applying it.
 
-##### 🚀 Apply the configuration:
+##### Apply the configuration:
 
 After this step the configuration can be reverted only with root privileges (be sure your password is correctly set).
 ```bash
@@ -188,7 +188,7 @@ sudo darwin-rebuild switch --flake .
 
 ### Adding a Home Manager configuration
 
-#### 🛠️ Before Installing home-manager
+#### Before Installing home-manager
 
 Prepare the flake configuration for the new host:
 
@@ -202,7 +202,7 @@ Currently sops secrets are not supported in my home-manager config (but sops-nix
 
 ---
 
-#### 💽 Install Home Manager on the Host
+#### Install Home Manager on the Host
 
 To apply a home-manager configuration you just need to have [Nix](https://nixos.org/download/#nix-install-linux) installed on the host.
 Installing Nix requires root privileges. If you don't have root access you can try to use [nix-user-chroot](https://github.com/nix-community/nix-user-chroot) or [nix-portable](https://github.com/DavHau/nix-portable)
@@ -218,9 +218,9 @@ Follow the steps [6-11](#install-nixos-on-the-host) from the NixOS host setup se
 
 ---
 
-#### ✅ Test & Apply Configuration
+#### Test & Apply Configuration
 
-##### 🔧 Build the configuration:
+##### Build the configuration:
 
 ```bash
 home-manager build --flake .
@@ -228,21 +228,21 @@ home-manager build --flake .
 
 Unfortunately I'm not aware of a way to test the configuration without applying it.
 
-##### 🚀 Apply the configuration:
+#####  Apply the configuration:
 
 ```bash
 home-manager switch --flake .
 ```
 ---
 
-## 📋 TODO / Roadmap
+## TODO / Roadmap
 
 - [ ] Refactor of modularization
 - [ ] Add secrets management with sops-nix for home-manager
 
 ---
 
-## 🧠 Inspiration
+## Inspiration
 
 - [nix-config by AlexNabokikh](https://github.com/AlexNabokikh/nix-config)
 - [NixOS WIKI](https://nixos.wiki/wiki/)
