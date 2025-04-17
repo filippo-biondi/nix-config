@@ -22,5 +22,6 @@
     freecad-wayland
     wl-clipboard
     bitwarden-desktop
+    bitwarden-cli
   ];
 }
