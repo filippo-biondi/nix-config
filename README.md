@@ -4,7 +4,7 @@
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 .
@@ -154,8 +154,6 @@ sudo nixos-rebuild switch --flake .
 ```
 </details>
 
----
-
 <details>
 
 <summary>Nix Darwin</summary>
@@ -194,8 +192,6 @@ sudo darwin-rebuild switch --flake .
 ```
 
 </details>
-
----
 
 <details>
 <summary>Home Manager</summary>
