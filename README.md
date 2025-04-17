@@ -18,8 +18,8 @@
 │   ├── home-manager/
 │   └── nixos/
 ├── home/
-│   ├── user1/
-│   └── user2/
+│   ├── hostname1/user1/
+│   └── hostname2/user2/
 └── overlays/
 ```
 
@@ -208,7 +208,9 @@ Prepare the flake configuration for the new host:
 
 3. **Add the host and user to the flake's `homeConfigurations`**
 
-Currently sops secrets are not supported in my home-manager config (but sops-nix provides a home-manage module)
+Currently sops secrets are not supported in my home-manager config (but sops-nix provides a home-manage module).
+Keep in mind that home-manager standalone is primarly intended for use on a host where root privileges are not held by the user 
+and thus installing secrets on those hosts can. lead to security issues.
 
 ---
 
