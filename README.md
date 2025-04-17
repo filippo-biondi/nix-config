@@ -36,6 +36,10 @@
 
 Here are the steps to set up different systems
 
+<details>
+
+<summary>NixOS</summary>
+
 ### Adding a new NixOS host
 
 #### Before Installing NixOS
@@ -148,8 +152,13 @@ After this step the configuration can be reverted only with root privileges (be 
 ```bash
 sudo nixos-rebuild switch --flake .
 ```
+</details>
 
 ---
+
+<details>
+
+<summary>Nix Darwin</summary>
 
 ### Adding a new nix-darwin host
 
@@ -184,7 +193,12 @@ After this step the configuration can be reverted only with root privileges (be 
 sudo darwin-rebuild switch --flake .
 ```
 
+</details>
+
 ---
+
+<details>
+<summary>Home Manager</summary>
 
 ### Adding a Home Manager configuration
 
@@ -233,6 +247,9 @@ Unfortunately I'm not aware of a way to test the configuration without applying 
 ```bash
 home-manager switch --flake .
 ```
+
+</details>
+
 ---
 
 ## TODO / Roadmap
