@@ -2,10 +2,13 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./telegram-desktop
+  ];
+
   home.packages = with pkgs; [
     discord
     zotero
-    telegram-desktop
     signal-desktop
     jetbrains.pycharm-professional
     jetbrains.gateway
