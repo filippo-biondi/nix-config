@@ -24,6 +24,7 @@
       "surfshark"
       "steam"
       "balenaetcher"
+      "macs-fan-control"
     ];
     masApps = {};
     global.autoUpdate = false;
