@@ -32,52 +32,15 @@
       inherit (self) outputs;
 
       get_users = hostname:
-        let config = rec {
-          msi = {
-            filippo = {
-              fullName = "Filippo Biondi";
-              email = "filibiondi2000@gmail.com";
-              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArV7DUbiqZYLwtF5tZVQTskVPYJzaltXqZzVYJrxJwy" ];
-              shell = "zsh";
-            };
-            matteo = {
-              fullName = "Matteo Tolloso";
-              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYhWjAETWEB1YdT3Hn1xDEiJWbtAScaoi5+auEq1SQM" ];
-              shell = "bash";
-            };
-            vornao = {
-              fullName = "Luca Miglior";
-              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF65PNkzAPb12J2BV/Jzc79+BZ8RIlLJPDz6tOta21Cj" ];
-              shell = "bash";
-            };
-          };
-
-          server-stella = msi;
-
-          giova-sssa = {
-            fbiondi = msi.filippo // {
-              email = "filippo.biondi@santannapisa.it";
-              sshKeys = [
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT"
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArV7DUbiqZYLwtF5tZVQTskVPYJzaltXqZzVYJrxJwy"
-              ];
-            };
-          };
-
-          macbook-pro = {
-            filippo = msi.filippo // {
-              sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT" ];
-            };
-          };
-        };
+        let config = import ./hosts {};
         in nixpkgs.lib.mapAttrs (name: value: value // { username = name; }) config.${hostname};
 
       home-manager-args = system: hostname: username: userConfig: {
         home-manager.extraSpecialArgs = {
           inherit inputs outputs system userConfig;
-          nhModules = "${self}/modules/home-manager";
+          hmModules = "${self}/modules/home-manager";
         };
-        home-manager.users.${username} = import ./home/${hostname}/${username};
+        home-manager.users.${username} = import ./hosts/${hostname}/home/${username};
       };
 
       mkNixosConfiguration = system: hostname: username:
@@ -120,7 +83,7 @@
         extraSpecialArgs = {
           inherit inputs outputs system;
           userConfig = (get_users hostname).${username};
-          nhModules = "${self}/modules/home-manager";
+          hmModules = "${self}/modules/home-manager";
         };
         modules = [
           ./home/${hostname}/${username}
