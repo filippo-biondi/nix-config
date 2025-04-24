@@ -43,6 +43,7 @@
     asitop
     colima
     docker
+    utm
   ];
 
   # When karabiner will be fixed renable this
