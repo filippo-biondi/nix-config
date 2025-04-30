@@ -13,7 +13,6 @@
     "${nixosModules}/features/print"
     "${nixosModules}/features/openfortivpn"
     "${nixosModules}/features/tailscale"
-    "${nixosModules}/features/games/factorio"
   ];
 
   # This value determines the NixOS release from which the default
