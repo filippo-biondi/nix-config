@@ -14,8 +14,5 @@
     "tailscale/authkey" = {
       sopsFile = ../../../secrets/msi/secrets.yaml;
     };
-    "factorio/password" = {
-      sopsFile = ../../../secrets/msi/secrets.yaml;
-    };
   };
 }

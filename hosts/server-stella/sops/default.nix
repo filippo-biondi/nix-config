@@ -19,5 +19,8 @@
     "openfortivpn/config" = {
       restartUnits = [ "openfortivpn.service" ];
     };
+    "factorio/password" = {
+      sopsFile = ../../../secrets/server-stella/secrets.yaml;
+    };
   };
 }
