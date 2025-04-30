@@ -1,16 +1,16 @@
 {
-  nhModules,
+  hmModules,
   ...
 }: {
   imports = [
-    "${nhModules}/common"
-    "${nhModules}/features/alacritty"
-    "${nhModules}/features/direnv"
-    "${nhModules}/features/git"
-    "${nhModules}/features/ssh"
-    "${nhModules}/features/vscode"
-    "${nhModules}/features/zsh"
-    "${nhModules}/scripts"
+    "${hmModules}/common"
+    "${hmModules}/features/alacritty"
+    "${hmModules}/features/direnv"
+    "${hmModules}/features/git"
+    "${hmModules}/features/ssh"
+    "${hmModules}/features/vscode"
+    "${hmModules}/features/zsh"
+    "${hmModules}/scripts"
   ];
 
   # Enable home-manager
