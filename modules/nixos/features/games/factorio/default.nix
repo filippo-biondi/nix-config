@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  hostname,
   ...
 }: {
   services.factorio = {
@@ -11,11 +10,11 @@
     extraSettingsFile = config.sops.secrets."factorio/password".path;
     admins = [ "Dielink" ];
     allowedPlayers = [ "Dielink" "JustoFranko" "MatteOne17" ];
-    public = true;
+    public = false;
     lan = true;
     game-name = "MSI Factorio Server";
     description = "A beautiful Factorio server hosted on msi-server";
-    requireUserVerification = true;
+    requireUserVerification = false;
     loadLatestSave = true;
     mods = [];
   };
