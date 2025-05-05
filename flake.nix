@@ -86,7 +86,7 @@
           hmModules = "${self}/modules/home-manager";
         };
         modules = [
-          ./home/${hostname}/${username}
+          ./hosts/${hostname}/home/${username}
         ];
       };
     in {
