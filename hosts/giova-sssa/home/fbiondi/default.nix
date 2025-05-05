@@ -17,6 +17,10 @@
     paraview
   ];
 
+  programs.zsh.initExtra = ''
+    source /home/OpenFOAM/OpenFOAM-v2412/etc/bashrc
+  '';
+
   targets.genericLinux.enable = true;
 
   # Enable home-manager
