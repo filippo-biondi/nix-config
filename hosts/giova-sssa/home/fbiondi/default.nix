@@ -1,20 +1,14 @@
 {
   pkgs,
-  hmModules,
+  configFolder,
+  featuresFolder,
+  suffix_imports,
   ...
 }: {
-  imports = [
-    "${hmModules}/common"
-    "${hmModules}/features/alacritty"
-    "${hmModules}/features/direnv"
-    "${hmModules}/features/git"
-    "${hmModules}/features/ssh"
-    "${hmModules}/features/zsh"
-    "${hmModules}/scripts"
-  ];
-
-  home.packages = with pkgs; [
-    paraview
+  imports = suffix_imports [
+    "${configFolder}/home-manager/common"
+    "${featuresFolder}/core"
+    "${featuresFolder}/coding"
   ];
 
   programs.zsh.initExtra = ''

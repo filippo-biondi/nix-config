@@ -1,6 +1,4 @@
 {
-  inputs,
-  userConfig,
   nixosModules,
   ...
 }: {
