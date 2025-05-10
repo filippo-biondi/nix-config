@@ -1,16 +1,13 @@
 {
-  hmModules,
+  configFolder,
+  featuresFolder,
+  suffix_imports,
   ...
 }: {
-  imports = [
-    "${hmModules}/common"
-    "${hmModules}/features/alacritty"
-    "${hmModules}/features/direnv"
-    "${hmModules}/features/git"
-    "${hmModules}/features/ssh"
-    "${hmModules}/features/vscode"
-    "${hmModules}/features/zsh"
-    "${hmModules}/scripts"
+  imports = suffix_imports [
+    "${configFolder}/home-manager/common"
+    "${featuresFolder}/core"
+    "${featuresFolder}/coding"
   ];
 
   # Enable home-manager

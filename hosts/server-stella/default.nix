@@ -4,14 +4,14 @@
   suffix_imports,
   ...
 }: {
-  imports = suffix_imports [
+  imports = [
     ./hardware-configuration.nix
     ./sops
-    "${configFolder}/boot/bios"
-    "${configFolder}/common"
-    "${configFolder}/graphics"
-    "${configFolder}/print"
-    "${featuresFolder}/sops"
+  ] ++ suffix_imports [
+    "${configFolder}/nixos/boot/bios"
+    "${configFolder}/nixos/common"
+    "${configFolder}/nixos/graphics"
+    "${configFolder}/nixos/print"
     "${featuresFolder}/network/openfortivpn"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/games/factorio"

@@ -17,7 +17,7 @@
     description = "A beautiful Factorio server hosted on msi-server";
     requireUserVerification = false;
     # loadLatestSave = true;
-    saveName = "gay";
+    saveName = "gay2";
     mods = [];
   };
 }
