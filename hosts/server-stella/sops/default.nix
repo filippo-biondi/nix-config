@@ -1,14 +1,16 @@
 {
-  nixosModules,
+  self,
+  featuresFolder,
+  suffix_imports,
   ...
 }: {
-  imports = [
-    "${nixosModules}/sops"
+  imports = suffix_imports [
+    "${featuresFolder}/sops"
   ];
 
   sops.secrets = {
     "password" = {
-      sopsFile = ../../../secrets/server-stella/secrets.yaml;
+      sopsFile = "${self}/secrets/server-stella/secrets.yaml";
       neededForUsers = true;
     };
     "tailscale/authkey" = {

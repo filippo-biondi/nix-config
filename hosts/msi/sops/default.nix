@@ -1,18 +1,20 @@
 {
-  nixosModules,
+  self,
+  featuresFolder,
+  suffix_imports,
   ...
 }: {
-  imports = [
-    "${nixosModules}/sops"
+  imports = suffix_imports [
+    "${featuresFolder}/sops"
   ];
 
   sops.secrets = {
     "password" = {
-      sopsFile = ../../../secrets/msi/secrets.yaml;
+      sopsFile = "${self}/secrets/msi/secrets.yaml";
       neededForUsers = true;
     };
     "tailscale/authkey" = {
-      sopsFile = ../../../secrets/msi/secrets.yaml;
+      sopsFile = "${self}/secrets/msi/secrets.yaml";
     };
   };
 }
