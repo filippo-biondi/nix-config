@@ -1,18 +1,16 @@
 {
-  hmModules,
+  configFolder,
+  featuresFolder,
+  suffix_imports,
   ...
 }: {
-  imports = [
-    "${hmModules}/common"
-    "${hmModules}/features/desktop-apps"
-    "${hmModules}/features/alacritty"
-    "${hmModules}/features/direnv"
-    "${hmModules}/features/git"
-    "${hmModules}/features/ssh"
-    "${hmModules}/features/vscode"
-    "${hmModules}/features/zathura"
-    "${hmModules}/features/zsh"
-    "${hmModules}/scripts"
+  imports = suffix_imports [
+    "${configFolder}/home-manager/common"
+    "${featuresFolder}/core"
+    "${featuresFolder}/desktop-apps"
+    "${featuresFolder}/coding"
+    "${featuresFolder}/coding/jetbrains"
+    "${featuresFolder}/network/openfortivpn"
   ];
 
   # Enable home-manager

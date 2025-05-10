@@ -27,81 +27,25 @@
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, ... }:
     let
       inherit (self) outputs;
+      utils = import ./utils { inherit nixpkgs self inputs outputs; };
 
-      get_users = hostname:
-        let config = import ./hosts {};
-        in nixpkgs.lib.mapAttrs (name: value: value // { username = name; }) config.${hostname};
-
-      home-manager-args = system: hostname: username: userConfig: {
-        home-manager.extraSpecialArgs = {
-          inherit inputs outputs system userConfig;
-          hmModules = "${self}/modules/home-manager";
-        };
-        home-manager.users.${username} = import ./hosts/${hostname}/home/${username};
+    in with utils; {
+      nixosConfigurations = with nixos; {
+        msi = mkConfiguration "x86_64-linux" "msi" "filippo";
+        server-stella = mkConfiguration "x86_64-linux" "server-stella" "filippo";
       };
 
-      mkNixosConfiguration = system: hostname: username:
-        let
-          users = get_users hostname;
-          userConfig = users.${username};
-        in nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs outputs hostname users userConfig;
-            nixosModules = "${self}/modules/nixos";
-          };
-          modules = [
-            ./hosts/${hostname}
-            inputs.connecttunnel-nix.nixosModule
-            home-manager.nixosModules.home-manager (home-manager-args system hostname username userConfig)
-          ];
-        };
-
-      mkDarwinConfiguration = system: hostname: username:
-        let
-          users = get_users hostname;
-          userConfig = users.${username};
-        in nix-darwin.lib.darwinSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs outputs hostname users userConfig;
-            darwinModules = "${self}/modules/darwin";
-          };
-          modules = [
-            ./hosts/${hostname}
-            inputs.nix-homebrew.darwinModules.nix-homebrew
-            home-manager.darwinModules.home-manager (home-manager-args system hostname username userConfig)
-          ];
-        };
-
-      mkHomeConfiguration = system: hostname: username:
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { inherit system; };
-        extraSpecialArgs = {
-          inherit inputs outputs system;
-          userConfig = (get_users hostname).${username};
-          hmModules = "${self}/modules/home-manager";
-        };
-        modules = [
-          ./hosts/${hostname}/home/${username}
-        ];
-      };
-    in {
-      nixosConfigurations = {
-        msi = mkNixosConfiguration "x86_64-linux" "msi" "filippo";
-        server-stella = mkNixosConfiguration "x86_64-linux" "server-stella" "filippo";
+      darwinConfigurations = with darwin; {
+        "macbook-pro" = mkConfiguration "aarch64-darwin" "macbook-pro" "filippo";
       };
 
-      darwinConfigurations = {
-        "macbook-pro" = mkDarwinConfiguration "aarch64-darwin" "macbook-pro" "filippo";
+      homeConfigurations = with home; {
+        "fbiondi@giova-sssa" = mkConfiguration "x86_64-linux" "giova-sssa" "fbiondi";
       };
 
-      homeConfigurations = {
-        "fbiondi@giova-sssa" = mkHomeConfiguration "x86_64-linux" "giova-sssa" "fbiondi";
-      };
       overlays = import ./overlays { inherit inputs; };
 
       templates = import ./templates {};
