@@ -5,8 +5,8 @@
   ...
 }: {
   imports = suffix_imports [
-    "${configFolder}/darwin/common"
-    "${configFolder}/darwin/customUX"
+    "${configFolder}/common"
+    "${configFolder}/customUX"
     "${featuresFolder}/sops"
     "${featuresFolder}/core/docker"
     "${featuresFolder}/coding/openfoam"

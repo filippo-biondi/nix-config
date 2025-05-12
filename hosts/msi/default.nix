@@ -7,11 +7,11 @@
   imports = suffix_imports [
     ./hardware-configuration.nix
     ./sops
-    "${configFolder}/nixos/boot/uefi"
-    "${configFolder}/nixos/common"
-    "${configFolder}/nixos/graphics"
-    "${configFolder}/nixos/nvidia"
-    "${configFolder}/nixos/print"
+    "${configFolder}/boot/uefi"
+    "${configFolder}/common"
+    "${configFolder}/graphics"
+    "${configFolder}/nvidia"
+    "${configFolder}/print"
     "${featuresFolder}/network/openfortivpn"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/self-hosting/immich"

@@ -8,10 +8,10 @@
     ./hardware-configuration.nix
     ./sops
   ] ++ suffix_imports [
-    "${configFolder}/nixos/boot/bios"
-    "${configFolder}/nixos/common"
-    "${configFolder}/nixos/graphics"
-    "${configFolder}/nixos/print"
+    "${configFolder}/boot/bios"
+    "${configFolder}/common"
+    "${configFolder}/graphics"
+    "${configFolder}/print"
     "${featuresFolder}/network/openfortivpn"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/games/factorio"

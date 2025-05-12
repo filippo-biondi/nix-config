@@ -12,7 +12,7 @@
 
   _mkConfiguration = type: system: hostname: username:
     let
-      configFolder = "${self}/config";
+      configFolder = "${self}/config/${type}";
       featuresFolder = "${self}/features";
       users = get_users hostname;
       userConfig = users.${username};
@@ -29,6 +29,7 @@
       };
       home-manager-args = {
           home-manager.extraSpecialArgs = sharedSpecialArgs // {
+            configFolder = "${self}/config/home-manager";
             suffix_imports = suffix_imports "home-manager";
           };
           home-manager.users.${username} = import "${self}/hosts/${hostname}/home/${username}";
