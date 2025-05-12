@@ -6,7 +6,7 @@
   ...
 }: {
   imports = suffix_imports [
-    "${configFolder}/home-manager/common"
+    "${configFolder}/common"
     "${featuresFolder}/core"
     "${featuresFolder}/coding"
   ];
