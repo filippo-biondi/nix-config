@@ -14,13 +14,14 @@
       neededForUsers = true;
     };
     "tailscale/authkey" = {
-      sopsFile = ../../../secrets/server-stella/secrets.yaml;
+      sopsFile = "${self}/secrets/server-stella/secrets.yaml";
     };
     "openfortivpn/config" = {
+      sopsFile = "${self}/secrets/openfortivpn/secrets.yaml";
       restartUnits = [ "openfortivpn.service" ];
     };
     "factorio/password" = {
-      sopsFile = ../../../secrets/server-stella/secrets.yaml;
+      sopsFile = "${self}/secrets/factorio/secrets.yaml";
     };
   };
 }
