@@ -4,8 +4,9 @@
   suffix_imports,
   ...
 }: {
-  imports = suffix_imports [
+  imports =  [
     "${configFolder}/common"
+  ] ++ suffix_imports [
     "${featuresFolder}/core"
     "${featuresFolder}/coding"
   ];
