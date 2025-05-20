@@ -15,6 +15,7 @@
     "${featuresFolder}/desktop-apps/social/whatsapp"
     "${featuresFolder}/desktop-apps/paraview"
     "${featuresFolder}/desktop-apps/misc"
+    "${featuresFolder}/desktop-apps/media/obs"
     "${featuresFolder}/games/steam"
   ];
 
