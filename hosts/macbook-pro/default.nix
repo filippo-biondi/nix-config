@@ -4,7 +4,9 @@
   suffix_imports,
   ...
 }: {
-  imports = suffix_imports [
+  imports = [
+    ./sops
+  ] ++ suffix_imports [
     "${configFolder}/common"
     "${configFolder}/customUX"
     "${featuresFolder}/sops"
@@ -12,6 +14,7 @@
     "${featuresFolder}/coding/openfoam"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/network/surfshark"
+    "${featuresFolder}/network/openfortivpn"
     "${featuresFolder}/desktop-apps/social/whatsapp"
     "${featuresFolder}/desktop-apps/paraview"
     "${featuresFolder}/desktop-apps/misc"

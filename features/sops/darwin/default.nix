@@ -10,9 +10,6 @@
 
   sops = {
     age.sshKeyPaths = [ "/Users/${userConfig.username}/.ssh/id_ed25519" ];
-    defaultSopsFile = "${self}/secrets/common.yaml";
     defaultSopsFormat = "yaml";
-
-    secrets."openfortivpn/config" = {};
   };
 }

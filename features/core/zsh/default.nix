@@ -49,7 +49,6 @@ in {
       darwin-update = "darwin-rebuild switch --flake .";
       test-os-update = "sudo nixos-rebuild test --flake .";
       cineca-login = "step ssh login filippo.biondi@santannapisa.it --provisioner cineca-hpc";
-      vpn-login = "sudo openfortivpn fvs.santannapisa.it:443 -u fi.biondi";
     };
     history = {
       size = 10000;
