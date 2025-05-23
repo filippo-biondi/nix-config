@@ -1,4 +1,7 @@
-{inputs, ...}: {
+{
+  inputs,
+  ...
+}: {
   # When applied, the stable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.stable'
   stable-packages = final: _prev: {
@@ -23,13 +26,5 @@
 
   nvim = inputs.nvim.overlays.default;
 
-  qt_fix = final: prev: {
-    qt6 = prev.qt6.overrideScope (final: prev: {
-      qtbase = prev.qtbase.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [
-          ./qtbase-shortcut.patch
-        ];
-      });
-    });
-  };
+  qt_fix = import ./qt;
 }

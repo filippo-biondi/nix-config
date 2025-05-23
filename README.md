@@ -8,27 +8,49 @@
 
 ```text
 .
-├── flake.nix
-├── flake.lock
-├── hosts/
-│   ├── hostname1/
-│   └── hostname2/
-├── modules/
+├── config/
 │   ├── darwin/
 │   ├── home-manager/
 │   └── nixos/
-├── home/
-│   ├── hostname1/user1/
-│   └── hostname2/user2/
-└── overlays/
+├── features/
+│   ├── category1/
+│   │   ├── feature1/
+│   │   ├── feature2/
+│   │   └── default.nix
+│   └── category2/
+├── hosts/
+│   ├── hostname1/
+│   │   ├── home/
+│   │   │   ├── user1/
+│   │   │   └── user2/
+│   │   ├── sops/
+│   │   └── default.nix
+│   ├── hostname2/
+│   └── default.nix
+├── overlays/
+├── secrets/
+├── templates/
+├── utils/
+├── flake.lock
+└── flake.nix
 ```
 
+- `config/`: Contains the common configuration files for NixOS, nix-darwin, and home-manager. 
+           These settings should be shared across all hosts.
+- `features/`: Contains reusable features organized by category. 
+             Each feature can be available for NixOS, nix-darwin, and home-manager (not all features are available for all platforms).
+             Including a feature in a host configuration will automatically select the correct implementation 
+- `hosts/`: Contains the configuration for each host. 
+          The `default.nix` file in the `host/` directory defines the hosts and their users.
+          Each host, in addition to its own configuration, can also include a `home/` directory,
+          which contains home-manager configurations for one or more users,
+          and a `sops/` directory for secrets management.
+- `overlays/`: Custom package overlays that can be used in the features.
+- `secrets/`: Contains the secrets files encrypted with sops.
+- `templates/`: Contains templates for various purposes (yet to extend).
+- `utils/`: Here is where the dirty work is done. 
+          Contains the functions that are used to generate the configurations to keep the `flake.nix` small.
 - `flake.nix`: Main entry point, defines inputs, outputs, and systems.
-- `hosts/`: Per-host NixOS or nix-darwin configurations.
-- `home/`: Home Manager configurations for each user.
-- `modules/`: Custom reusable modules divided by platform (nix-darwin, NixOS, home-manager)
-- `overlays/`: Custom package overlays.
-- `templates/`: Flakes templates for various purposes.
 
 ---
 
@@ -46,11 +68,11 @@ Here are the steps to set up different systems
 
 Prepare the flake configuration for the new host:
 
-1. **Add the NixOS system configuration in `host/<hostname>/<main-user-name>/default.nix`**
+1. **Add the NixOS system configuration in `hosts/<hostname>/default.nix`**
 
-2. **Add the secrets specification in `host/<hostname>/sops/default.nix`**
+2. **Add the secrets specification in `hosts/<hostname>/sops/default.nix` and add the encrypted secrets in the `secrets/` folder**
 
-3. **Add the home-manager configuration in `home/<hostname>/<main-user-name>/default.nix`**
+3. **Add the home-manager configuration in `hosts/<hostname>/home/<user>/default.nix`**
 
 4. **Register the new host and the new user(s) in `host/default.nix`**
 
@@ -58,11 +80,11 @@ Prepare the flake configuration for the new host:
 
 ---
 
-#### Install NixOS on the Host
+#### Setup Keys and Secrets
 
 Once NixOS is installed and booted:
 
-6. **Generate SSH keys and store them in Bitwarden:**
+6. **Generate SSH keys**
 
    ```bash
    ssh-keygen -t ed25519
@@ -71,7 +93,7 @@ Once NixOS is installed and booted:
 7. **Add the SSH key to your GitHub account:**
 
    ```bash
-   gh ssh-key add -t <key-title> ~/.ssh/id_ed25519.pub
+   nix-shell -p gh --run "ssh-key add -t <key-title> ~/.ssh/id_ed25519.pub"
    ```
 
 8. **Generate the age keys from the SSH key:**
@@ -138,7 +160,7 @@ Once NixOS is installed and booted:
 sudo nixos-rebuild build --flake .
 ```
 
-##### Test the configuration (verify secrets, SSH keys, etc.):
+##### Test the configuration:
 
 ```bash
 sudo nixos-rebuild test --flake .
@@ -170,7 +192,7 @@ Follow the steps [1-5](#before-installing-nixos) from the NixOS host setup secti
 
 To install nix-darwin follow the instruction in the [nix-darwin repo](https://github.com/nix-darwin/nix-darwin).
 
-After having install nix-darwin, follow the steps [6-11](#install-nixos-on-the-host) from the NixOS host setup section.
+After having install nix-darwin, follow the steps [6-11](#setup-keys-and-secrets) from the NixOS host setup section.
 
 ---
 
@@ -182,6 +204,8 @@ After having install nix-darwin, follow the steps [6-11](#install-nixos-on-the-h
 sudo darwin-rebuild build --flake .
 ```
 
+
+##### Test the configuration:
 Unfortunately I'm not aware of a way to test the configuration without applying it.
 
 ##### Apply the configuration:
@@ -202,7 +226,7 @@ sudo darwin-rebuild switch --flake .
 
 Prepare the flake configuration for the new host:
 
-1. **Add the home-manager configuration in `home/<hostname>/<user-name>/default.nix`**
+1. **Add the home-manager configuration in `hosts/<hostname>/home/<user-name>/default.nix`**
 
 2. **Register the new host and the new user in `host/default.nix`**
 
@@ -210,7 +234,7 @@ Prepare the flake configuration for the new host:
 
 Currently sops secrets are not supported in my home-manager config (but sops-nix provides a home-manage module).
 Keep in mind that home-manager standalone is primarly intended for use on a host where root privileges are not held by the user 
-and thus installing secrets on those hosts can. lead to security issues.
+and thus installing secrets on those hosts can lead to security issues.
 
 ---
 
@@ -226,11 +250,14 @@ mkdir -p ~/.config/nix
 echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
 ```
 
-Follow the steps [6-11](#install-nixos-on-the-host) from the NixOS host setup section (skipping the age keys generation and the sops secrets creation since they are not supported yet).
-
 ---
 
 #### Test & Apply Configuration
+
+The first time you want to apply the configuration you need to run the following command:
+```bash
+nix run .#homeConfigurations.$USER.activationPackage
+```
 
 ##### Build the configuration:
 
@@ -238,6 +265,7 @@ Follow the steps [6-11](#install-nixos-on-the-host) from the NixOS host setup se
 home-manager build --flake .
 ```
 
+##### Test the configuration:
 Unfortunately I'm not aware of a way to test the configuration without applying it.
 
 #####  Apply the configuration:
@@ -252,8 +280,8 @@ home-manager switch --flake .
 
 ## TODO / Roadmap
 
-- [ ] Refactor of modularization
-- [ ] Add secrets management with sops-nix for home-manager
+- [x] Refactoring of modularization
+- [ ] Configure all macOS setting with nix-darwin
 
 ---
 
