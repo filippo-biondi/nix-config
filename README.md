@@ -62,9 +62,7 @@ Here are the steps to set up different systems
 
 <summary>NixOS</summary>
 
-### Adding a new NixOS host
-
-#### Before Installing NixOS
+### Before Installing NixOS
 
 Prepare the flake configuration for the new host:
 
@@ -80,7 +78,7 @@ Prepare the flake configuration for the new host:
 
 ---
 
-#### Setup Keys and Secrets
+### Setup Keys and Secrets
 
 Once NixOS is installed and booted:
 
@@ -152,15 +150,15 @@ Once NixOS is installed and booted:
 
 ---
 
-#### Test & Apply Configuration
+### Test & Apply Configuration
 
-##### Build the system:
+#### Build the system:
 
 ```bash
 sudo nixos-rebuild build --flake .
 ```
 
-##### Test the configuration:
+#### Test the configuration:
 
 ```bash
 sudo nixos-rebuild test --flake .
@@ -168,7 +166,7 @@ sudo nixos-rebuild test --flake .
 After this step you rebooting the host will restore the previous configuration.
 Remember to check that all the secrets are correctly decrypted and all the SSH keys are added.
 
-##### Apply the configuration:
+#### Apply the configuration:
 
 After this step the configuration can be reverted only with root privileges (be sure your password is correctly set).
 ```bash
@@ -180,15 +178,13 @@ sudo nixos-rebuild switch --flake .
 
 <summary>Nix Darwin</summary>
 
-### Adding a new nix-darwin host
-
-#### Before Installing nix-darwin
+### Before Installing nix-darwin
 
 Follow the steps [1-5](#before-installing-nixos) from the NixOS host setup section, but the host must be placed into `darwinConfigurations` in the flake.
 
 ---
 
-#### Install nix-darwin on the Host
+### Install nix-darwin on the Host
 
 To install nix-darwin follow the instruction in the [nix-darwin repo](https://github.com/nix-darwin/nix-darwin).
 
@@ -196,19 +192,19 @@ After having install nix-darwin, follow the steps [6-11](#setup-keys-and-secrets
 
 ---
 
-#### Test & Apply Configuration
+### Test & Apply Configuration
 
-##### Build the system:
+#### Build the system:
 
 ```bash
 sudo darwin-rebuild build --flake .
 ```
 
 
-##### Test the configuration:
+#### Test the configuration:
 Unfortunately I'm not aware of a way to test the configuration without applying it.
 
-##### Apply the configuration:
+#### Apply the configuration:
 
 After this step the configuration can be reverted only with root privileges (be sure your password is correctly set).
 ```bash
@@ -220,9 +216,7 @@ sudo darwin-rebuild switch --flake .
 <details>
 <summary>Home Manager</summary>
 
-### Adding a Home Manager configuration
-
-#### Before Installing home-manager
+### Before Installing home-manager
 
 Prepare the flake configuration for the new host:
 
@@ -238,7 +232,7 @@ and thus installing secrets on those hosts can lead to security issues.
 
 ---
 
-#### Install Home Manager on the Host
+### Install Home Manager on the Host
 
 To apply a home-manager configuration you just need to have [Nix](https://nixos.org/download/#nix-install-linux) installed on the host.
 Installing Nix requires root privileges. If you don't have root access you can try to use [nix-user-chroot](https://github.com/nix-community/nix-user-chroot) or [nix-portable](https://github.com/DavHau/nix-portable)
@@ -252,23 +246,23 @@ echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
 
 ---
 
-#### Test & Apply Configuration
+### Test & Apply Configuration
 
 The first time you want to apply the configuration you need to run the following command:
 ```bash
 nix run .#homeConfigurations.$USER.activationPackage
 ```
 
-##### Build the configuration:
+#### Build the configuration:
 
 ```bash
 home-manager build --flake .
 ```
 
-##### Test the configuration:
+#### Test the configuration:
 Unfortunately I'm not aware of a way to test the configuration without applying it.
 
-#####  Apply the configuration:
+####  Apply the configuration:
 
 ```bash
 home-manager switch --flake .
