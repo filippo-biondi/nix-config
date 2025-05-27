@@ -19,6 +19,7 @@
     "${featuresFolder}/desktop-apps/paraview"
     "${featuresFolder}/desktop-apps/misc"
     "${featuresFolder}/desktop-apps/media/obs"
+    "${featuresFolder}/desktop-apps/office"
     "${featuresFolder}/games/steam"
   ];
 
