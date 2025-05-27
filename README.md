@@ -1,10 +1,16 @@
 # My NixOS Configuration (Flakes)
 
-> Fully declarative, reproducible system configuration using [Nix flakes](https://nixos.wiki/wiki/Flakes).
+> Fully declarative, reproducible system configuration using [Nix flakes](https://nixos.wiki/wiki/Flakes)
+to configure multiple host with multiple users.
 
 ---
 
 ## Repository Structure
+The repository structure can be a bit daunting at first,
+but it is designed to provide modular and reusable features across different users and hosts
+(supporting NixOS, nix-darwin and home-manager).
+
+The following is a high-level overview of the structure:
 
 ```text
 .
@@ -276,6 +282,7 @@ home-manager switch --flake .
 
 - [x] Refactoring of modularization
 - [ ] Configure all macOS setting with nix-darwin
+- [ ] Create a setup script to automate the installation on new hosts
 
 ---
 
