@@ -12,6 +12,7 @@
     "${configFolder}/common"
     "${configFolder}/graphics"
     "${configFolder}/print"
+    "${featuresFolder}/core/docker"
     "${featuresFolder}/network/openfortivpn"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/games/factorio"

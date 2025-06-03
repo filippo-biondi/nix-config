@@ -13,6 +13,7 @@
     "${configFolder}/graphics"
     "${configFolder}/nvidia"
     "${configFolder}/print"
+    "${featuresFolder}/core/docker"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/self-hosting/immich"
     "${featuresFolder}/games/factorio"
