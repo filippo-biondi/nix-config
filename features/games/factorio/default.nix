@@ -16,8 +16,7 @@
     game-name = "MSI Factorio Server";
     description = "A beautiful Factorio server hosted on msi-server";
     requireUserVerification = false;
-    # loadLatestSave = true;
-    saveName = "gay2";
+    loadLatestSave = true;
     mods = [];
   };
 }
