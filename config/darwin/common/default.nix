@@ -15,6 +15,7 @@
     overlays = [
       outputs.overlays.old-packages
       outputs.overlays.qt_fix
+      outputs.overlays.nightly-packages
     ];
     config.allowUnfree = true;
   };

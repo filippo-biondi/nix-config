@@ -1,6 +1,10 @@
-{ ... }: {
+{
+  pkgs,
+  ...
+}: {
   services.aerospace = {
     enable = true;
+    package = pkgs.nightly.aerospace;
     settings = {
       automatically-unhide-macos-hidden-apps = true;
 
@@ -31,7 +35,11 @@
         alt-e = "workspace E";
         alt-f = "workspace F";
         alt-g = "workspace G";
+        alt-h = "workspace H";
         alt-i = "workspace I";
+        alt-j = "workspace J";
+        alt-k = "workspace K";
+        alt-l = "workspace L";
         alt-m = "workspace M";
         alt-n = "workspace N";
         alt-o = "workspace O";
@@ -63,7 +71,11 @@
         alt-shift-e = "move-node-to-workspace E";
         alt-shift-f = "move-node-to-workspace F";
         alt-shift-g = "move-node-to-workspace G";
+        alt-shift-h = "move-node-to-workspace H";
         alt-shift-i = "move-node-to-workspace I";
+        alt-shift-j = "move-node-to-workspace J";
+        alt-shift-k = "move-node-to-workspace K";
+        alt-shift-l = "move-node-to-workspace L";
         alt-shift-m = "move-node-to-workspace M";
         alt-shift-n = "move-node-to-workspace N";
         alt-shift-o = "move-node-to-workspace O";
@@ -95,7 +107,11 @@
         alt-cmd-shift-e = ["move-node-to-workspace E" "workspace E"];
         alt-cmd-shift-f = ["move-node-to-workspace F" "workspace F"];
         alt-cmd-shift-g = ["move-node-to-workspace G" "workspace G"];
+        alt-cmd-shift-h = ["move-node-to-workspace H" "workspace H"];
         alt-cmd-shift-i = ["move-node-to-workspace I" "workspace I"];
+        alt-cmd-shift-j = ["move-node-to-workspace J" "workspace J"];
+        alt-cmd-shift-k = ["move-node-to-workspace K" "workspace K"];
+        alt-cmd-shift-l = ["move-node-to-workspace L" "workspace L"];
         alt-cmd-shift-m = ["move-node-to-workspace M" "workspace M"];
         alt-cmd-shift-n = ["move-node-to-workspace N" "workspace N"];
         alt-cmd-shift-o = ["move-node-to-workspace O" "workspace O"];
