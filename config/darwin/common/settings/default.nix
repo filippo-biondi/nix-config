@@ -42,7 +42,7 @@
       dock = {
         autohide = true;
         show-recents = false;
-        showhidden = true;
+        showhidden = false;
         persistent-apps = [];
       };
 
@@ -54,7 +54,7 @@
 
       # controlcenter.BatteryShowPercentage = true;
 
-      spaces.spans-displays = true;
+      spaces.spans-displays = false;
 
       CustomUserPreferences = {
 

@@ -1,4 +1,4 @@
-{}: rec {
+{ }: rec {
   msi = {
     filippo = {
       fullName = "Filippo Biondi";
