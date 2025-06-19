@@ -3,7 +3,8 @@
   ...
 }: {
   imports = [
-    ./aerospace
+    ./yabai
+    # ./sketchybar
   ];
 
   environment.systemPackages = with pkgs; [
@@ -23,6 +24,7 @@
       "karabiner-elements"
       "battery"
       "macs-fan-control"
+      "eurkey"
     ];
   };
 }
