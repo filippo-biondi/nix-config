@@ -30,6 +30,7 @@
 
   macbook-pro = {
     filippo = msi.filippo // {
+      primaryUser = true;
       sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT" ];
     };
   };
