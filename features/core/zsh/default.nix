@@ -46,7 +46,7 @@ in {
       ll = "ls -lh";
       os-update = "sudo nixos-rebuild switch --flake .";
       hm-update = "home-manager switch --flake .";
-      darwin-update = "darwin-rebuild switch --flake .";
+      darwin-update = "sudo darwin-rebuild switch --flake .";
       test-os-update = "sudo nixos-rebuild test --flake .";
       cineca-login = "step ssh login filippo.biondi@santannapisa.it --provisioner cineca-hpc";
     };
