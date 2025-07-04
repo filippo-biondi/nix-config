@@ -54,7 +54,7 @@ in {
       size = 10000;
       path = "${config.xdg.dataHome}/zsh/history";
     };
-    initExtra = ''
+    initContent = ''
       bindkey "^H" backward-kill-word
 
       function forward_word_alias() {
