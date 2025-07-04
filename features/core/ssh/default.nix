@@ -30,6 +30,13 @@
         hostname = "100.76.194.108";
         user = "filippo";
       };
+      "cineca" = {
+        hostname = "login.leonardo.cineca.it";
+        user = "a08trb60";
+        extraOptions = {
+          StrictHostKeyChecking = "no";
+        };
+      };
     };
   };
 }
