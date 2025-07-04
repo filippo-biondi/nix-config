@@ -4,6 +4,7 @@
 }: {
   imports = suffix_imports [
     ./alacritty
+    ./devenv
     ./direnv
     ./git
     ./misc
