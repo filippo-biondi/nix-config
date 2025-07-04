@@ -23,6 +23,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    devenv.url = "github:cachix/devenv";
+
     nvim.url = "github:filippo-biondi/nvim-config";
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";

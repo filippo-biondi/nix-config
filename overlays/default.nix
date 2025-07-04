@@ -25,6 +25,7 @@
   };
 
   nvim = inputs.nvim.overlays.default;
+  devenv = inputs.devenv.overlays.default;
 
   qt_fix = import ./qt;
 }
