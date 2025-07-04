@@ -10,7 +10,11 @@
 
   home.packages = with pkgs; [
     discord
-    signal-desktop
     element-desktop
-  ];
+  ]++ (if pkgs.stdenv.isDarwin then [
+    signal-desktop-bin
+  ]
+  else [
+    signal-desktop
+  ]);
 }

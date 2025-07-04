@@ -25,10 +25,7 @@
 
     nvim.url = "github:filippo-biondi/nvim-config";
 
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
   };
