@@ -12,6 +12,7 @@
     "${featuresFolder}/sops"
     "${featuresFolder}/core/docker"
     "${featuresFolder}/coding/openfoam"
+    "${featuresFolder}/coding/nvidia"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/network/surfshark"
     "${featuresFolder}/network/openfortivpn"
