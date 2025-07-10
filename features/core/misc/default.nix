@@ -8,5 +8,7 @@
     nerd-fonts.jetbrains-mono
     btop
     uv
+    devour-flake
+    cachix
   ];
 }

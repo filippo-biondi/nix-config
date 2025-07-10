@@ -90,6 +90,22 @@
         "type": "github"
       }
     },
+    "devour-flake": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738639461,
+        "narHash": "sha256-R7MHvTh5fskzxNLBe9bher+GQBZ8ZHjz75CPQG3fSRI=",
+        "owner": "srid",
+        "repo": "devour-flake",
+        "rev": "9fe4db872c107ea217c13b24527b68d9e4a4c01b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "repo": "devour-flake",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -617,6 +633,7 @@
       "inputs": {
         "connecttunnel-nix": "connecttunnel-nix",
         "devenv": "devenv",
+        "devour-flake": "devour-flake",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
