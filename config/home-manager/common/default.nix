@@ -12,6 +12,7 @@
   nixpkgs = {
     overlays = [
       outputs.overlays.nvim
+      outputs.overlays.devour-flake
       outputs.overlays.devenv
     ] ++ (if isDarwin then [ outputs.overlays.qt_fix ] else []);
 
