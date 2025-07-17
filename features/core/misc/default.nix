@@ -10,5 +10,6 @@
     uv
     devour-flake
     cachix
+    tree
   ];
 }
