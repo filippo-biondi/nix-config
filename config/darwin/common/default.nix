@@ -32,6 +32,21 @@
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "filippo-biondi.cachix.org-1:eFsEqQ04EN/mBrQB6etml2kKB2FNP54MgMy2jCsYpfU="
       ];
+      trusted-users = [ "@admin" ];
+    };
+    linux-builder = {
+      enable = true;
+      ephemeral = true;
+      maxJobs = 4;
+      config = {
+        virtualisation = {
+          darwin-builder = {
+            diskSize = 30 * 1024;
+            memorySize = 8 * 1024;
+          };
+          cores = 6;
+        };
+      };
     };
     optimise.automatic = true;
     package = pkgs.nix;
@@ -50,7 +65,6 @@
   programs.zsh.enable = true;
 
   environment.systemPackages = with pkgs; [
-    sudo
     asitop
   ];
 
