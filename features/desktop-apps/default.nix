@@ -8,4 +8,6 @@
     ./paraview
     ./social
   ];
+
+  programs.firefox.enable = true;
 }
