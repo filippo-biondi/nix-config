@@ -52,6 +52,7 @@
 
       yabai -m rule --add app="^Alacritty$"     space=^Term
       yabai -m rule --add app="^Safari$"        space=^Web
+      yabai -m rule --add app="^Firefox$"       space=^Web
       yabai -m rule --add app="^Mail$"          space=^Mail
       yabai -m rule --add app="^Telegram$"      space=^Chat
       yabai -m rule --add app="^Discord$"       space=^Chat
