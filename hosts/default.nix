@@ -36,4 +36,8 @@
   };
 
   server-stella = msi;
+
+  server-casa = {
+    filippo = msi.filippo;
+  };
 }
