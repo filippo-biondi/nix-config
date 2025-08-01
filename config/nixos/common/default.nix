@@ -90,7 +90,7 @@
   programs.zsh.enable = true;
 
   # Connect tunnel configuration
-  programs.connect-tunnel.enable = true;
+  # programs.connect-tunnel.enable = true;
 
   # Additional services
   services.devmon.enable = true;
