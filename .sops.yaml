@@ -30,5 +30,6 @@ creation_rules:
     - age:
       - *filippo_server-casa
       - *filippo_macbook-pro
+      - *filippo_msi
 
 
