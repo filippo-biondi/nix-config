@@ -8,7 +8,7 @@
     ./hardware-configuration.nix
     ./sops
   ] ++ suffix_imports [
-    "${configFolder}/boot/bios"
+    "${configFolder}/boot/raspberry"
     "${configFolder}/common"
     "${configFolder}/print"
     "${featuresFolder}/core/docker"

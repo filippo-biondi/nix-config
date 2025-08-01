@@ -46,6 +46,7 @@
       nixosConfigurations = with nixos; {
         msi = mkConfiguration "x86_64-linux" "msi" "filippo";
         server-stella = mkConfiguration "x86_64-linux" "server-stella" "filippo";
+        server-casa = mkConfiguration "aarch64-linux" "server-casa" "filippo";
       };
 
       darwinConfigurations = with darwin; {
