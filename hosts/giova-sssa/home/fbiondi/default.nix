@@ -9,12 +9,7 @@
     "${configFolder}/common"
     "${featuresFolder}/core"
     "${featuresFolder}/coding"
-    "${featuresFolder}/desktop-apps/paraview"
   ];
-
-  programs.zsh.initExtra = ''
-    source /home/OpenFOAM/OpenFOAM-v2412/etc/bashrc
-  '';
 
   targets.genericLinux.enable = true;
 
