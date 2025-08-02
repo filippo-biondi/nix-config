@@ -4,7 +4,6 @@
 }: {
   imports = suffix_imports [
     ./nvim
-    ./openfoam-doker
     ./vscode
   ];
 }

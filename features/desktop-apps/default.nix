@@ -5,7 +5,6 @@
   imports = suffix_imports [
     ./media
     ./misc
-    ./paraview
     ./social
   ];
 
