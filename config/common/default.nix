@@ -27,19 +27,5 @@
     } else {
       dates = "weekly";
     });
-    linux-builder = {
-      enable = true;
-      ephemeral = true;
-      maxJobs = 3;
-      config = {
-        virtualisation = {
-          darwin-builder = {
-            diskSize = 30 * 1024;
-            memorySize = 20 * 1024;
-          };
-          cores = 6;
-        };
-      };
-    };
   };
 }
