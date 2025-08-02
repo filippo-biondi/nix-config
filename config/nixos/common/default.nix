@@ -7,6 +7,7 @@
   ...
 }: {
   imports = [
+    ../../common
     ./users
   ];
 
@@ -22,28 +23,6 @@
 
   # Register flake inputs for nix commands
   nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) (lib.filterAttrs (_: lib.isType "flake") inputs);
-
-  # Nix configuration
-  nix = {
-    settings = {
-      experimental-features = ["nix-command" "flakes"];
-      auto-optimise-store = true;
-      substituters = [
-        "https://devenv.cachix.org"
-        "https://filippo-biondi.cachix.org"
-      ];
-      trusted-public-keys = [
-        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-        "filippo-biondi.cachix.org-1:eFsEqQ04EN/mBrQB6etml2kKB2FNP54MgMy2jCsYpfU="
-      ];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-  };
-
 
   # Networking
   networking = {
