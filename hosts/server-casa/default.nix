@@ -11,6 +11,7 @@
     "${configFolder}/boot/raspberry"
     "${configFolder}/common"
     "${configFolder}/print"
+    "${configFolder}/wifi"
     "${featuresFolder}/core/docker"
     "${featuresFolder}/network/tailscale"
   ];

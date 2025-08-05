@@ -16,5 +16,8 @@
     "tailscale/authkey" = {
       sopsFile = "${self}/secrets/server-casa/secrets.yaml";
     };
+    "wifi" = {
+      sopsFile = "${self}/secrets/server-casa/secrets.yaml";
+    };
   };
 }

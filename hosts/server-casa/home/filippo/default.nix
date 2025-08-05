@@ -7,7 +7,7 @@
   imports = suffix_imports [
     "${configFolder}/common"
     "${featuresFolder}/core"
-    "${featuresFolder}/coding"
+    "${featuresFolder}/coding/nvim"
   ];
 
   # Enable home-manager

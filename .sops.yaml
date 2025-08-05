@@ -2,7 +2,7 @@ keys:
   - &filippo_msi age18asfdry0rx3t6zzvdrpu94cyeax2595wfwegy7g7zj67egyn2alql8k9rs
   - &filippo_macbook-pro age10hekr2fzda03xna7gc9hpwcqh8yscwny2v03t94wudfuu3ylmd0q0grctk
   - &filippo_server-stella age13l6j4ahtluv83t03gqn7cd66nhmx7lgnszx87wlr8vunf8fw5v0szx4l2a
-  - &filippo_server-casa age1n07mq3cgvdjqed2xqe5e4ylfg0mxmx7w7kv96jwlsx6jw8v9nvdsruzqc2
+  - &filippo_server-casa age1pq22dz4fd9v65pujefucafqcy44r4ed9ns09hyzkvmurvncjzdvsxsd6qn
 creation_rules:
   - path_regex: secrets/openfortivpn/secrets.yaml$
     key_groups:
