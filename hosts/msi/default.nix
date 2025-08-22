@@ -19,5 +19,7 @@
     "${featuresFolder}/games/factorio"
   ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "aarch64-darwin" ];
+
   system.stateVersion = "24.05"; # Did you read the comment?
 }
