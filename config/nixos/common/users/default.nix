@@ -12,8 +12,7 @@
       isMainUser = name == userConfig.username;
       mainUserConfig = {
         extraGroups = [ "networkmanager" "wheel" "docker" ];
-        # hashedPasswordFile = config.sops.secrets."password".path;
-        password = "test";
+        hashedPasswordFile = config.sops.secrets."password".path;
       };
       otherUserConfig = {
         extraGroups = [ "docker" ];
