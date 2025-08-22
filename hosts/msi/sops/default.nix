@@ -16,6 +16,9 @@
     "tailscale/authkey" = {
       sopsFile = "${self}/secrets/msi/secrets.yaml";
     };
+    "wifi" = {
+      sopsFile = "${self}/secrets/msi/secrets.yaml";
+    };
     "factorio/password" = {
       sopsFile = "${self}/secrets/factorio/secrets.yaml";
     };
