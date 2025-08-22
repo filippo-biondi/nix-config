@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    # ./hardware-configuration.nix
+    ./hardware-configuration.nix
     ./sops
   ] ++ suffix_imports [
     "${configFolder}/boot/raspberry"
