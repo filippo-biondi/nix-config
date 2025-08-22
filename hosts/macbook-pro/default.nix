@@ -11,7 +11,6 @@
     "${configFolder}/customUX"
     "${featuresFolder}/sops"
     "${featuresFolder}/core/docker"
-    "${featuresFolder}/coding/nvidia"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/network/surfshark"
     "${featuresFolder}/network/openfortivpn"
