@@ -13,6 +13,7 @@
     "${configFolder}/graphics"
     "${configFolder}/nvidia"
     "${configFolder}/print"
+    "${configFolder}/wifi"
     "${featuresFolder}/core/docker"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/self-hosting/immich"
