@@ -2,21 +2,21 @@
   services.blocky = {
   enable = true;
   settings = {
-    upstream = {
-      default = [
+    upstreams.groups.default = [
         "https://dns.quad9.net/dns-query"
         "https://dns.digitalcourage.de/dns-query"
-        "tls://dns.mullvad.net"
-      ];
-    };
+        "https://dns.adguard-dns.com/dns-query"
+    ];
 
     # Networking configuration
-    port = 53;
-    httpPort = 4000; # Web interface port
+    ports = {
+      dns = 53;
+      http = 4000;
+    };
 
     # Blocking configuration
     blocking = {
-      blocklists = {
+      blackLists = {
         advertising = [
           "https://adaway.org/hosts.txt"
           "https://v.firebog.net/hosts/AdguardDNS.txt"
@@ -53,21 +53,19 @@
           "https://v.firebog.net/hosts/static/w3kbl.txt"
         ];
       };
-      whitelists = {};
+      whiteLists = {};
       clientGroupsBlock = {
         # 'default' group applies to all clients.
         default = [ "advertising" "tracking" "malicious" "suspicious" ];
       };
       blockType = "zeroIp";
-      refreshPeriod = 1440; # Refresh lists every 24 hours
+      refreshPeriod = "1440m"; # Refresh lists every 24 hours
     };
 
-    # Conditional DNS for local network resolution.
-    # Replace 192.168.1.1 with your router's IP address.
-    conditional = {
-      mapping = {
-        "local" = "192.168.1.254";
-      };
+    # metrics configuration
+    prometheus = {
+      enable = true;
+      path = "/metrics";
     };
 
     # Caching configuration
@@ -79,7 +77,6 @@
     # Logging and timezone
     logLevel = "info";
     logFormat = "text";
-    timeZone = "Europe/Rome";
   };
 };
 
