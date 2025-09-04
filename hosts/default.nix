@@ -3,7 +3,10 @@
     filippo = {
       fullName = "Filippo Biondi";
       email = "filibiondi2000@gmail.com";
-      sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArV7DUbiqZYLwtF5tZVQTskVPYJzaltXqZzVYJrxJwy" ];
+      sshKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArV7DUbiqZYLwtF5tZVQTskVPYJzaltXqZzVYJrxJwy"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/YrxCxrCU2AC8CPuDSgwovd4KHoacdoDfuveiX5FVG"
+      ];
       shell = "zsh";
     };
     matteo = {
