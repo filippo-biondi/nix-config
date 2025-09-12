@@ -1,4 +1,5 @@
 {
+  config,
   configFolder,
   featuresFolder,
   suffix_imports,
@@ -17,6 +18,7 @@
     "${featuresFolder}/core/docker"
     "${featuresFolder}/network/tailscale"
     "${featuresFolder}/self-hosting/immich"
+    "${featuresFolder}/self-hosting/interpelli-bot"
     "${featuresFolder}/games/factorio"
   ];
 

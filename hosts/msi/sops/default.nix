@@ -22,5 +22,8 @@
     "factorio/password" = {
       sopsFile = "${self}/secrets/factorio/secrets.yaml";
     };
+    "interpelli-bot-key" = {
+      sopsFile = "${self}/secrets/msi/secrets.yaml";
+    };
   };
 }
