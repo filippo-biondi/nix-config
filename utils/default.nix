@@ -42,6 +42,7 @@
         modules = [
           "${self}/hosts/${hostname}"
           inputs.connecttunnel-nix.nixosModule
+          inputs.interpelli-bot.nixosModules."${system}".default
           home-manager.nixosModules.home-manager home-manager-args
         ];
       }

@@ -35,6 +35,8 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
+
+    interpelli-bot.url = "path:/home/filippo/interpelli-scraper";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
