@@ -6,6 +6,7 @@
     sops
     step-cli
     nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
     btop
     uv
     devour-flake
