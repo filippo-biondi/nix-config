@@ -21,6 +21,12 @@
     "${featuresFolder}/games/steam"
   ];
 
+  # networking.knownNetworkServices = [ "Wi-Fi" ];
+  # networking.dns = [
+  #   "100.85.59.42"
+  #   "192.168.1.254"
+  # ];
+
   # Used for backwards compatibility, please read the changelog before changing.
   system.stateVersion = 6;
 }
