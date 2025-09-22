@@ -36,7 +36,7 @@
 
     connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
 
-    interpelli-bot.url = "path:/home/filippo/interpelli-scraper";
+    interpelli-bot.url = "git+ssh://git@github.com/filippo-biondi/interpelli-bot.git";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
@@ -46,17 +46,24 @@
 
     in with utils; {
       nixosConfigurations = with nixos; {
-        msi = mkConfiguration "x86_64-linux" "msi" "filippo";
-        server-stella = mkConfiguration "x86_64-linux" "server-stella" "filippo";
-        server-casa = mkConfiguration "aarch64-linux" "server-casa" "filippo";
+        msi = mkConfiguration {
+          system = "x86_64-linux";
+          hostname = "msi";
+          username = "filippo";
+          extraModules = [
+            inputs.interpelli-bot.nixosModules."${system}".default
+          ];
+        };
+        server-stella = mkConfiguration { system="x86_64-linux"; hostname="server-stella"; username="filippo"; };
+        server-casa = mkConfiguration { system="aarch64-linux"; hostname="server-casa"; username="filippo"; };
       };
 
       darwinConfigurations = with darwin; {
-        "macbook-pro" = mkConfiguration "aarch64-darwin" "macbook-pro" "filippo";
+        "macbook-pro" = mkConfiguration { system="aarch64-darwin"; hostname="macbook-pro"; username="filippo"; };
       };
 
       homeConfigurations = with home; {
-        "fbiondi@giova-sssa" = mkConfiguration "x86_64-linux" "giova-sssa" "fbiondi";
+        "fbiondi@giova-sssa" = mkConfiguration { system="x86_64-linux"; hostname="giova-sssa"; username="fbiondi"; };
       };
 
       overlays = import ./overlays { inherit inputs; };

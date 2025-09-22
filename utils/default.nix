@@ -10,7 +10,7 @@
     in nixpkgs.lib.mapAttrs (name: value: value // { username = name; }) config.${hostname};
 
 
-  _mkConfiguration = type: system: hostname: username:
+  _mkConfiguration = { type, system, hostname, username, extraModules ? []}:
     let
       configFolder = "${self}/config/${type}";
       featuresFolder = "${self}/features";
@@ -42,9 +42,8 @@
         modules = [
           "${self}/hosts/${hostname}"
           inputs.connecttunnel-nix.nixosModule
-          inputs.interpelli-bot.nixosModules."${system}".default
           home-manager.nixosModules.home-manager home-manager-args
-        ];
+        ] ++ extraModules;
       }
 
       else if type=="darwin" then nix-darwin.lib.darwinSystem {
@@ -54,7 +53,7 @@
           "${self}/hosts/${hostname}"
           inputs.nix-homebrew.darwinModules.nix-homebrew
           home-manager.darwinModules.home-manager home-manager-args
-        ];
+        ] ++ extraModules;
       }
 
       else home-manager.lib.homeManagerConfiguration {
@@ -62,19 +61,19 @@
         extraSpecialArgs = sharedSpecialArgs;
         modules = [
           "${self}/hosts/${hostname}/home/${username}"
-        ];
+        ] ++ extraModules;
       };
 in {
 
     nixos = {
-      mkConfiguration = _mkConfiguration "nixos";
+      mkConfiguration = args: _mkConfiguration (args // { type = "nixos"; });
     };
 
     darwin = {
-      mkConfiguration = _mkConfiguration "darwin";
+      mkConfiguration = args: _mkConfiguration (args // { type = "darwin"; });
     };
 
     home = {
-      mkConfiguration = _mkConfiguration "home-manager";
+      mkConfiguration = args: _mkConfiguration (args // { type = "home-manager"; });
     };
 }

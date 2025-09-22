@@ -378,14 +378,17 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1757268134,
-        "narHash": "sha256-Vzxpw0cxbd8AtbgEAAF5FdufSqjoxJeJVU2TtRavr6A=",
-        "path": "/home/filippo/interpelli-scraper",
-        "type": "path"
+        "lastModified": 1758540310,
+        "narHash": "sha256-RSZkKbpOYrXmG6oudHums9iOS3eK3PGwDnuHTnyf+1s=",
+        "ref": "refs/heads/main",
+        "rev": "a28cbaf43fbcd1ed270767671278c2658a72a45d",
+        "revCount": 7,
+        "type": "git",
+        "url": "ssh://git@github.com/filippo-biondi/interpelli-bot.git"
       },
       "original": {
-        "path": "/home/filippo/interpelli-scraper",
-        "type": "path"
+        "type": "git",
+        "url": "ssh://git@github.com/filippo-biondi/interpelli-bot.git"
       }
     },
     "luvit-meta": {
