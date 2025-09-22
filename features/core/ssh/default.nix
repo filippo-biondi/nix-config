@@ -1,6 +1,7 @@
 { ... }: {
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "g100" = {
         hostname = "login.g100.cineca.it";
