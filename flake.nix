@@ -46,7 +46,7 @@
 
     in with utils; {
       nixosConfigurations = with nixos; {
-        msi = mkConfiguration {
+        msi = mkConfiguration rec {
           system = "x86_64-linux";
           hostname = "msi";
           username = "filippo";
