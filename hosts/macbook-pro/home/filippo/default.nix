@@ -10,6 +10,7 @@
     "${featuresFolder}/desktop-apps"
     "${featuresFolder}/coding"
     "${featuresFolder}/coding/jetbrains"
+    "${featuresFolder}/coding/gemini"
   ];
 
   # Enable home-manager
