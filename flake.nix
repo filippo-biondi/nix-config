@@ -1,26 +1,33 @@
 {
-  description = "NixOS configuration";
+  description = "";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     nixpkgs-nightly.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-24.05";
 
-    nix-darwin = {
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    nix-rosetta-builder = {
+      url = "github:cpick/nix-rosetta-builder";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    devour-flake = {
-      url = "github:srid/devour-flake";
-      flake = false;
     };
 
     sops-nix = {
@@ -28,46 +35,68 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    devenv.url = "github:cachix/devenv";
-
-    nvim.url = "github:filippo-biondi/nvim-config";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-    connecttunnel-nix.url = "github:iannisimo/connecttunnel-nix";
-
-    interpelli-bot.url = "git+ssh://git@github.com/filippo-biondi/interpelli-bot.git";
+    nvim.url = "github:filippo-biondi/nvim-config";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
-    let
-      inherit (self) outputs;
-      utils = import ./utils { inherit nixpkgs self inputs outputs; };
+  outputs = inputs: let
+    lib = inputs.snowfall-lib.mkLib {
+      inherit inputs;
+      src = ./.;
 
-    in with utils; {
-      nixosConfigurations = with nixos; {
-        msi = mkConfiguration rec {
-          system = "x86_64-linux";
-          hostname = "msi";
-          username = "filippo";
-          extraModules = [
-            inputs.interpelli-bot.nixosModules."${system}".default
-          ];
+      snowfall = {
+        meta = {
+          name = "dotfiles";
+          title = "dotfiles";
         };
-        server-stella = mkConfiguration { system="x86_64-linux"; hostname="server-stella"; username="filippo"; };
-        server-casa = mkConfiguration { system="aarch64-linux"; hostname="server-casa"; username="filippo"; };
+
+        namespace = "ccg";
+      };
+    };
+  in
+    lib.mkFlake {
+      inherit inputs;
+      src = ./.;
+
+      channels-config = {
+        allowUnfree = true;
       };
 
-      darwinConfigurations = with darwin; {
-        "macbook-pro" = mkConfiguration { system="aarch64-darwin"; hostname="macbook-pro"; username="filippo"; };
+      overlays = with inputs; [
+        nvim.overlays.default
+      ];
+
+      systems.modules.nixos = with inputs; [
+        ./modules/shared
+        ./modules/usersCatalog
+        sops-nix.nixosModules.sops
+      ];
+      systems.modules.darwin = with inputs; [
+        ./modules/shared
+        ./modules/usersCatalog
+        sops-nix.darwinModules.sops
+        nix-homebrew.darwinModules.nix-homebrew
+        nix-rosetta-builder.darwinModules.default
+      ];
+      homes.modules = [
+        ./modules/usersCatalog
+      ];
+
+      outputs-builder = channels: let
+        pkgs = channels.nixpkgs;
+        treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./overlays/treefmt/treefmt.nix;
+      in {
+        formatter = treefmtEval.config.build.wrapper;
+
+        checks = {
+          formatting = treefmtEval.config.build.check inputs.self;
+        };
       };
-
-      homeConfigurations = with home; {
-        "fbiondi@giova-sssa" = mkConfiguration { system="x86_64-linux"; hostname="giova-sssa"; username="fbiondi"; };
-      };
-
-      overlays = import ./overlays { inherit inputs; };
-
-      templates = import ./templates {};
     };
 }
