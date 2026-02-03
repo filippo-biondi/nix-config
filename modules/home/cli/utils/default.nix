@@ -12,6 +12,8 @@ in
     config = mkIf cfg.enable {
       home.packages = with pkgs; [
         sops
+        ssh-to-age
+        age-plugin-fido2-hmac
         step-cli
         uv
         cachix
