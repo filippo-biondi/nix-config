@@ -482,9 +482,25 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-nightly": "nixpkgs-nightly",
         "nvim": "nvim",
+        "secrets": "secrets",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",
         "treefmt-nix": "treefmt-nix"
+      }
+    },
+    "secrets": {
+      "locked": {
+        "lastModified": 1770458496,
+        "narHash": "sha256-ejIH7Xe5RgFupn965GaG+N/LqDx6GvbiXru2zUV1KWA=",
+        "ref": "refs/heads/main",
+        "rev": "03e1bccae52569f2d5c676f992ac6d09c7a9b3d9",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/filippo-biondi/nix-secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/filippo-biondi/nix-secrets.git"
       }
     },
     "snowfall-lib": {

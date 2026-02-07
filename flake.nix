@@ -43,6 +43,8 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     nvim.url = "github:filippo-biondi/nvim-config";
+
+    secrets.url = "git+ssh://git@github.com/filippo-biondi/nix-secrets.git";
   };
 
   outputs = inputs: let

@@ -18,7 +18,7 @@ in {
     };
 
     sops.secrets."tailscale/authkey" = {
-      sopsFile = "${inputs.self}/secrets/${host}/secrets.yaml";
+      sopsFile = "${inputs.secrets}/secrets/${host}/secrets.yaml";
     };
   };
 }

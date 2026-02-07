@@ -30,7 +30,7 @@ in {
     sops.secrets = lib.mapAttrs' (username: _: {
       name = "${username}/passwordHash";
       value = {
-        sopsFile = "${inputs.self}/secrets/${host}/secrets.yaml";
+        sopsFile = "${inputs.secrets}/secrets/${host}/secrets.yaml";
         neededForUsers = true;
       };
     }) (lib.filterAttrs (_: user: user.setPassword) cfg.users);

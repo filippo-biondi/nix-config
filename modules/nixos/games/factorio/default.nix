@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -31,7 +32,7 @@ in {
     };
 
     sops.secrets."factorio/password" = {
-      sopsFile = ../../../../secrets/factorio.yaml;
+      sopsFile = "${inputs.secrets}/secrets/factorio.yaml";
     };
   };
 }
