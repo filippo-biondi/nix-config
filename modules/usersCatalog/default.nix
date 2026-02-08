@@ -44,5 +44,9 @@
     server-casa = {
       filippo = server-msi.filippo;
     };
+
+    installer = {
+      filippo = server-msi.filippo // { setPassword = false; };
+    };
   };
 }

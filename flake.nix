@@ -40,11 +40,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     nvim.url = "github:filippo-biondi/nvim-config";
 
     secrets.url = "git+ssh://git@github.com/filippo-biondi/nix-secrets.git";
+    # secrets.url = "git+file:///path/to/nix-secrets";
   };
 
   outputs = inputs: let
@@ -78,6 +84,7 @@
         ./modules/shared
         ./modules/usersCatalog
         sops-nix.nixosModules.sops
+        disko.nixosModules.disko
       ];
       systems.modules.darwin = with inputs; [
         ./modules/shared

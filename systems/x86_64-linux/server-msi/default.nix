@@ -4,7 +4,10 @@
   ...
 }: let
 in {
-  imports = [./hardware-configuration.nix];
+  imports = [
+    ./hardware-configuration.nix
+    ./disk-config.nix
+  ];
 
   ccg.system.boot.efi.enable = true;
 
@@ -18,7 +21,7 @@ in {
   ccg.hardware.nvidia.enable = true;
   ccg.system.print.enable = true;
   ccg.system.fonts.enable = true;
-  ccg.networking.wifi.enable = false;
+  ccg.networking.wifi.enable = true;
   ccg.networking.core = {
     hostname = host;
     enable = true;
