@@ -50,7 +50,6 @@
     nvim.url = "github:filippo-biondi/nvim-config";
 
     secrets.url = "git+ssh://git@github.com/filippo-biondi/nix-secrets.git";
-    # secrets.url = "git+file:///path/to/nix-secrets";
   };
 
   outputs = inputs: let
