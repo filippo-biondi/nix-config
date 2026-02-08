@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  inputs,
   ...
 }: let
   cfg = config.ccg.networking.wifi;
@@ -22,12 +23,15 @@ in {
         "iliadbox-0E7933" = {
           pskRaw = "ext:psk_iliadbox-0E7933";
         };
+        "FRITZ!Box-7590-XK" = {
+          pskRaw = "ext:psk_FRITZ!Box-7590=XK";
+        };
       };
       secretsFile = config.sops.secrets."wifi".path;
     };
 
     sops.secrets."wifi" = {
-      sopsFile = ../../../../secrets/wifi.yaml;
+      sopsFile = "${inputs.secrets}/secrets/wifi.yaml";
     };
   };
 }
