@@ -49,6 +49,8 @@
 
     nvim.url = "github:filippo-biondi/nvim-config";
 
+    proxmox-nixos.url = "github:greg-hellings/proxmox-nixos/fix/212-AcceptEnv-redefinition";
+
     secrets.url = "git+ssh://git@github.com/filippo-biondi/nix-secrets.git";
   };
 
@@ -84,6 +86,7 @@
         ./modules/usersCatalog
         sops-nix.nixosModules.sops
         disko.nixosModules.disko
+        proxmox-nixos.nixosModules.proxmox-ve
       ];
       systems.modules.darwin = with inputs; [
         ./modules/shared

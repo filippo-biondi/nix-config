@@ -34,6 +34,7 @@ in {
     withKey = true;
   };
   ccg.self-hosting.immich.enable = true;
+  ccg.self-hosting.proxmox.enable = true;
 
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "24.05";
