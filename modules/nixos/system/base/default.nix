@@ -10,10 +10,10 @@ in {
     ../../../shared/config
   ];
 
-  options.ccg.system.base.enable = lib.ccg.mkBoolOpt' true;
+  options.ccg.system.base.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
-    console.keyMap = "qwerty/us-acentos";
+    console.keyMap = "qwerty/us";
 
     # Timezone
     time.timeZone = "Europe/Rome";

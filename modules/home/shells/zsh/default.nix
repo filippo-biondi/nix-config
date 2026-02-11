@@ -20,7 +20,7 @@
     '';
   };
 in {
-  options.ccg.shells.zsh.enable = lib.ccg.mkBoolOpt' true;
+  options.ccg.shells.zsh.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [

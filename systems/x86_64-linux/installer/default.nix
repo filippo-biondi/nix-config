@@ -8,6 +8,8 @@
   ccg.users = config.ccg.usersCatalog.${host};
   users.users.root.openssh.authorizedKeys.keys = config.ccg.usersCatalog.${host}.filippo.sshKeys;
 
+  ccg.system.base.enable = true;
+
   ccg.networking.core = {
     hostname = host;
     enable = true;

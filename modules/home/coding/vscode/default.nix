@@ -6,7 +6,7 @@
 }: let
   cfg = config.ccg.coding.vscode;
 in {
-  options.ccg.coding.vscode.enable = lib.ccg.mkBoolOpt' true;
+  options.ccg.coding.vscode.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
     programs.vscode = {

@@ -5,7 +5,7 @@
 }: let
   cfg = config.ccg.cli.direnv;
 in {
-  options.ccg.cli.direnv.enable = lib.ccg.mkBoolOpt' true;
+  options.ccg.cli.direnv.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
     programs = {

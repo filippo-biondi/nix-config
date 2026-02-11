@@ -7,7 +7,7 @@
   cfg = config.ccg.cli.utils;
 in
   with lib; {
-    options.ccg.cli.utils.enable = lib.ccg.mkBoolOpt' true;
+    options.ccg.cli.utils.enable = lib.ccg.mkBoolOpt' false;
 
     config = mkIf cfg.enable {
       home.packages = with pkgs; [

@@ -6,7 +6,7 @@
   cfg = config.ccg.cli.git;
 in {
   options.ccg.cli.git = {
-    enable = lib.ccg.mkBoolOpt' true;
+    enable = lib.ccg.mkBoolOpt' false;
     user = lib.ccg.mkUserOpt';
   };
 

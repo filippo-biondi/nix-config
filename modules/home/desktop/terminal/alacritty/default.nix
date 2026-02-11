@@ -6,7 +6,7 @@
 }: let
   cfg = config.ccg.desktop.terminal.alacritty;
 in {
-  options.ccg.desktop.terminal.alacritty.enable = lib.ccg.mkBoolOpt' true;
+  options.ccg.desktop.terminal.alacritty.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
     home.file = {

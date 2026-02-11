@@ -10,6 +10,7 @@ in {
   ];
 
   ccg.system.boot.efi.enable = true;
+  ccg.system.base.enable = true;
 
   ccg.hardware.battery.enable = true;
 
