@@ -21,12 +21,12 @@ in {
             type = "wifi";
           };
           wifi = {
-            ssid = "${toEnvVar name}_SSID";
+            ssid = "\$${toEnvVar name}_SSID";
             mode = "infrastructure";
           };
           wifi-security = {
             key-mgmt = "wpa-psk";
-            psk = "${toEnvVar name}_PSK";
+            psk = "\$${toEnvVar name}_PSK";
           };
           ipv4 = { method = "auto"; };
           ipv6 = { method = "auto"; };
