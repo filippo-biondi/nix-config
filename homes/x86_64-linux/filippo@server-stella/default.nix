@@ -1,11 +1,12 @@
 {
+  lib,
   ...
 }: {
   imports = [../../filippo];
 
   config = {
-    ccg.desktop.social.enable = false;
-    ccg.desktop.media.enable = false;
-    ccg.desktop.utils.enable = false;
+    ccg.desktop.social.enable = lib.mkForce false;
+    ccg.desktop.media.enable = lib.mkForce false;
+    ccg.desktop.utils.enable = lib.mkForce false;
   };
 }

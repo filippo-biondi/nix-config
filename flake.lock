@@ -511,11 +511,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1770566784,
-        "narHash": "sha256-Z9PBw1cHXXIarYkKUK8/CI2YBFdrz+uprDs+ZogJHv4=",
+        "lastModified": 1770849157,
+        "narHash": "sha256-WN2eR6Ly3UaSwB2wyKxpFUuszNnUBA7cUPuQEuxGTnA=",
         "ref": "refs/heads/main",
-        "rev": "adcb7be498734726695125cdaa60ce07b0865b50",
-        "revCount": 4,
+        "rev": "7d009f1a9794b66399990c38b04c2585cea63048",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://git@github.com/filippo-biondi/nix-secrets.git"
       },
