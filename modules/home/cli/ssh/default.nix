@@ -15,10 +15,12 @@ in {
         "server-msi" = {
           hostname = "server-msi";
           user = "filippo";
+          forwardAgent = true;
         };
         "server-stella" = {
           hostname = "server-stella";
           user = "filippo";
+          forwardAgent = true;
         };
       };
     };
