@@ -10,9 +10,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      jetbrains.pycharm-professional
+      jetbrains.pycharm
       jetbrains.clion
-      jetbrains.idea-ultimate
+      jetbrains.idea
       jetbrains.webstorm
       jetbrains.gateway
     ];
