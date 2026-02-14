@@ -3,15 +3,14 @@
   lib,
   ...
 }:
-with lib;
 with lib.ccg; let
   cfg = config.ccg.apps.tools.nix-ld;
 in {
-  options.ccg.apps.tools.nix-ld = with types; {
+  options.ccg.apps.tools.nix-ld = {
     enable = mkBoolOpt' false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.nix-ld.enable = true;
   };
 }

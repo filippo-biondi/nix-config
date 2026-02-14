@@ -16,37 +16,47 @@
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/YrxCxrCU2AC8CPuDSgwovd4KHoacdoDfuveiX5FVG"
         ];
         shell = pkgs.zsh;
-        extraGroups = [ "wheel" "networkmanager" "docker" ];
+        extraGroups = [
+          "wheel"
+          "networkmanager"
+          "docker"
+        ];
         setPassword = true;
       };
       matteo = {
         fullName = "Matteo Tolloso";
-        sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYhWjAETWEB1YdT3Hn1xDEiJWbtAScaoi5+auEq1SQM" ];
+        sshKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYhWjAETWEB1YdT3Hn1xDEiJWbtAScaoi5+auEq1SQM"];
         shell = pkgs.bash;
-        extraGroups = [ "docker" ];
+        extraGroups = ["docker"];
       };
       vornao = {
         fullName = "Luca Miglior";
-        sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF65PNkzAPb12J2BV/Jzc79+BZ8RIlLJPDz6tOta21Cj" ];
+        sshKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF65PNkzAPb12J2BV/Jzc79+BZ8RIlLJPDz6tOta21Cj"];
         shell = pkgs.bash;
-        extraGroups = [ "docker" ];
+        extraGroups = ["docker"];
       };
     };
 
     macbook-pro = {
-      filippo = server-msi.filippo // {
-        sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT" ];
-      };
+      filippo =
+        server-msi.filippo
+        // {
+          sshKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT"];
+        };
     };
 
     server-stella = server-msi;
 
     server-casa = {
-      filippo = server-msi.filippo;
+      inherit (server-msi) filippo;
     };
 
     installer = {
-      filippo = server-msi.filippo // { setPassword = false; };
+      filippo =
+        server-msi.filippo
+        // {
+          setPassword = false;
+        };
     };
   };
 }

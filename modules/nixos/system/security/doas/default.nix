@@ -3,7 +3,6 @@
   lib,
   ...
 }:
-with lib;
 with lib.ccg; let
   cfg = config.ccg.system.security.doas;
 in {
@@ -11,7 +10,7 @@ in {
     enable = mkBoolOpt' false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     # Disable sudo
     security.sudo.enable = false;
 

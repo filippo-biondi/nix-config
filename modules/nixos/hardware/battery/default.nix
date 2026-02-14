@@ -3,15 +3,14 @@
   lib,
   ...
 }:
-with lib;
 with lib.ccg; let
   cfg = config.ccg.hardware.battery;
 in {
-  options.ccg.hardware.battery = with types; {
+  options.ccg.hardware.battery = {
     enable = mkBoolOpt' false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     # Better scheduling for CPU cycles - thanks System76!!!
     services.system76-scheduler.settings.cfsProfiles.enable = true;
 

@@ -15,6 +15,7 @@ in {
         description = user.fullName;
         inherit (user) shell;
         openssh.authorizedKeys.keys = user.sshKeys;
-      }) cfg.users;
+      })
+      cfg.users;
   };
 }

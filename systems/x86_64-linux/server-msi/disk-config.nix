@@ -7,7 +7,6 @@
         content = {
           type = "gpt";
           partitions = {
-
             # 1. Boot Partition
             ESP = {
               priority = 1;
@@ -17,7 +16,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
+                mountOptions = ["umask=0077"];
               };
             };
 
@@ -44,7 +43,6 @@
                 mountpoint = "/";
               };
             };
-
           };
         };
       };

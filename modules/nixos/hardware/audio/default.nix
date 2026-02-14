@@ -3,15 +3,14 @@
   lib,
   ...
 }:
-with lib;
 with lib.ccg; let
   cfg = config.ccg.hardware.audio;
 in {
-  options.ccg.hardware.audio = with types; {
+  options.ccg.hardware.audio = {
     enable = mkBoolOpt' false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;

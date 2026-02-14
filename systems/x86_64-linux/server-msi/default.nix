@@ -2,8 +2,7 @@
   host,
   config,
   ...
-}: let
-in {
+}: {
   imports = [
     ./hardware-configuration.nix
     ./disk-config.nix
@@ -35,7 +34,7 @@ in {
     withKey = true;
   };
   ccg.self-hosting.immich.enable = true;
-  ccg.self-hosting.proxmox.enable = true;
+  # ccg.self-hosting.proxmox.enable = true;
 
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "24.05";

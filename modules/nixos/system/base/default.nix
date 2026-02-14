@@ -6,10 +6,6 @@
 }: let
   cfg = config.ccg.system.base;
 in {
-  imports = [
-    ../../../shared/config
-  ];
-
   options.ccg.system.base.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {

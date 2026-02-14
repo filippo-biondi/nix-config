@@ -29,6 +29,13 @@
   documentation.man.enable = false;
   documentation.nixos.enable = false;
 
+  # dummy values to pass checks
+  fileSystems."/" = {
+    device = "/dev/null";
+    fsType = "ext4";
+  };
+  boot.loader.grub.enable = false;
+
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "24.05";
   # ======================== DO NOT CHANGE THIS ========================

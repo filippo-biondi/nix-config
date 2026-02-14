@@ -45,6 +45,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     nvim.url = "github:filippo-biondi/nvim-config";
@@ -101,12 +106,20 @@
 
       outputs-builder = channels: let
         pkgs = channels.nixpkgs;
-        treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./overlays/treefmt/treefmt.nix;
       in {
-        formatter = treefmtEval.config.build.wrapper;
+        formatter = pkgs.treefmt-configured.wrapper;
 
         checks = {
-          formatting = treefmtEval.config.build.check inputs.self;
+          # formatting = pkgs.treefmt-configured.check inputs.self;
+          pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.system}.run {
+            src = ./.;
+            hooks = {
+              treefmt = {
+                enable = true;
+                package = pkgs.treefmt-configured.wrapper;
+              };
+            };
+          };
         };
       };
     };

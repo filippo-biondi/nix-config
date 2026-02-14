@@ -1,13 +1,15 @@
-{ config, lib, inputs, system, ... }:
-
-let
-  cfg = config.ccg.self-hosting.proxmox;
-in
 {
+  config,
+  lib,
+  inputs,
+  system,
+  ...
+}: let
+  cfg = config.ccg.self-hosting.proxmox;
+in {
   options.ccg.self-hosting.proxmox.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
-
     nixpkgs.overlays = [
       inputs.proxmox-nixos.overlays.${system}
     ];

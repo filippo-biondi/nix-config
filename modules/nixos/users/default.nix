@@ -13,17 +13,14 @@ in {
     users = {
       mutableUsers = false;
       users =
-        lib.mapAttrs (
-          username: user: {
-            isNormalUser = true;
-            description = user.fullName;
-            inherit (user) shell;
-            openssh.authorizedKeys.keys = user.sshKeys;
-            inherit (user) extraGroups;
-            hashedPasswordFile =
-              lib.mkIf user.setPassword config.sops.secrets."${username}/passwordHash".path;
-          }
-        )
+        lib.mapAttrs (username: user: {
+          isNormalUser = true;
+          description = user.fullName;
+          inherit (user) shell;
+          openssh.authorizedKeys.keys = user.sshKeys;
+          inherit (user) extraGroups;
+          hashedPasswordFile = lib.mkIf user.setPassword config.sops.secrets."${username}/passwordHash".path;
+        })
         cfg.users;
     };
 
