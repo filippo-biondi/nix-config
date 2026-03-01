@@ -15,7 +15,7 @@
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArV7DUbiqZYLwtF5tZVQTskVPYJzaltXqZzVYJrxJwy"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/YrxCxrCU2AC8CPuDSgwovd4KHoacdoDfuveiX5FVG"
         ];
-        shell = pkgs.zsh;
+        shell = pkgs.fish;
         extraGroups = [
           "wheel"
           "networkmanager"

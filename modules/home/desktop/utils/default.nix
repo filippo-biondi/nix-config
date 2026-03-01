@@ -16,8 +16,8 @@ in {
         bitwarden-desktop
         bitwarden-cli
       ]
-      ++ lib.optionals (!stdenv.isDarwin) [
-        kicad-small
+      ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
+        stable.kicad-small
         wl-clipboard
       ];
   };

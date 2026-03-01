@@ -36,7 +36,9 @@
   ccg.self-hosting.immich.enable = true;
   # ccg.self-hosting.proxmox.enable = true;
 
-  # ======================== DO NOT CHANGE THIS ========================
+  /*
+  * DO NOT CHANGE THIS VALUE.
+  * It is managed by NixOS.
+  */
   system.stateVersion = "24.05";
-  # ======================== DO NOT CHANGE THIS ========================
 }

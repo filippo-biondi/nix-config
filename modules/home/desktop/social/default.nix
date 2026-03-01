@@ -12,7 +12,7 @@ in {
     home.packages = with pkgs;
       [
         discord
-        element-desktop
+        stable.element-desktop
         telegram-desktop
       ]
       ++ (

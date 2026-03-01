@@ -26,6 +26,10 @@
 
   ccg.users = config.ccg.usersCatalog.${host};
 
+  # programs.bash.enable = true;
+  # programs.zsh.enable = true;
+  # programs.fish.enable = true;
+  #
   system.primaryUser = "filippo";
 
   system.stateVersion = 6;

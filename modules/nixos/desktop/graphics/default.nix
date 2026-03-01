@@ -40,7 +40,7 @@ in {
     };
 
     environment.systemPackages = with pkgs; [
-      xorg.xhost
+      xhost
     ];
 
     services.desktopManager.plasma6.enable = true;

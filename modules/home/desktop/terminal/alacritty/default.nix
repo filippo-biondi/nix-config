@@ -20,6 +20,10 @@ in {
     programs.alacritty = {
       enable = true;
       settings = {
+        terminal.shell = {
+          program = "${pkgs.fish}/bin/fish";
+          args = ["--login"];
+        };
         general.import = ["~/.config/alacritty/themes/themes/catppuccin_mocha.toml"];
         env.TERM = "xterm-256color";
         font = {
@@ -30,28 +34,28 @@ in {
         keyboard.bindings = [
           {
             key = "C";
-            mods = "Control|Shift";
+            mods = "Command";
             mode = "Alt";
             action = "ReceiveChar";
           }
           {
             key = "C";
-            mods = "Control|Shift";
+            mods = "Command";
             mode = "~Alt";
             action = "Copy";
           }
           {
             key = "Back";
-            mods = "Control";
+            mods = "Alt";
             mode = "~Alt";
-            chars = "\\u0008"; # double slash is needed because one disappear in the final toml file
+            chars = "\\u0017";
           }
           {
-            key = "End";
-            mods = "Shift";
-            action = "ReceiveChar";
+            key = "Back";
+            mods = "Alt";
+            mode = "Alt";
+            chars = "\\u001b\\u007f";
           }
-
           {
             key = "ArrowLeft";
             mods = "Alt";

@@ -12,7 +12,7 @@ in {
       vscode.enable = true;
       nvim.enable = true;
       gemini.enable = true;
-      jetbrains.enable = true;
+      jetbrains.enable = false;
     };
   };
 }
