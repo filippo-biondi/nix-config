@@ -9,37 +9,9 @@ in {
   options.ccg.shells.fish.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      # Required for the fzf previews to work
-      bat
-      fd
-      eza
-    ];
+    ccg.cli.fzf.enable = true;
 
-    programs.fzf = {
-      enable = true;
-      enableFishIntegration = true;
-
-      # Optional: Restore the "fancy" FZF behavior manually
-      # This mimics what fzf-fish does but using standard Nix tools
-      defaultOptions = ["--height 40%" "--layout=reverse" "--border"];
-
-      # Preview files with 'bat' when using Ctrl+T
-      fileWidgetOptions = [
-        "--preview '${pkgs.bat}/bin/bat --style=numbers --color=always --line-range :500 {}'"
-      ];
-
-      # Preview directories with 'eza' (modern ls) when using Alt+C
-      changeDirWidgetOptions = [
-        "--preview '${pkgs.eza}/bin/eza --tree --color=always {} | head -200'"
-      ];
-    };
-
-    # 3. Zoxide
-    programs.zoxide = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    ccg.cli.zoxide.enable = true;
 
     programs.fish = {
       enable = true;
@@ -74,15 +46,6 @@ in {
       ];
     };
 
-    programs.starship = {
-      enable = true;
-      enableFishIntegration = true;
-      settings = {
-        add_newline = true;
-        package.disabled = true;
-        nix_shell.disabled = true;
-        cmake.disabled = true;
-      };
-    };
+    ccg.cli.starship.enable = true;
   };
 }

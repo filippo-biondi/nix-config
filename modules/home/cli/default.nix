@@ -14,6 +14,9 @@ in {
       ssh.enable = true;
       utils.enable = true;
       devenv.enable = true;
+      fzf.enable = true;
+      zoxide.enable = true;
+      starship.enable = true;
     };
   };
 }
