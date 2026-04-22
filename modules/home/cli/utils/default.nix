@@ -12,6 +12,8 @@ in {
     home.packages = with pkgs; [
       age-plugin-fido2-hmac
       ccg.sys
+      tree
+      btop
     ];
   };
 }

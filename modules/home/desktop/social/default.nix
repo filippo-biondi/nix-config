@@ -19,7 +19,6 @@ in {
         if pkgs.stdenv.isDarwin
         then [
           signal-desktop-bin
-          firefox-bin
         ]
         else [
           signal-desktop

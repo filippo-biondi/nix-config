@@ -18,6 +18,7 @@ in {
 
       shellAbbrs = {
         ll = "ls -lh";
+        md = "mkdir";
       };
 
       binds = {

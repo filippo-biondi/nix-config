@@ -10,10 +10,12 @@ in {
 
   config = lib.mkIf cfg.enable {
     homebrew.casks = [
+      "firefox"
       "balenaetcher"
-      "ultimaker-cura"
       "kicad"
       "skim"
+      "freecad"
+      "orcaslicer"
     ];
 
     environment.systemPackages = with pkgs; [
