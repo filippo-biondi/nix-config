@@ -13,6 +13,7 @@ in {
       if pkgs.stdenv.isDarwin
       then [
         vlc-bin
+        spotify
       ]
       else [
         spotify
