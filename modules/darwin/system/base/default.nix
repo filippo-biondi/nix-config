@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   imports = [
     ../../../shared/config
   ];
@@ -16,8 +16,4 @@
   programs.bash.enable = true;
   programs.zsh.enable = true;
   programs.fish.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    macpm
-  ];
 }

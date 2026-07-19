@@ -9,21 +9,12 @@ in {
   options.ccg.desktop.social.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs;
-      [
-        discord
-        stable.element-desktop
-        telegram-desktop
-      ]
-      ++ (
-        if pkgs.stdenv.isDarwin
-        then [
-          signal-desktop-bin
-        ]
-        else [
-          signal-desktop
-        ]
-      );
+    home.packages = with pkgs; [
+      discord
+      stable.element-desktop
+      telegram-desktop
+      signal-desktop
+    ];
 
     programs.firefox.enable = lib.mkIf pkgs.stdenv.isLinux true;
   };

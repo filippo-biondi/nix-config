@@ -10,7 +10,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      rectangle
       raycast
       mos
     ];
@@ -20,7 +19,6 @@ in {
       brews = [];
       casks = [
         "battery"
-        "macs-fan-control"
       ];
     };
   };

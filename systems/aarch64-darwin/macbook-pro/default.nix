@@ -3,7 +3,10 @@
   host,
   ...
 }: {
-  ccg.desktop.ux.enable = true;
+  ccg.desktop.ux = {
+    enable = true;
+    aerospace.enable = true;
+  };
 
   ccg.desktop = {
     games.enable = true;

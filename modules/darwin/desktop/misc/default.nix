@@ -13,9 +13,9 @@ in {
       "firefox"
       "balenaetcher"
       "kicad"
-      "skim"
       "freecad"
       "orcaslicer"
+      "arduino-ide"
     ];
 
     environment.systemPackages = with pkgs; [
