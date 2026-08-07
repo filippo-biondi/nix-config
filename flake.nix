@@ -55,6 +55,8 @@
 
     nvim.url = "github:filippo-biondi/nvim-config";
 
+    interpelli-bot.url = "git+ssh://git@github.com/filippo-biondi/interpelli-bot.git";
+
     proxmox-nixos.url = "github:greg-hellings/proxmox-nixos/fix/212-AcceptEnv-redefinition";
 
     secrets.url = "git+ssh://git@github.com/filippo-biondi/nix-secrets.git";
@@ -98,6 +100,7 @@
         sops-nix.nixosModules.sops
         disko.nixosModules.disko
         proxmox-nixos.nixosModules.proxmox-ve
+        interpelli-bot.nixosModules.default
       ];
       systems.modules.darwin = with inputs; [
         ./modules/shared
