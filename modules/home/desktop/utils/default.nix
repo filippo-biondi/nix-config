@@ -11,7 +11,6 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs;
       [
-        bitwarden-desktop
         bitwarden-cli
       ]
       ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [

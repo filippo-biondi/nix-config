@@ -16,6 +16,7 @@ in {
       "freecad"
       "orcaslicer"
       "arduino-ide"
+      "bitwarden"
     ];
 
     environment.systemPackages = with pkgs; [

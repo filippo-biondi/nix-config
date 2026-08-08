@@ -11,16 +11,16 @@ in {
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "server-msi" = {
-          hostname = "server-msi";
-          user = "filippo";
-          forwardAgent = true;
+          HostName = "server-msi";
+          User = "filippo";
+          ForwardAgent = true;
         };
         "server-stella" = {
-          hostname = "server-stella";
-          user = "filippo";
-          forwardAgent = true;
+          HostName = "server-stella";
+          User = "filippo";
+          ForwardAgent = true;
         };
       };
     };

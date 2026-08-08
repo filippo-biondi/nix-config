@@ -11,7 +11,6 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       discord
-      stable.element-desktop
       telegram-desktop
       signal-desktop
     ];

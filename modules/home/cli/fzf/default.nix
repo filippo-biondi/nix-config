@@ -21,11 +21,11 @@ in {
 
       defaultOptions = ["--height 40%" "--layout=reverse" "--border"];
 
-      fileWidgetOptions = [
+      fileWidget.options = [
         "--preview '${pkgs.bat}/bin/bat --style=numbers --color=always --line-range :500 {}'"
       ];
 
-      changeDirWidgetOptions = [
+      changeDirWidget.options = [
         "--preview '${pkgs.eza}/bin/eza --tree --color=always {} | head -200'"
       ];
     };

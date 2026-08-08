@@ -51,7 +51,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+      inputs.brew-src.url = "github:Homebrew/brew/master";
+    };
 
     nvim.url = "github:filippo-biondi/nvim-config";
 

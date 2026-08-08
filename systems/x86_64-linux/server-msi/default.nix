@@ -34,6 +34,7 @@
     withKey = true;
   };
   ccg.self-hosting.immich.enable = true;
+  ccg.self-hosting.interpelli-bot.enable = true;
   # ccg.self-hosting.proxmox.enable = true;
 
   /*
