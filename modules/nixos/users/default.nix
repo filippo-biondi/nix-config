@@ -19,6 +19,7 @@ in {
           inherit (user) shell;
           openssh.authorizedKeys.keys = user.sshKeys;
           inherit (user) extraGroups;
+          inherit (user) linger;
           hashedPasswordFile = lib.mkIf user.setPassword config.sops.secrets."${username}/passwordHash".path;
         })
         cfg.users;

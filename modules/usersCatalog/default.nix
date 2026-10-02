@@ -22,12 +22,14 @@
           "docker"
         ];
         setPassword = true;
+        linger = true;
       };
       matteo = {
         fullName = "Matteo Tolloso";
         sshKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYhWjAETWEB1YdT3Hn1xDEiJWbtAScaoi5+auEq1SQM"];
         shell = pkgs.bash;
         extraGroups = ["docker"];
+        linger = true;
       };
       vornao = {
         fullName = "Luca Miglior";

@@ -33,6 +33,10 @@
           type = lib.types.bool;
           default = false;
         };
+        linger = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+        };
       };
 
       config = {
