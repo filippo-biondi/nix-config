@@ -11,7 +11,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = pkgs.ghostty-bin;
+      package = pkgs.ghostty;
       installVimSyntax = true;
       enableFishIntegration = config.ccg.shells.fish.enable;
       enableZshIntegration = config.ccg.shells.zsh.enable;
