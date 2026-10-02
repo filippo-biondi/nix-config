@@ -348,11 +348,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1786137702,
-        "narHash": "sha256-yvMDpweGTjDtbc4g6zmSZgRvlN/11mqd/Tg7xg1hcgA=",
+        "lastModified": 1790894357,
+        "narHash": "sha256-ru4g3PWBetX/FNDqas0l7YbtKKE9+ArNTpitBbbb5o8=",
         "ref": "refs/heads/main",
-        "rev": "48a0f4b76e819b13e116f26b761dbf5e917ad806",
-        "revCount": 8,
+        "rev": "de55f8d41622b912d7423d98e311a393d4d2edca",
+        "revCount": 24,
         "type": "git",
         "url": "ssh://git@github.com/filippo-biondi/interpelli-bot.git"
       },
@@ -758,11 +758,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1772368135,
-        "narHash": "sha256-5pZbTrKBUTA0Bq5Pg3qEDRIUyIFIug34QJtDWK0mxgY=",
+        "lastModified": 1786141005,
+        "narHash": "sha256-nLP3WmVNXYnYZSITCVOlTiN+5SMyK4zdZH0qIdk4bP4=",
         "ref": "refs/heads/main",
-        "rev": "eb37843b51e830c0a6940c00badd99eac1238606",
-        "revCount": 6,
+        "rev": "19855286f06cbd9b666a8f120ba0ee510c8f4970",
+        "revCount": 7,
         "type": "git",
         "url": "ssh://git@github.com/filippo-biondi/nix-secrets.git"
       },

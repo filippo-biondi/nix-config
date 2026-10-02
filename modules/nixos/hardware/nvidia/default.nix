@@ -50,7 +50,13 @@ in {
       };
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.latest.overrideAttrs (_oldAttrs: rec {
+        version = "610.57.04";
+        src = pkgs.fetchurl {
+          url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}.run";
+          sha256 = "sha256-suk1xmuDuwDAyFe8jg7g/VLekoa0DJzB7sKafOfrEW0=";
+        };
+      });
     };
 
     # Add nvtop to the system packages
