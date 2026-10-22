@@ -19,7 +19,6 @@
         extraGroups = [
           "wheel"
           "networkmanager"
-          "docker"
         ];
         setPassword = true;
         linger = true;
@@ -28,14 +27,12 @@
         fullName = "Matteo Tolloso";
         sshKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYhWjAETWEB1YdT3Hn1xDEiJWbtAScaoi5+auEq1SQM"];
         shell = pkgs.bash;
-        extraGroups = ["docker"];
         linger = true;
       };
       vornao = {
         fullName = "Luca Miglior";
         sshKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF65PNkzAPb12J2BV/Jzc79+BZ8RIlLJPDz6tOta21Cj"];
         shell = pkgs.bash;
-        extraGroups = ["docker"];
       };
     };
 
