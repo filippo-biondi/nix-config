@@ -9,7 +9,7 @@
       lib.filterAttrs (_: lib.isType "flake") inputs
     );
     settings = {
-      experimental-features = "nix-command flakes";
+      experimental-features = ["nix-command" "flakes"];
       substituters = [
         "https://devenv.cachix.org"
       ];
