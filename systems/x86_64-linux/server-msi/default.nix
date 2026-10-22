@@ -35,6 +35,7 @@
   };
   ccg.self-hosting.immich.enable = true;
   ccg.self-hosting.interpelli-bot.enable = true;
+  ccg.self-hosting.gerrit.enable = true;
   # ccg.self-hosting.proxmox.enable = true;
 
   ccg.apps.tools.nix-ld.enable = true;
