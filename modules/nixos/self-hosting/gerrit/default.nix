@@ -32,7 +32,6 @@ in {
           type = "HTTP";
           httpHeader = "Tailscale-User-Login";
           httpDisplaynameHeader = "Tailscale-User-Name";
-          httpEmailHeader = "Tailscale-User-Login";
         };
       };
     };
