@@ -6,6 +6,7 @@
 }: let
   cfg = config.ccg.self-hosting.gerrit;
   tailscale = config.ccg.networking.tailscale;
+  rootOnly = "OUTPUT -o lo -d 127.0.0.1 -p tcp --dport 8080 -m owner ! --uid-owner 0 -j REJECT";
 in {
   options.ccg.self-hosting.gerrit.enable = lib.ccg.mkBoolOpt' false;
 
@@ -48,6 +49,11 @@ in {
       script = "${config.services.tailscale.package}/bin/tailscale serve --bg --http=80 http://127.0.0.1:8080";
     };
 
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [29418];
+    networking.firewall = {
+      interfaces.tailscale0.allowedTCPPorts = [29418];
+      # Only tailscaled (root) may reach Gerrit: anyone else could forge the login headers
+      extraCommands = "iptables -C ${rootOnly} || iptables -A ${rootOnly}";
+      extraStopCommands = "iptables -D ${rootOnly} || true";
+    };
   };
 }
