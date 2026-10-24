@@ -2,73 +2,92 @@
 
 This repository contains the Nix configuration for my personal infrastructure, managed using [Flakes](https://nixos.wiki/wiki/Flakes) and structured with [Snowfall Lib](https://github.com/snowfallorg/lib).
 
-It manages **NixOS**, **macOS (Darwin)**, and standalone **Home Manager** configurations.
+It manages **NixOS** and standalone **Home Manager** configurations, plus a **nix-darwin** one that is no longer used.
 
-## Prerequisites
+## Hosts
 
-The only prerequisite is **[Nix](https://nixos.org/download.html)** with Flakes enabled.
+| Host | System | Notes |
+| --- | --- | --- |
+| `server-msi` | NixOS | Main server, with an NVIDIA GPU; runs most self-hosted services |
+| `server-stella` | NixOS | Smaller server (BIOS boot) |
+| `installer` | NixOS | Minimal system for bootstrapping a new machine: root SSH login with my key, passwordless sudo |
+| `macbook-pro` | nix-darwin | No longer used: the MacBook is managed with [chezmoi](https://github.com/filippo-biondi/chezmoi-config) |
 
-All other tools (secrets management, custom scripts, git hooks) are provided via the development shell.
+## Layout
+
+Snowfall Lib builds the flake outputs from the directory tree, so a new host, home or module is picked up without being listed anywhere.
+
+```
+systems/<arch>/<host>/         one directory per machine (default.nix, hardware-configuration.nix)
+homes/<arch>/<user>@<host>/    Home Manager configuration per user and machine
+homes/filippo/                 my home configuration, imported by every filippo@<host>
+modules/nixos/                 NixOS modules
+modules/home/                  Home Manager modules
+modules/darwin/                nix-darwin modules
+modules/shared/                modules for every system (Nix settings, fonts)
+modules/usersCatalog/          the users of each host
+lib/                           helpers available as lib.ccg.*
+overlays/                      pkgs.stable (nixos-25.05), pkgs.nightly, the treefmt wrapper
+packages/sys/                  the sys command
+shells/default/                the development shell
+secrets/                       encrypted secrets (submodule, private repository)
+```
+
+## How it fits together
+
+Every module is off by default. It declares an option under the `ccg` namespace, usually mirroring its path, and keeps its configuration behind it:
+
+```nix
+options.ccg.networking.tailscale.enable = lib.ccg.mkBoolOpt' false;
+config = lib.mkIf cfg.enable { ... };
+```
+
+A host's `default.nix` is then mostly a list of switches, such as `ccg.docker.enable = true;`, next to what only that machine has: hardware, disks and its `stateVersion`.
+
+Users are defined once, in `modules/usersCatalog`, grouped by host. A host picks up its own with `ccg.users = config.ccg.usersCatalog.${host};`, and those with `setPassword = true` read their password hash from the host's secrets.
 
 ## Usage
 
+The only prerequisite is **[Nix](https://nixos.org/download.html)** with Flakes enabled.
+
 ### 1. Enter the Environment
 
-Enter the development shell to access all necessary tools (`sys`, `sops`, `age`, `git`):
+The development shell provides `sys`, `sops`, `age`, `ssh-to-age` and `git`:
 
 ```bash
 nix develop
 ```
 
-This will also automatically install the **pre-commit hooks** (using `treefmt`) to ensure code is formatted before every commit.
+It also installs a **pre-commit hook** that checks formatting with `treefmt` (alejandra, statix, deadnix, shfmt). `nix fmt` formats the whole tree.
 
 ### 2. The `sys` Command
 
-This configuration includes a custom wrapper script named `sys` to simplify common tasks.
+`sys` wraps the common tasks:
 
 ```bash
-# Rebuild the system (auto-detects OS)
-sys rebuild
-
-# Update flake inputs
-sys update
-
-# Garbage collect and optimise Nix Store
-sys clean
-
-# Deploy to a remote NixOS host
-sys deploy <hostname> [user]
-
-# Bootstrap a new host (keys, secrets, provisioning)
-sys add-host
+sys rebuild              # switch this machine to the configuration (NixOS or nix-darwin)
+sys test                 # activate without making it the boot default (NixOS), or check it (nix-darwin)
+sys home-switch          # switch the standalone Home Manager configuration
+sys home-test            # test it without switching
+sys update               # update all flake inputs
+sys clean                # optimise and garbage collect the Nix store
+sys deploy <host> [user] # build here and switch a remote NixOS host over SSH (user defaults to filippo)
 ```
 
-### 3. Applying Configuration Manually
+`sys add-host` is a placeholder and does nothing yet.
 
-If you prefer standard commands:
+### 3. Without `sys`
 
-**macOS (Darwin):**
 ```bash
-darwin-rebuild switch --flake .#
-```
-
-**NixOS:**
-```bash
-sudo nixos-rebuild switch --flake .#
-```
-
-**Home Manager (Standalone):**
-```bash
-home-manager switch --flake .
+sudo nixos-rebuild switch --flake .   # NixOS
+home-manager switch --flake .         # Home Manager
 ```
 
 ## Secrets
 
-Secrets are managed using **sops-nix** and **age**. The encrypted files are located in the `secrets/` submodule (private repository).
+Secrets are managed with **sops-nix** and **age**. They live in a separate private repository, which this one uses twice: as the flake input `secrets`, which builds read, and as the `secrets/` submodule, where they are edited. Builds use the revision pinned in `flake.lock`, so a change to the secrets takes effect once that input is updated.
 
-To manage secrets, ensure you are in the `nix develop` shell.
-
-See [secrets/README.md](./secrets/README.md) for detailed management instructions.
+See [secrets/README.md](./secrets/README.md) for how the secrets and their keys are organised.
 
 ## Credits
 
