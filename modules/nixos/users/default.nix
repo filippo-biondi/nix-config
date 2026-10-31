@@ -25,6 +25,9 @@ in {
         cfg.users;
     };
 
+    # Snowfall puts every user with a home in wheel: extraGroups decides instead
+    snowfallorg.users = lib.mapAttrs (_: _: {admin = false;}) cfg.users;
+
     sops.secrets = lib.mapAttrs' (username: _: {
       name = "${username}/passwordHash";
       value = {
