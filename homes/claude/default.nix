@@ -10,7 +10,10 @@
 
   ccg.coding.claude-code = {
     enable = true;
-    remoteControl.enable = true;
+    remoteControl = {
+      enable = true;
+      directory = "%h/workspace";
+    };
   };
 
   # The review skills push to Gerrit through this host, with the agent's own key
