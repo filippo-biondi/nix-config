@@ -17,6 +17,10 @@ in {
   ccg.desktop.terminal.ghostty.enable = lib.mkDefault true;
 
   ccg.cli.git.user = config.ccg.usersCatalog.${host}.${username};
+  ccg.cli.ssh.gerrit = {
+    enable = true;
+    user = "biondifilippo00@gmail.com";
+  };
 
   home.stateVersion = "24.05";
 }

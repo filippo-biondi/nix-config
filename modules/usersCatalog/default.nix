@@ -34,6 +34,12 @@
         sshKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF65PNkzAPb12J2BV/Jzc79+BZ8RIlLJPDz6tOta21Cj"];
         shell = pkgs.bash;
       };
+      claude = {
+        fullName = "Claude";
+        email = "claude@server-msi.taild98f5.ts.net";
+        shell = pkgs.bash;
+        linger = true;
+      };
     };
 
     macbook-pro = {
