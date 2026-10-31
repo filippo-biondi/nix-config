@@ -121,6 +121,13 @@
       in {
         formatter = pkgs.treefmt-configured.wrapper;
 
+        # Every NixOS host of this system, to build them all with one command
+        packages.nixos-hosts = pkgs.linkFarm "nixos-hosts" (
+          lib.mapAttrs (_: host: host.config.system.build.toplevel)
+          (lib.filterAttrs (_: host: host.pkgs.stdenv.hostPlatform.system == pkgs.stdenv.hostPlatform.system)
+            inputs.self.nixosConfigurations)
+        );
+
         checks = {
           # formatting = pkgs.treefmt-configured.check inputs.self;
           pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.stdenv.hostPlatform.system}.run {
