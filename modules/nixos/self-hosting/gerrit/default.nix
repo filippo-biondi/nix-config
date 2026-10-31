@@ -37,6 +37,8 @@ in {
         gerrit.canonicalWebUrl = "http://${host}.${tailscale.tailnet}/";
         httpd.listenUrl = "proxy-http://127.0.0.1:8080/";
         sshd.listenAddress = "*:29418";
+        # No mail server here: every notification would fail
+        sendemail.enable = false;
         # tailscale serve sets these headers for tailnet users
         auth = {
           type = "HTTP";
