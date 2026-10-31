@@ -64,6 +64,11 @@
 
     secrets.url = "git+ssh://git@github.com/filippo-biondi/nix-secrets.git";
 
+    claude-plugins = {
+      url = "git+ssh://git@github.com/filippo-biondi/claude-plugins.git";
+      flake = false;
+    };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -17,6 +17,22 @@
         "type": "github"
       }
     },
+    "claude-plugins": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793474079,
+        "narHash": "sha256-QFGUKDW7p/jz+p82d7B1j0GAZlrno14CMAxPXl/M8uo=",
+        "ref": "refs/heads/main",
+        "rev": "7c5c4a18479afd2c40ede4133129fd80c77edcde",
+        "revCount": 6,
+        "type": "git",
+        "url": "ssh://git@github.com/filippo-biondi/claude-plugins.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/filippo-biondi/claude-plugins.git"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1792350552,
@@ -699,6 +715,7 @@
     },
     "root": {
       "inputs": {
+        "claude-plugins": "claude-plugins",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "disko": "disko",

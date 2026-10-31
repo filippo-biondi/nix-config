@@ -1,6 +1,7 @@
 {
   config,
   host,
+  inputs,
   ...
 }: {
   ccg.cli.git = {
@@ -14,6 +15,11 @@
       enable = true;
       directory = "%h/workspace";
     };
+  };
+
+  programs.claude-code.plugins = {
+    review = "${inputs.claude-plugins}/plugins/review";
+    config-manager = "${inputs.claude-plugins}/plugins/config-manager";
   };
 
   # The review skills push to Gerrit through this host, with the agent's own key
