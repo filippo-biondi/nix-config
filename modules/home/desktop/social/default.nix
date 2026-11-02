@@ -15,6 +15,6 @@ in {
       signal-desktop
     ];
 
-    programs.firefox.enable = lib.mkIf pkgs.stdenv.isLinux true;
+    programs.firefox.enable = true;
   };
 }

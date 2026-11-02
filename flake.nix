@@ -21,16 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-rosetta-builder = {
-      url = "github:cpick/nix-rosetta-builder";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,11 +39,6 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-      inputs.brew-src.url = "github:Homebrew/brew/master";
     };
 
     nvim.url = "github:filippo-biondi/nvim-config";
@@ -109,13 +94,6 @@
         disko.nixosModules.disko
         proxmox-nixos.nixosModules.proxmox-ve
         interpelli-bot.nixosModules.default
-      ];
-      systems.modules.darwin = with inputs; [
-        ./modules/shared
-        ./modules/usersCatalog
-        sops-nix.darwinModules.sops
-        nix-homebrew.darwinModules.nix-homebrew
-        nix-rosetta-builder.darwinModules.default
       ];
       homes.modules = [
         ./modules/usersCatalog

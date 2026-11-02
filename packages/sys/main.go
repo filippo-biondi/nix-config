@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"runtime"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -56,29 +55,17 @@ func runSudoCmd(name string, args ...string) error {
 func main() {
 	var rootCmd = &cobra.Command{
 		Use:   "sys",
-		Short: "A command-line utility for managing NixOS, nix-darwin and Home Manager configurations.",
+		Short: "A command-line utility for managing NixOS and Home Manager configurations.",
 	}
 
 	var rebuildCmd = &cobra.Command{
 		Use:     "rebuild",
 		Aliases: []string{"r"},
-		Short:   "Rebuild the system (auto-detects OS).",
+		Short:   "Rebuild the system.",
 		Run: func(cmd *cobra.Command, args []string) {
-			switch runtime.GOOS {
-			case "linux":
-				log("Rebuilding NixOS configuration...")
-				if err := runSudoCmd("nixos-rebuild", "switch", "--flake", ".#"); err != nil {
-					fmt.Printf("Error rebuilding NixOS: %v\n", err)
-					os.Exit(1)
-				}
-			case "darwin":
-				log("Rebuilding Darwin configuration...")
-				if err := runSudoCmd("darwin-rebuild", "switch", "--flake", ".#"); err != nil {
-					fmt.Printf("Error rebuilding Darwin: %v\n", err)
-					os.Exit(1)
-				}
-			default:
-				fmt.Printf("❌ Unsupported OS: %s\n", runtime.GOOS)
+			log("Rebuilding NixOS configuration...")
+			if err := runSudoCmd("nixos-rebuild", "switch", "--flake", ".#"); err != nil {
+				fmt.Printf("Error rebuilding NixOS: %v\n", err)
 				os.Exit(1)
 			}
 		},
@@ -89,23 +76,11 @@ func main() {
 	var testCmd = &cobra.Command{
 		Use:     "test",
 		Aliases: []string{"t"},
-		Short:   "Test configuration (NixOS test / Darwin check).",
+		Short:   "Test configuration.",
 		Run: func(cmd *cobra.Command, args []string) {
-			switch runtime.GOOS {
-			case "linux":
-				log("Testing NixOS configuration...")
-				if err := runSudoCmd("nixos-rebuild", "test", "--flake", ".#"); err != nil {
-					fmt.Printf("Error testing NixOS: %v\n", err)
-					os.Exit(1)
-				}
-			case "darwin":
-				log("Checking Darwin configuration...")
-				if err := runCmd("darwin-rebuild", "check", "--flake", ".#"); err != nil {
-					fmt.Printf("Error checking Darwin: %v\n", err)
-					os.Exit(1)
-				}
-			default:
-				fmt.Printf("❌ Unsupported OS: %s\n", runtime.GOOS)
+			log("Testing NixOS configuration...")
+			if err := runSudoCmd("nixos-rebuild", "test", "--flake", ".#"); err != nil {
+				fmt.Printf("Error testing NixOS: %v\n", err)
 				os.Exit(1)
 			}
 		},

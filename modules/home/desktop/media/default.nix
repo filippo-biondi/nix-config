@@ -9,16 +9,10 @@ in {
   options.ccg.desktop.media.enable = lib.ccg.mkBoolOpt' false;
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs;
-      if pkgs.stdenv.isDarwin
-      then [
-        vlc-bin
-        spotify
-      ]
-      else [
-        spotify
-        vlc
-        obs-studio
-      ];
+    home.packages = with pkgs; [
+      spotify
+      vlc
+      obs-studio
+    ];
   };
 }

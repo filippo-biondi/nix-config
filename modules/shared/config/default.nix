@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  pkgs,
   ...
 }: {
   nix = {
@@ -17,26 +16,14 @@
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
       trusted-users = [
-        "@admin"
         "@wheel"
       ];
     };
     optimise.automatic = true;
-    gc =
-      {
-        automatic = true;
-        options = "--delete-older-than 30d";
-      }
-      // (
-        if pkgs.stdenv.isDarwin
-        then {
-          interval = {
-            Weekday = 7;
-          };
-        }
-        else {
-          dates = "weekly";
-        }
-      );
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 }

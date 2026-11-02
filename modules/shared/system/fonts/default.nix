@@ -17,7 +17,7 @@ in {
       LOG_ICONS = "true";
     };
 
-    environment.systemPackages = lib.mkIf pkgs.stdenv.isLinux [pkgs.font-manager];
+    environment.systemPackages = [pkgs.font-manager];
 
     fonts.packages = with pkgs;
       [

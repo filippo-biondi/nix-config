@@ -2,7 +2,7 @@
 
 This repository contains the Nix configuration for my personal infrastructure, managed using [Flakes](https://nixos.wiki/wiki/Flakes) and structured with [Snowfall Lib](https://github.com/snowfallorg/lib).
 
-It manages **NixOS** and standalone **Home Manager** configurations, plus a **nix-darwin** one that is no longer used.
+It manages **NixOS** and standalone **Home Manager** configurations.
 
 ## Hosts
 
@@ -11,7 +11,6 @@ It manages **NixOS** and standalone **Home Manager** configurations, plus a **ni
 | `server-msi` | NixOS | Main server, with an NVIDIA GPU; runs most self-hosted services |
 | `server-stella` | NixOS | Smaller server (BIOS boot) |
 | `installer` | NixOS | Minimal system for bootstrapping a new machine: root SSH login with my key, passwordless sudo |
-| `macbook-pro` | nix-darwin | No longer used: the MacBook is managed with [chezmoi](https://github.com/filippo-biondi/chezmoi-config) |
 
 ## Layout
 
@@ -23,7 +22,6 @@ homes/<arch>/<user>@<host>/    Home Manager configuration per user and machine
 homes/filippo/                 my home configuration, imported by every filippo@<host>
 modules/nixos/                 NixOS modules
 modules/home/                  Home Manager modules
-modules/darwin/                nix-darwin modules
 modules/shared/                modules for every system (Nix settings, fonts)
 modules/usersCatalog/          the users of each host
 lib/                           helpers available as lib.ccg.*
@@ -65,8 +63,8 @@ It also installs a **pre-commit hook** that checks formatting with `treefmt` (al
 `sys` wraps the common tasks:
 
 ```bash
-sys rebuild              # switch this machine to the configuration (NixOS or nix-darwin)
-sys test                 # activate without making it the boot default (NixOS), or check it (nix-darwin)
+sys rebuild              # switch this machine to the configuration
+sys test                 # activate without making it the boot default
 sys home-switch          # switch the standalone Home Manager configuration
 sys home-test            # test it without switching
 sys update               # update all flake inputs

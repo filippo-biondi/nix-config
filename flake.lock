@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "brew-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1788524067,
-        "narHash": "sha256-7zpxh25/ntyzIkVaadg4kUY+3vmA5xg13q43IB9pgXE=",
-        "owner": "Homebrew",
-        "repo": "brew",
-        "rev": "67984c752d13f3bbcb9aba059d727930aec887dc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Homebrew",
-        "ref": "master",
-        "repo": "brew",
-        "type": "github"
-      }
-    },
     "claude-plugins": {
       "flake": false,
       "locked": {
@@ -45,26 +28,6 @@
       "original": {
         "owner": "ipetkov",
         "repo": "crane",
-        "type": "github"
-      }
-    },
-    "darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1792603717,
-        "narHash": "sha256-rGPhon9BPrx8/suy0Vz6/xH28AOPvWfbcBPYJYP6FNA=",
-        "owner": "LnL7",
-        "repo": "nix-darwin",
-        "rev": "b2f8c5cabf046fccc55bda9375643684c7fd2acd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "LnL7",
-        "repo": "nix-darwin",
         "type": "github"
       }
     },
@@ -406,44 +369,6 @@
         "type": "github"
       }
     },
-    "nix-homebrew": {
-      "inputs": {
-        "brew-src": "brew-src"
-      },
-      "locked": {
-        "lastModified": 1789928041,
-        "narHash": "sha256-iV37ieTcE4ZLOYEe0VznW6dWMBe4lEL8AbK1vblyZGM=",
-        "owner": "zhaofengli-wip",
-        "repo": "nix-homebrew",
-        "rev": "c11cccfdd36dd69b5323d70d354b2853379c2426",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zhaofengli-wip",
-        "repo": "nix-homebrew",
-        "type": "github"
-      }
-    },
-    "nix-rosetta-builder": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770491098,
-        "narHash": "sha256-ZfhynJqgV3A9hEivcgOEZa+TZnJPc26lIUjzKsSchgI=",
-        "owner": "cpick",
-        "repo": "nix-rosetta-builder",
-        "rev": "50e6070082e0b4fbaf67dd8f346892a1a9ed685c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cpick",
-        "repo": "nix-rosetta-builder",
-        "type": "github"
-      }
-    },
     "nixlib": {
       "locked": {
         "lastModified": 1736643958,
@@ -716,13 +641,10 @@
     "root": {
       "inputs": {
         "claude-plugins": "claude-plugins",
-        "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "home-manager": "home-manager",
         "interpelli-bot": "interpelli-bot",
-        "nix-homebrew": "nix-homebrew",
-        "nix-rosetta-builder": "nix-rosetta-builder",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-nightly": "nixpkgs-nightly",

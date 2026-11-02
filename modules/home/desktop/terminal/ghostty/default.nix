@@ -21,7 +21,6 @@ in {
         font-size = 18;
         maximize = true;
         auto-update-channel = "tip"; # wait for for new ghostty release
-        macos-option-as-alt = true;
         keybind = [
           # Entry point
           "alt+v=activate_key_table:vim"

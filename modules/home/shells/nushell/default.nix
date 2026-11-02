@@ -19,7 +19,6 @@ in {
         ll = "ls -l"; # Nu's ls is already 'human-readable' by default
         os-update = "sudo nixos-rebuild switch --flake .";
         hm-update = "home-manager switch --flake .";
-        darwin-update = "sudo darwin-rebuild switch --flake .";
         test-os-update = "sudo nixos-rebuild test --flake .";
       };
 

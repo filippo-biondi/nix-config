@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -17,10 +16,7 @@ in {
   config = lib.mkIf (cfg.user != null) {
     home = {
       username = "${cfg.user.username}";
-      homeDirectory =
-        if pkgs.stdenv.isDarwin
-        then "/Users/${cfg.user.username}"
-        else "/home/${cfg.user.username}";
+      homeDirectory = "/home/${cfg.user.username}";
     };
 
     # Set the default editor

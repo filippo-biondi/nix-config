@@ -42,14 +42,6 @@
       };
     };
 
-    macbook-pro = {
-      filippo =
-        server-msi.filippo
-        // {
-          sshKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi5XH2x57j86zBf2eMDkEhjHBeIOuGdxWsc358WfcQT"];
-        };
-    };
-
     server-stella = server-msi;
 
     server-casa = {
