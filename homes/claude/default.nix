@@ -23,7 +23,7 @@
   programs.claude-code = {
     plugins.core = "${inputs.claude-plugins}/plugins/core";
 
-    memory.text = ''
+    context = ''
       You are running on the NixOS host ${host}, as the `claude` user.
       The host's configuration is nix-config, checked out in ~/workspace/nix-config.
       Before changing it, load the /core:nix-config skill.
