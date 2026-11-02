@@ -38,7 +38,7 @@ in {
       }) (lib.filterAttrs (_: user: user.setPassword) cfg.users)
       # The claude user's Gerrit identity, the same on every host
       // lib.optionalAttrs (cfg.users ? claude) (lib.genAttrs ["claude/ssh-key" "claude/netrc"] (_: {
-        sopsFile = "${inputs.secrets}/secrets/${host}/secrets.yaml";
+        sopsFile = "${inputs.secrets}/secrets/claude.yaml";
         owner = "claude";
       }));
   };
