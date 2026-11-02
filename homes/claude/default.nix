@@ -17,9 +17,16 @@
     };
   };
 
-  programs.claude-code.plugins = {
-    review = "${inputs.claude-plugins}/plugins/review";
-    config-manager = "${inputs.claude-plugins}/plugins/config-manager";
+  programs.claude-code = {
+    plugins.core = "${inputs.claude-plugins}/plugins/core";
+
+    memory.text = ''
+      You are running on the NixOS host ${host}, as the `claude` user.
+      The host's configuration is nix-config, checked out in ~/workspace/nix-config.
+      Before changing it, load the /core:nix-config skill.
+
+      @${inputs.claude-plugins}/plugins/core/preferences.md
+    '';
   };
 
   # The review skills push to Gerrit through this host, with the agent's own key
