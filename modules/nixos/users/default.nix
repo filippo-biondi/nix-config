@@ -28,12 +28,18 @@ in {
     # Snowfall puts every user with a home in wheel: extraGroups decides instead
     snowfallorg.users = lib.mapAttrs (_: _: {admin = false;}) cfg.users;
 
-    sops.secrets = lib.mapAttrs' (username: _: {
-      name = "${username}/passwordHash";
-      value = {
+    sops.secrets =
+      lib.mapAttrs' (username: _: {
+        name = "${username}/passwordHash";
+        value = {
+          sopsFile = "${inputs.secrets}/secrets/${host}/secrets.yaml";
+          neededForUsers = true;
+        };
+      }) (lib.filterAttrs (_: user: user.setPassword) cfg.users)
+      # The claude user's Gerrit identity, the same on every host
+      // lib.optionalAttrs (cfg.users ? claude) (lib.genAttrs ["claude/ssh-key" "claude/netrc"] (_: {
         sopsFile = "${inputs.secrets}/secrets/${host}/secrets.yaml";
-        neededForUsers = true;
-      };
-    }) (lib.filterAttrs (_: user: user.setPassword) cfg.users);
+        owner = "claude";
+      }));
   };
 }
