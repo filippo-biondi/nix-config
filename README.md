@@ -25,7 +25,7 @@ modules/home/                  Home Manager modules
 modules/shared/                modules for every system (Nix settings, fonts)
 modules/usersCatalog/          the users of each host
 lib/                           helpers available as lib.ccg.*
-overlays/                      pkgs.stable (nixos-25.05), pkgs.nightly, the treefmt wrapper
+overlays/                      pkgs.stable (nixos-26.05), pkgs.nightly, the treefmt wrapper
 packages/sys/                  the sys command
 shells/default/                the development shell
 secrets/                       encrypted secrets (submodule, private repository)
