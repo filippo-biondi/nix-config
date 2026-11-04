@@ -30,7 +30,7 @@ in {
         remote.github = {
           url = "https://github.com/filippo-biondi/\${name}.git";
           push = ["refs/heads/*:refs/heads/*" "refs/tags/*:refs/tags/*"];
-          projects = ["nix-config" "chezmoi-config" "claude-plugins"];
+          projects = ["nix-config" "chezmoi-config" "claude-plugins" "nvim-config"];
         };
       };
       settings = {
