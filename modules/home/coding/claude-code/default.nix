@@ -28,7 +28,7 @@ in {
         # "-": the folder may not exist yet when ExecStartPre creates it
         WorkingDirectory = "-${cfg.remoteControl.directory}";
         # Sessions run the user's and the system's tools
-        Environment = "PATH=/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin";
+        Environment = "PATH=${config.home.profileDirectory}/bin:/run/current-system/sw/bin";
         Restart = "on-failure";
         RestartSec = 60;
       };
