@@ -13,6 +13,7 @@ in {
       settings = {
         PermitRootLogin = "no";
         PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
       };
     };
     programs.ssh.startAgent = true;
