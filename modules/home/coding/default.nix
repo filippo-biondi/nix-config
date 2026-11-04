@@ -11,7 +11,6 @@ in {
     ccg.coding = {
       vscode.enable = true;
       nvim.enable = true;
-      gemini.enable = true;
       jetbrains.enable = false;
     };
   };
