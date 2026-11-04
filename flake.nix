@@ -45,7 +45,7 @@
 
     interpelli-bot.url = "git+ssh://git@github.com/filippo-biondi/interpelli-bot.git";
 
-    proxmox-nixos.url = "github:greg-hellings/proxmox-nixos/fix/212-AcceptEnv-redefinition";
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
     secrets.url = "git+ssh://git@github.com/filippo-biondi/nix-secrets.git";
 
