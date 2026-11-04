@@ -38,14 +38,14 @@
     alias = "gerrit-claude";
     user = "claude";
   };
-  programs.ssh.settings.gerrit-claude = {
+  programs.ssh.settings.gerrit-claude = lib.mkIf (osConfig != null) {
     IdentityFile = osConfig.sops.secrets."claude/ssh-key".path;
     # The clone below runs with nobody to answer the prompt
     StrictHostKeyChecking = "accept-new";
   };
 
   # The review skills sign in to Gerrit's REST API from this file
-  home.file.".netrc" = {
+  home.file.".netrc" = lib.mkIf (osConfig != null) {
     source = config.lib.file.mkOutOfStoreSymlink osConfig.sops.secrets."claude/netrc".path;
     force = true;
   };
