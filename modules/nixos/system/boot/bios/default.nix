@@ -13,7 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     boot.loader.grub = {
       enable = true;
-      device = "/dev/sda";
+      inherit (cfg) device;
     };
   };
 }
