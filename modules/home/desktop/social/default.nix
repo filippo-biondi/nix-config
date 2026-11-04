@@ -15,6 +15,10 @@ in {
       signal-desktop
     ];
 
-    programs.firefox.enable = true;
+    programs.firefox = {
+      enable = true;
+      # Keep the existing profile where it is: home.stateVersion 26.05 moves the default
+      configPath = ".mozilla/firefox";
+    };
   };
 }
