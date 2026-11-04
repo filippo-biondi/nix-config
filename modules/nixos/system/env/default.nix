@@ -36,7 +36,6 @@ in {
       variables = {
         # Make some programs "XDG" compliant.
         LESSHISTFILE = "$XDG_CACHE_HOME/less.history";
-        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
       };
       extraInit = lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: ''export ${n}="${v}"'') cfg);
     };
