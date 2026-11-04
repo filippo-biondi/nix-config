@@ -2,14 +2,42 @@
   inputs,
   config,
   lib,
+  pkgs,
   host,
   ...
 }: let
   cfg = config.ccg.self-hosting.gerrit;
   tailscale = config.ccg.networking.tailscale;
   rootOnly = "OUTPUT -o lo -d 127.0.0.1 -p tcp --dport 8080 -m owner ! --uid-owner 0 -j REJECT";
+
+  github = "https://github.com/filippo-biondi";
+
+  applyProjects = pkgs.writeShellApplication {
+    name = "gerrit-apply-projects";
+    runtimeInputs = [pkgs.coreutils pkgs.git pkgs.gnugrep pkgs.jq];
+    text = builtins.readFile ./apply-projects.sh;
+  };
+  projectsFile = pkgs.writeText "gerrit-projects.json" (builtins.toJSON cfg.projects);
+
+  projectType = lib.types.submodule {
+    options = {
+      description = lib.ccg.mkOpt' (lib.types.nullOr lib.types.str) null;
+      # Pushed to GitHub, and imported from there while the project has no branches
+      mirror = lib.ccg.mkBoolOpt' false;
+      # Keys of project.config by section, named as git config does, such as
+      # "access.refs/heads/*". A key removed from here stays in the project
+      settings = lib.ccg.mkOpt' (lib.types.attrsOf (lib.types.attrsOf (lib.types.either lib.types.str (lib.types.listOf lib.types.str)))) {};
+      # UUIDs of the groups named in settings, as Gerrit needs them in the groups file
+      groups = lib.ccg.mkOpt' (lib.types.attrsOf lib.types.str) {};
+    };
+  };
 in {
-  options.ccg.self-hosting.gerrit.enable = lib.ccg.mkBoolOpt' false;
+  options.ccg.self-hosting.gerrit = {
+    enable = lib.ccg.mkBoolOpt' false;
+    # Only what is declared here is managed: anything else in a project's
+    # configuration, such as permissions set in the web UI, is left alone
+    projects = lib.ccg.mkOpt' (lib.types.attrsOf projectType) {};
+  };
 
   config = lib.mkIf cfg.enable {
     assertions = [
@@ -28,9 +56,9 @@ in {
       replicationSettings = {
         gerrit.replicateOnStartup = true;
         remote.github = {
-          url = "https://github.com/filippo-biondi/\${name}.git";
+          url = "${github}/\${name}.git";
           push = ["refs/heads/*:refs/heads/*" "refs/tags/*:refs/tags/*"];
-          projects = ["nix-config" "chezmoi-config" "claude-plugins" "nvim-config"];
+          projects = lib.attrNames (lib.filterAttrs (_: project: project.mirror) cfg.projects);
         };
       };
       settings = {
@@ -54,6 +82,7 @@ in {
       preStart = lib.mkAfter ''
         git config -f etc/secure.config remote.github.username x-access-token
         git config -f etc/secure.config remote.github.password "$(< "$CREDENTIALS_DIRECTORY/github-token")"
+        ${lib.getExe applyProjects} ${projectsFile} ${github}
       '';
     };
 

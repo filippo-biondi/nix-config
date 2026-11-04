@@ -35,7 +35,27 @@
   };
   ccg.self-hosting.immich.enable = true;
   ccg.self-hosting.interpelli-bot.enable = true;
-  ccg.self-hosting.gerrit.enable = true;
+  ccg.self-hosting.gerrit = {
+    enable = true;
+    projects = {
+      nix-config = {
+        description = "nix-config, mirrored to GitHub";
+        mirror = true;
+      };
+      chezmoi-config = {
+        description = "chezmoi-config, mirrored to GitHub";
+        mirror = true;
+      };
+      claude-plugins = {
+        description = "Personal Claude Code plugin marketplace";
+        mirror = true;
+      };
+      nvim-config = {
+        description = "nvim-config, mirrored to GitHub";
+        mirror = true;
+      };
+    };
+  };
   # ccg.self-hosting.proxmox.enable = true;
 
   ccg.apps.tools.nix-ld.enable = true;
