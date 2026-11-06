@@ -162,11 +162,12 @@ func main() {
 			target := fmt.Sprintf("%s@%s", user, host)
 			log(fmt.Sprintf("Deploying flake .#%s to %s...", host, target))
 
-			if err := runSudoCmd("nixos-rebuild", "switch",
+			// Runs as the user, so SSH uses their keys and agent: only the target needs root
+			if err := runCmd("nixos-rebuild", "switch",
 				"--flake", fmt.Sprintf(".#%s", host),
 				"--target-host", target,
-				"--use-remote-sudo",
-				"--ask-sudo-password",
+				"--sudo",
+				"--ask-elevate-password",
 			); err != nil {
 				fmt.Printf("Error deploying to %s: %v\n", target, err)
 				os.Exit(1)
