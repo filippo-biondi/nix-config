@@ -1,3 +1,3 @@
 {inputs, ...}: _final: prev: {
-  stable = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system};
+  nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system};
 }
