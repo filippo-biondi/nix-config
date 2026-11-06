@@ -43,7 +43,10 @@
 
     nvim.url = "github:filippo-biondi/nvim-config";
 
-    interpelli-bot.url = "git+ssh://git@github.com/filippo-biondi/interpelli-bot.git";
+    interpelli-bot = {
+      url = "git+ssh://git@github.com/filippo-biondi/interpelli-bot.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
