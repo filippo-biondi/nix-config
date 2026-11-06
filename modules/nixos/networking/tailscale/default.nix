@@ -15,6 +15,8 @@ in {
   config = lib.mkIf cfg.enable {
     services.tailscale = {
       enable = true;
+      # Without its UDP port, peers can only meet through Tailscale's slow relays
+      openFirewall = true;
       authKeyFile = lib.mkIf cfg.withKey "${config.sops.secrets."tailscale/authkey".path}";
     };
 
