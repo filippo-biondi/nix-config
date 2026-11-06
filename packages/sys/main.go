@@ -168,6 +168,8 @@ func main() {
 				"--target-host", target,
 				"--sudo",
 				"--ask-elevate-password",
+				// The target downloads what the binary cache has instead of receiving it from here
+				"--use-substitutes",
 			); err != nil {
 				fmt.Printf("Error deploying to %s: %v\n", target, err)
 				os.Exit(1)
