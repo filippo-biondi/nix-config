@@ -50,6 +50,10 @@ in {
     services.devmon.enable = true;
     services.locate.enable = true;
 
+    # Generating the NixOS and Home Manager manuals costs about a second of every evaluation
+    documentation.nixos.enable = false;
+    home-manager.sharedModules = [{manual.manpages.enable = false;}];
+
     # Prevent sleep
     systemd.targets = {
       sleep.enable = false;
