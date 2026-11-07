@@ -159,7 +159,12 @@ func main() {
 				user = args[1]
 			}
 
-			target := fmt.Sprintf("%s@%s", user, host)
+			// --to reaches a host under another address, such as a new machine's IP
+			address, _ := cmd.Flags().GetString("to")
+			if address == "" {
+				address = host
+			}
+			target := fmt.Sprintf("%s@%s", user, address)
 			log(fmt.Sprintf("Deploying flake .#%s to %s...", host, target))
 
 			// Runs as the user, so SSH uses their keys and agent: only the target needs root
@@ -176,6 +181,7 @@ func main() {
 			}
 		},
 	}
+	deployCmd.Flags().String("to", "", "address to deploy to instead of the host name")
 	rootCmd.AddCommand(deployCmd)
 
 	var addHostCmd = &cobra.Command{
