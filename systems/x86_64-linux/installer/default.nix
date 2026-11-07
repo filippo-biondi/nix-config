@@ -1,33 +1,13 @@
 {
-  host,
   config,
-  pkgs,
   lib,
   ...
 }: {
-  ccg.users = config.ccg.usersCatalog.${host};
-  users.users.root.openssh.authorizedKeys.keys = config.ccg.usersCatalog.${host}.filippo.sshKeys;
+  imports = [../../installer.nix];
 
-  ccg.system.base.enable = true;
-
-  ccg.networking.core = {
-    hostname = host;
-    enable = true;
-  };
-
-  ccg.openssh.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    git
-    neovim
-    sbctl
-  ];
-
-  security.sudo.wheelNeedsPassword = false;
+  # nixos-anywhere logs in as root to partition and install a new machine from here
+  users.users.root.openssh.authorizedKeys.keys = config.ccg.usersCatalog.installer.filippo.sshKeys;
   services.openssh.settings.PermitRootLogin = lib.mkForce "without-password";
-  documentation.enable = false;
-  documentation.man.enable = false;
-  documentation.nixos.enable = false;
 
   # dummy values to pass checks
   fileSystems."/" = {

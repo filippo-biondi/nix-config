@@ -11,6 +11,7 @@ It manages **NixOS** and standalone **Home Manager** configurations.
 | `server-msi` | NixOS | Main server, with an NVIDIA GPU; runs most self-hosted services |
 | `server-stella` | NixOS | Smaller server (BIOS boot) |
 | `installer` | NixOS | Minimal system for bootstrapping a new machine: root SSH login with my key, passwordless sudo |
+| `installer-sd` | NixOS (aarch64) | The same as an SD card image for a Raspberry Pi 3 or 4, with no root login: `nix build .#nixosConfigurations.installer-sd.config.system.build.sdImage` on server-msi |
 
 ## Layout
 
