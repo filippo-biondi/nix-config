@@ -9,6 +9,8 @@
   ];
 
   ccg.system.boot.efi.enable = true;
+  # Builds aarch64 systems, such as Raspberry Pi images, under emulation
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
   ccg.system.base.enable = true;
 
   ccg.hardware.battery.enable = true;
