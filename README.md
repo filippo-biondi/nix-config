@@ -10,8 +10,7 @@ It manages **NixOS** and standalone **Home Manager** configurations.
 | --- | --- | --- |
 | `server-msi` | NixOS | Main server, with an NVIDIA GPU; runs most self-hosted services |
 | `server-stella` | NixOS | Smaller server (BIOS boot) |
-| `installer` | NixOS | Minimal system for bootstrapping a new machine: root SSH login with my key, passwordless sudo |
-| `installer-sd` | NixOS (aarch64) | The same as an SD card image for a Raspberry Pi 3 or 4, with no root login: `nix build .#nixosConfigurations.installer-sd.config.system.build.sdImage` on server-msi |
+| `installer-x86_64-linux`, `installer-aarch64-linux` | NixOS | Minimal system for bootstrapping a new machine, one per architecture: root SSH login with my key, passwordless sudo. `sys image installer [variant] [arch]` builds it as an image, such as an ISO for a USB stick or an SD card for a Raspberry Pi |
 
 ## Layout
 
@@ -71,6 +70,7 @@ sys home-test            # test it without switching
 sys update               # update all flake inputs
 sys clean                # optimise and garbage collect the Nix store
 sys deploy <host> [user] # build here and switch a remote NixOS host over SSH (user defaults to filippo)
+sys image <host> [variant] [arch] # build an image of a host into images/, e.g. sys image installer sd-card aarch64-linux
 ```
 
 `sys add-host` is a placeholder and does nothing yet.

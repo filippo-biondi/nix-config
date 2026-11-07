@@ -3,8 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/fs"
 	"os"
 	"os/exec"
+	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -183,6 +186,61 @@ func main() {
 	}
 	deployCmd.Flags().String("to", "", "address to deploy to instead of the host name")
 	rootCmd.AddCommand(deployCmd)
+
+	var imageCmd = &cobra.Command{
+		Use:     "image <host> [variant] [arch]",
+		Aliases: []string{"i"},
+		Short:   "Build an image of a host, such as an ISO or an SD card, into images/.",
+		Long: `Build one of NixOS's image variants of a host (iso, sd-card, qemu, ...)
+into images/<host>-<variant>-<arch>. The variant defaults to iso and the
+architecture to this machine's. A host with one configuration per
+architecture, like installer-x86_64-linux and installer-aarch64-linux,
+is named without the suffix: sys image installer sd-card aarch64-linux.`,
+		Args: cobra.RangeArgs(1, 3),
+		Run: func(cmd *cobra.Command, args []string) {
+			host := args[0]
+			variant := "iso"
+			if len(args) > 1 {
+				variant = args[1]
+			}
+			arch := map[string]string{"amd64": "x86_64-linux", "arm64": "aarch64-linux"}[runtime.GOARCH]
+			if len(args) > 2 {
+				arch = args[2]
+			}
+
+			// The installer exists once per architecture, as installer-<arch>
+			config := host
+			if output, err := exec.Command("nix", "eval", ".#nixosConfigurations",
+				"--apply", fmt.Sprintf(`configs: configs ? "%s-%s"`, host, arch),
+			).Output(); err == nil && strings.TrimSpace(string(output)) == "true" {
+				config = host + "-" + arch
+			}
+
+			// The link keeps the image from being garbage collected until it is removed
+			link := filepath.Join("images", fmt.Sprintf("%s-%s-%s", host, variant, arch))
+			if err := os.MkdirAll("images", 0o755); err != nil {
+				fmt.Printf("Error creating images: %v\n", err)
+				os.Exit(1)
+			}
+			image := fmt.Sprintf(".#nixosConfigurations.%s.config.system.build.images.%s", config, variant)
+			if err := runCmd("nix", "build", image, "--out-link", link); err != nil {
+				fmt.Printf("Error building the %s image of %s: %v\n", variant, host, err)
+				os.Exit(1)
+			}
+
+			// Each variant puts its file somewhere else in the output
+			filepath.WalkDir(link+"/", func(path string, entry fs.DirEntry, err error) error {
+				if err == nil && entry.IsDir() && entry.Name() == "nix-support" {
+					return filepath.SkipDir
+				}
+				if err == nil && !entry.IsDir() {
+					log(fmt.Sprintf("Image: %s", path))
+				}
+				return nil
+			})
+		},
+	}
+	rootCmd.AddCommand(imageCmd)
 
 	var addHostCmd = &cobra.Command{
 		Use:   "add-host [host_name] [target_host]",
