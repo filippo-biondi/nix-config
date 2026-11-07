@@ -71,6 +71,7 @@ sys update               # update all flake inputs
 sys clean                # optimise and garbage collect the Nix store
 sys deploy <host> [user] # build here and switch a remote NixOS host over SSH (user defaults to filippo)
 sys image <host> [variant] [arch] # build an image of a host into images/, e.g. sys image installer sd-card aarch64-linux
+sys secrets-sync         # regenerate secrets/.sops.yaml and re-encrypt the secrets whose readers changed
 ```
 
 `sys add-host` is a placeholder and does nothing yet.
@@ -85,6 +86,8 @@ home-manager switch --flake .         # Home Manager
 ## Secrets
 
 Secrets are managed with **sops-nix** and **age**. They live in a separate private repository, which this one uses twice: as the flake input `secrets`, which builds read, and as the `secrets/` submodule, where they are edited. Builds use the revision pinned in `flake.lock`, so a change to the secrets takes effect once that input is updated.
+
+Who can read each secret file isn't written by hand. `lib/sops-config` generates nix-secrets' `.sops.yaml` from the age keys in its `keys/` folder and the secrets each host declares: a shared file is readable by the admins (me and the backup key) and the hosts that use it, a host's own file by the admins and that host. `sys secrets-sync` writes it and re-encrypts what changed. No server holds a key that reads everything: on whichever host I run it, sops reaches my key on my laptop through the sops key service, which my SSH connection forwards to `~/.sops-keyservice.sock`.
 
 See [secrets/README.md](./secrets/README.md) for how the secrets and their keys are organised.
 

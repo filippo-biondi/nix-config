@@ -242,6 +242,23 @@ is named without the suffix: sys image installer sd-card aarch64-linux.`,
 	}
 	rootCmd.AddCommand(imageCmd)
 
+	var secretsSyncCmd = &cobra.Command{
+		Use:   "secrets-sync",
+		Short: "Regenerate secrets/.sops.yaml and re-encrypt the secrets whose readers changed.",
+		Long: `Write the .sops.yaml that lib/sops-config generates to the nix-secrets
+checkout in secrets/, then re-encrypt each file whose readers changed. sops
+decrypts them through the sops key service of the machine that holds your
+age key, forwarded over SSH to ~/.sops-keyservice.sock.`,
+		Args: cobra.NoArgs,
+		Run: func(cmd *cobra.Command, args []string) {
+			if err := secretsSync(); err != nil {
+				fmt.Printf("Error syncing the secrets: %v\n", err)
+				os.Exit(1)
+			}
+		},
+	}
+	rootCmd.AddCommand(secretsSyncCmd)
+
 	var addHostCmd = &cobra.Command{
 		Use:   "add-host [host_name] [target_host]",
 		Short: "Interactive script to bootstrap a new host (placeholder).",

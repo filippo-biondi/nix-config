@@ -12,7 +12,7 @@ pkgs.buildGoModule {
   vendorHash = "sha256-7K17JaXFsjf163g5PXCb5ng2gYdotnZ2IDKk8KFjNj0=";
 
   # We need this utility to install completions to the correct system paths
-  nativeBuildInputs = [pkgs.installShellFiles];
+  nativeBuildInputs = [pkgs.installShellFiles pkgs.makeWrapper];
 
   # 1. The binary is built and placed in $out/bin/toy
   # 2. We execute that binary to generate the completion scripts
@@ -22,5 +22,10 @@ pkgs.buildGoModule {
       --bash <($out/bin/sys completion bash) \
       --zsh <($out/bin/sys completion zsh) \
       --fish <($out/bin/sys completion fish)
+  '';
+
+  # secrets-sync runs these
+  postFixup = ''
+    wrapProgram $out/bin/sys --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.sops]}
   '';
 }
