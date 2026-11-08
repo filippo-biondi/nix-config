@@ -14,6 +14,7 @@
   ccg.system.base.enable = true;
 
   ccg.hardware.battery.enable = true;
+  ccg.hardware.smartd.enable = true;
 
   ccg.users = config.ccg.usersCatalog.${host};
   ccg.openssh.enable = true;

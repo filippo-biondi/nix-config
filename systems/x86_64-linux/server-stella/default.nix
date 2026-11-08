@@ -7,6 +7,7 @@
 
   ccg.system.base.enable = true;
   ccg.system.boot.bios.enable = true;
+  ccg.hardware.smartd.enable = true;
 
   ccg.users = config.ccg.usersCatalog.${host};
   ccg.openssh.enable = true;
