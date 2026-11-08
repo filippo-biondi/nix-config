@@ -39,8 +39,9 @@
       {
         name = "Immich";
         group = "server-msi";
-        url = "http://${msi}:2283/api/server/ping";
-        conditions = ["[STATUS] == 200"];
+        url = "https://${msi}:8443/api/server/ping";
+        # Tailscale renews the certificate well before it expires
+        conditions = ["[STATUS] == 200" "[CERTIFICATE_EXPIRATION] > 168h"];
       }
       {
         name = "Gerrit";

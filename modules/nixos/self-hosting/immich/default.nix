@@ -16,5 +16,18 @@ in {
       accelerationDevices = null;
       machine-learning.enable = true;
     };
+
+    # https://<host>.<tailnet>:8443, with a certificate from Tailscale
+    systemd.services.immich-tailscale-serve = {
+      after = ["tailscaled.service" "immich-server.service"];
+      wants = ["tailscaled.service"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        Restart = "on-failure";
+        RestartSec = 10;
+      };
+      script = "${config.services.tailscale.package}/bin/tailscale serve --bg --https=8443 http://127.0.0.1:${toString config.services.immich.port}";
+    };
   };
 }
