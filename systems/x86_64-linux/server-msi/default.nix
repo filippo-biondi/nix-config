@@ -54,6 +54,7 @@
     ];
   };
   ccg.self-hosting.immich.enable = true;
+  ccg.self-hosting.home-assistant.enable = true;
   ccg.self-hosting.interpelli-bot.enable = true;
   ccg.self-hosting.gerrit = {
     enable = true;
