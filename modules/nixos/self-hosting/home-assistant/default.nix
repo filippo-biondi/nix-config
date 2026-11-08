@@ -18,6 +18,9 @@ in {
       # it as a proxy are set in the UI, under Settings > System > Network
       config = {
         default_config = {};
+        # Not the system's time zone: any setting here makes the location, the
+        # home zone, the units and the time zone read-only in the UI
+        homeassistant.time_zone = null;
         # So that automations, scenes and scripts made in the UI can be saved
         "automation ui" = "!include automations.yaml";
         "scene ui" = "!include scenes.yaml";
