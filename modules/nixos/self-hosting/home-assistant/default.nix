@@ -12,16 +12,12 @@ in {
     services.home-assistant = {
       enable = true;
       # Added from the UI: Matter for tado and the Thread switches, the projector, the vacuum.
-      # met and radio_browser are what onboarding sets up
-      extraComponents = ["matter" "androidtv_remote" "roborock" "met" "radio_browser"];
+      # met, radio_browser and google_translate are what onboarding sets up
+      extraComponents = ["matter" "androidtv_remote" "roborock" "met" "radio_browser" "google_translate"];
+      # Reached through tailscale serve only: listening on localhost and trusting
+      # it as a proxy are set in the UI, under Settings > System > Network
       config = {
         default_config = {};
-        # Reached through tailscale serve only
-        http = {
-          server_host = ["127.0.0.1" "::1"];
-          use_x_forwarded_for = true;
-          trusted_proxies = ["127.0.0.1" "::1"];
-        };
         # So that automations, scenes and scripts made in the UI can be saved
         "automation ui" = "!include automations.yaml";
         "scene ui" = "!include scenes.yaml";
