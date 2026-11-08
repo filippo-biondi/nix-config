@@ -25,6 +25,8 @@
   ccg.networking.tailscale = {
     enable = true;
     withKey = true;
+    # An exit through wherever the Pi is
+    exitNode = true;
   };
 
   # A Raspberry Pi 3B+ has 1 GB of RAM

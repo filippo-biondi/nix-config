@@ -34,6 +34,9 @@
   ccg.networking.tailscale = {
     enable = true;
     withKey = true;
+    # A German exit, and the home LAN from anywhere
+    exitNode = true;
+    routes = ["192.168.178.0/24"];
   };
   ccg.self-hosting.immich.enable = true;
   ccg.self-hosting.interpelli-bot.enable = true;
