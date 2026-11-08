@@ -12,7 +12,8 @@ in {
     services.immich = {
       enable = true;
       package = pkgs.nightly.immich;
-      host = "0.0.0.0";
+      # Reached through tailscale serve only
+      host = "127.0.0.1";
       accelerationDevices = null;
       machine-learning.enable = true;
     };
