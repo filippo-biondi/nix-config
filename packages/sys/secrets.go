@@ -79,6 +79,64 @@ func secretsSync() error {
 	return nil
 }
 
+// sys secrets-push commits and pushes nix-secrets, then updates nix-config's
+// secrets input and submodule to it, straight on main
+func secretsPush() error {
+	// The submodule is left out: its changes are the ones to push
+	if status, err := runOutput("", "git", "status", "--porcelain", "--ignore-submodules=all"); err != nil || status != "" {
+		return fmt.Errorf("nix-config has uncommitted changes: commit or stash them first")
+	}
+	if branch, err := runOutput("", "git", "symbolic-ref", "--short", "-q", "HEAD"); err != nil || branch != "main" {
+		return fmt.Errorf("nix-config is not on main")
+	}
+	if _, err := runOutput("secrets", "git", "symbolic-ref", "-q", "HEAD"); err != nil {
+		return fmt.Errorf("secrets/ is not on a branch: check one out so it can be pushed")
+	}
+	if err := runIn("", "git", "pull", "--ff-only"); err != nil {
+		return err
+	}
+
+	if err := runIn("secrets", "git", "add", "-A"); err != nil {
+		return err
+	}
+	if staged, err := runOutput("secrets", "git", "diff", "--cached", "--name-status"); err != nil {
+		return err
+	} else if staged == "" {
+		log("Nothing to commit in nix-secrets")
+	} else {
+		fmt.Println(staged)
+		fmt.Print(":: Commit message for nix-secrets (empty to stop): ")
+		message, _ := stdin.ReadString('\n')
+		message = strings.TrimSpace(message)
+		if message == "" {
+			return fmt.Errorf("no commit message: the changes are staged in secrets/, nothing was committed")
+		}
+		if err := runIn("secrets", "git", "commit", "-m", message); err != nil {
+			return err
+		}
+	}
+	if err := runIn("secrets", "git", "push"); err != nil {
+		return err
+	}
+
+	if err := runIn("", "nix", "flake", "update", "secrets"); err != nil {
+		return err
+	}
+	if err := runIn("", "git", "add", "flake.lock", "secrets"); err != nil {
+		return err
+	}
+	if changed, err := runOutput("", "git", "diff", "--cached", "--name-only"); err != nil {
+		return err
+	} else if changed == "" {
+		log("nix-config already points at these secrets")
+		return nil
+	}
+	if err := runIn("", "git", "commit", "-m", "Update secrets"); err != nil {
+		return err
+	}
+	return runIn("", "git", "push", "origin", "HEAD:refs/heads/main")
+}
+
 func runOutput(dir, name string, args ...string) (string, error) {
 	cmd := exec.Command(name, args...)
 	cmd.Dir = dir
