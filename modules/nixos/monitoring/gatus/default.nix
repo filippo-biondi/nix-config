@@ -19,6 +19,11 @@ in {
       settings = {
         # 8080 is Gerrit's on server-msi. The page is reachable through the tailnet
         web.port = 8090;
+        # On disk, so that an alert open across a restart still gets its recovery message
+        storage = {
+          type = "sqlite";
+          path = "/var/lib/gatus/data.db";
+        };
         alerting.telegram = {
           token = "\${TELEGRAM_TOKEN}";
           id = "\${TELEGRAM_CHAT_ID}";
