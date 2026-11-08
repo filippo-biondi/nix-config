@@ -32,6 +32,14 @@ in {
       ];
     };
 
+    # nixpkgs only runs tailscale set when tailscaled starts. Started with the
+    # system and kept active, a switch runs it, and runs it again when the
+    # flags change
+    systemd.services.tailscaled-set = {
+      wantedBy = ["multi-user.target"];
+      serviceConfig.RemainAfterExit = true;
+    };
+
     sops.secrets."tailscale/authkey" = {
       sopsFile = "${inputs.secrets}/secrets/${host}/secrets.yaml";
     };
