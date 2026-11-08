@@ -18,10 +18,5 @@ in {
       username = "${cfg.user.username}";
       homeDirectory = "/home/${cfg.user.username}";
     };
-
-    # Set the default editor
-    home.sessionVariables = {
-      EDITOR = "vim";
-    };
   };
 }
