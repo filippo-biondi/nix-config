@@ -32,6 +32,10 @@ in {
     # Home Assistant's Matter integration connects to it at ws://localhost:5580/ws.
     # It reaches Thread devices through the Nest Hub, which routes the Thread network
     services.matterjs-server.enable = true;
+    ccg.backup.services = {
+      home-assistant.paths = [hass.configDir];
+      matterjs-server.paths = ["/var/lib/private/matterjs-server"];
+    };
     # Matter traffic from the devices, to the controller
     networking.firewall.allowedUDPPorts = [5540];
 

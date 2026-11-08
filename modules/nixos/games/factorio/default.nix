@@ -30,6 +30,7 @@ in {
       saveName = "yag";
       mods = [];
     };
+    ccg.backup.services.factorio.paths = ["/var/lib/private/${config.services.factorio.stateDirName}"];
 
     sops.secrets."factorio/password" = {
       sopsFile = "${inputs.secrets}/secrets/factorio.yaml";

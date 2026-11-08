@@ -46,6 +46,12 @@ in {
         message = "ccg.self-hosting.gerrit is served over Tailscale: enable ccg.networking.tailscale";
       }
     ];
+    # The repositories, with the reviews, which GitHub doesn't get
+    # With its socket: a connection would start Gerrit again during the copy
+    ccg.backup.services.gerrit = {
+      units = ["gerrit.socket" "gerrit.service"];
+      paths = ["/var/lib/private/gerrit"];
+    };
 
     services.gerrit = {
       enable = true;

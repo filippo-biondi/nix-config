@@ -63,6 +63,10 @@
   };
   ccg.self-hosting.immich.enable = true;
   ccg.self-hosting.home-assistant.enable = true;
+  ccg.backup = {
+    enable = true;
+    notifier = config.ccg.notify.telegram.notifier;
+  };
   ccg.self-hosting.interpelli-bot.enable = true;
   ccg.self-hosting.gerrit = {
     enable = true;

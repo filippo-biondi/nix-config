@@ -17,6 +17,14 @@ in {
       accelerationDevices = null;
       machine-learning.enable = true;
     };
+    # Its originals and its database: it regenerates thumbnails and videos
+    ccg.backup = {
+      paths = map (dir: "${config.services.immich.mediaLocation}/${dir}") ["upload" "library" "profile"];
+      dumps.immich = {
+        user = "postgres";
+        command = ["${config.services.postgresql.package}/bin/pg_dump" "--format=custom" "--compress=0" "immich"];
+      };
+    };
 
     # https://<host>.<tailnet>:8443, with a certificate from Tailscale
     systemd.services.immich-tailscale-serve = {
