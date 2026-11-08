@@ -62,8 +62,8 @@ in {
         };
       };
       settings = {
-        gerrit.canonicalWebUrl = "http://${host}.${tailscale.tailnet}/";
-        httpd.listenUrl = "proxy-http://127.0.0.1:8080/";
+        gerrit.canonicalWebUrl = "https://${host}.${tailscale.tailnet}/";
+        httpd.listenUrl = "proxy-https://127.0.0.1:8080/";
         sshd.listenAddress = "*:29418";
         # No mail server here: every notification would fail
         sendemail.enable = false;
@@ -97,7 +97,7 @@ in {
         Restart = "on-failure";
         RestartSec = 10;
       };
-      script = "${config.services.tailscale.package}/bin/tailscale serve --bg --http=80 http://127.0.0.1:8080";
+      script = "${config.services.tailscale.package}/bin/tailscale serve --bg --https=443 http://127.0.0.1:8080";
     };
 
     networking.firewall = {

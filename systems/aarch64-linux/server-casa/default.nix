@@ -46,7 +46,7 @@
       {
         name = "Gerrit";
         group = "server-msi";
-        url = "http://${msi}/config/server/version";
+        url = "https://${msi}/config/server/version";
         conditions = ["[STATUS] == 200"];
       }
       {
