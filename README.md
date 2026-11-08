@@ -27,6 +27,7 @@ modules/usersCatalog/          the users of each host
 lib/                           helpers available as lib.ccg.*
 overlays/                      pkgs.nixpkgs-stable (nixos-26.05), pkgs.nightly, the treefmt wrapper
 packages/sys/                  the sys command
+packages/backups-stack/        the AWS side of the backups, in CDK: built to a CloudFormation template
 shells/default/                the development shell
 secrets/                       encrypted secrets (submodule, private repository)
 ```
