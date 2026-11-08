@@ -41,6 +41,18 @@
   };
   # DNS filtering for the tailnet and the home network
   ccg.networking.blocky.enable = true;
+  # Watches server-casa, which watches this server
+  ccg.monitoring.gatus = {
+    enable = true;
+    endpoints = [
+      {
+        name = "SSH";
+        group = "server-casa";
+        url = "ssh://server-casa.${config.ccg.networking.tailscale.tailnet}:22";
+        conditions = ["[CONNECTED] == true"];
+      }
+    ];
+  };
   ccg.self-hosting.immich.enable = true;
   ccg.self-hosting.interpelli-bot.enable = true;
   ccg.self-hosting.gerrit = {

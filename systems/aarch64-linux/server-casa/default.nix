@@ -29,6 +29,50 @@
     exitNode = true;
   };
 
+  # Watches the other servers, from outside them
+  ccg.monitoring.gatus = let
+    inherit (config.ccg.networking.tailscale) tailnet;
+    msi = "server-msi.${tailnet}";
+  in {
+    enable = true;
+    endpoints = [
+      {
+        name = "Immich";
+        group = "server-msi";
+        url = "http://${msi}:2283/api/server/ping";
+        conditions = ["[STATUS] == 200"];
+      }
+      {
+        name = "Gerrit";
+        group = "server-msi";
+        url = "http://${msi}/config/server/version";
+        conditions = ["[STATUS] == 200"];
+      }
+      {
+        name = "Blocky";
+        group = "server-msi";
+        url = msi;
+        dns = {
+          query-name = "example.org";
+          query-type = "A";
+        };
+        conditions = ["[DNS_RCODE] == NOERROR"];
+      }
+      {
+        name = "SSH";
+        group = "server-msi";
+        url = "ssh://${msi}:22";
+        conditions = ["[CONNECTED] == true"];
+      }
+      {
+        name = "SSH";
+        group = "server-stella";
+        url = "ssh://server-stella.${tailnet}:22";
+        conditions = ["[CONNECTED] == true"];
+      }
+    ];
+  };
+
   # A Raspberry Pi 3B+ has 1 GB of RAM
   zramSwap.enable = true;
 
