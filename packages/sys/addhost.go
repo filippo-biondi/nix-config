@@ -188,8 +188,10 @@ func addHost(host, address, user string) error {
 		return err
 	}
 
+	// boot rather than switch: the machine keeps running the installer, with its
+	// passwordless sudo and its hostname, until it reboots into its configuration
 	log(fmt.Sprintf("Deploying %s to %s...", host, address))
-	deploy := exec.Command("nixos-rebuild", "switch", "--flake", ".#"+host,
+	deploy := exec.Command("nixos-rebuild", "boot", "--flake", ".#"+host,
 		"--target-host", target, "--sudo", "--use-substitutes")
 	deploy.Env = append(os.Environ(), "NIX_SSHOPTS="+strings.Join(installerSSH, " "))
 	deploy.Stdin, deploy.Stdout, deploy.Stderr = os.Stdin, os.Stdout, os.Stderr
@@ -203,7 +205,13 @@ func addHost(host, address, user string) error {
 	if err := runIn(".", "git", "commit", "-m", "Set up "+host); err != nil {
 		return err
 	}
-	log(fmt.Sprintf("%s is set up. Upload the nix-config commit for review.", host))
+	// The connection drops as the machine goes down, so its status says nothing
+	log(fmt.Sprintf("Rebooting %s into its configuration...", host))
+	reboot := exec.Command("ssh", append(installerSSH, target, "sudo systemctl reboot")...)
+	reboot.Stdin, reboot.Stdout, reboot.Stderr = os.Stdin, os.Stdout, os.Stderr
+	reboot.Run()
+
+	log(fmt.Sprintf("%s is set up and rebooting. Upload the nix-config commit for review.", host))
 	return nil
 }
 
