@@ -50,6 +50,12 @@
         conditions = ["[STATUS] == 200"];
       }
       {
+        name = "Home Assistant";
+        group = "server-msi";
+        url = "https://${msi}:8123/manifest.json";
+        conditions = ["[STATUS] == 200"];
+      }
+      {
         name = "Blocky";
         group = "server-msi";
         url = msi;
