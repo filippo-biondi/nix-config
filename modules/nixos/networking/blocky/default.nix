@@ -13,8 +13,16 @@ in {
       settings = {
         upstreams.groups.default = [
           "https://dns.quad9.net/dns-query"
-          "https://dns.digitalcourage.de/dns-query"
           "https://dns.adguard-dns.com/dns-query"
+        ];
+
+        # By IP: through the system's resolver, which can be this very Blocky
+        # once the tailnet uses it, the upstreams' names would never resolve
+        bootstrapDns = [
+          {
+            upstream = "https://dns.quad9.net/dns-query";
+            ips = ["9.9.9.9" "149.112.112.112"];
+          }
         ];
 
         # Networking configuration
@@ -25,7 +33,7 @@ in {
 
         # Blocking configuration
         blocking = {
-          blackLists = {
+          denylists = {
             advertising = [
               "https://adaway.org/hosts.txt"
               "https://v.firebog.net/hosts/AdguardDNS.txt"
@@ -53,7 +61,6 @@ in {
               "https://v.firebog.net/hosts/RPiList-Malware.txt"
               "https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt"
               "https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/generated/hosts"
-              "https://urlhaus.abuse.ch/downloads/hostfile/"
               "https://lists.cyberhost.uk/malware.txt"
             ];
             suspicious = [
@@ -62,7 +69,7 @@ in {
               "https://v.firebog.net/hosts/static/w3kbl.txt"
             ];
           };
-          whiteLists = {};
+          allowlists = {};
           clientGroupsBlock = {
             # 'default' group applies to all clients.
             default = [
@@ -73,7 +80,11 @@ in {
             ];
           };
           blockType = "zeroIp";
-          refreshPeriod = "1440m"; # Refresh lists every 24 hours
+          loading = {
+            refreshPeriod = "24h";
+            # Answer right away and load the lists meanwhile, even if one is unreachable
+            strategy = "fast";
+          };
         };
 
         # metrics configuration
@@ -88,17 +99,18 @@ in {
           maxTime = "15m";
         };
 
-        # Logging and timezone
-        logLevel = "info";
-        logFormat = "text";
+        log = {
+          level = "info";
+          format = "text";
+        };
+        # Otherwise every query is logged to the journal
+        queryLog.type = "none";
       };
     };
 
-    # Ensure your firewall allows DNS and web interface traffic.
-    networking.firewall.allowedTCPPorts = [
-      53
-      4000
-    ];
+    # DNS for the local network. The HTTP API and metrics on port 4000 stay
+    # reachable from the tailnet only
+    networking.firewall.allowedTCPPorts = [53];
     networking.firewall.allowedUDPPorts = [53];
   };
 }
