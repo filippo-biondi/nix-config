@@ -16,6 +16,5 @@ in
       ssh-to-age
       age
       git
-      ccg.sys
     ];
   }

@@ -50,7 +50,7 @@ The only prerequisite is **[Nix](https://nixos.org/download.html)** with Flakes 
 
 ### 1. Enter the Environment
 
-The development shell provides `sys`, `sops`, `age`, `ssh-to-age` and `git`:
+The development shell provides `sops`, `age`, `ssh-to-age` and `git`. `sys` comes with my home configuration, so it is always the version the machine was last rebuilt with:
 
 ```bash
 nix develop
