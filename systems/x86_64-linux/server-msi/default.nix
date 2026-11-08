@@ -38,6 +38,8 @@
     exitNode = true;
     routes = ["192.168.178.0/24"];
   };
+  # DNS filtering for the tailnet and the home network
+  ccg.networking.blocky.enable = true;
   ccg.self-hosting.immich.enable = true;
   ccg.self-hosting.interpelli-bot.enable = true;
   ccg.self-hosting.gerrit = {
