@@ -17,11 +17,10 @@
 
     hostNames = lib.attrNames hosts;
 
+    hostSecrets = host: lib.attrValues hosts.${host}.config.sops.secrets;
+
     # Whether a host reads a file, such as secrets/wifi.yaml
-    reads = file: host: let
-      hostSecrets = lib.attrValues hosts.${host}.config.sops.secrets;
-    in
-      lib.any (secret: lib.hasSuffix "/${file}" (toString secret.sopsFile)) hostSecrets;
+    reads = file: host: lib.any (secret: lib.hasSuffix "/${file}" (toString secret.sopsFile)) (hostSecrets host);
 
     # Who reads one file. Names with no key in keys/ yet are left out
     rule = file: readers: {
@@ -29,9 +28,13 @@
       readers = lib.filter hasKey (lib.unique readers);
     };
 
-    # The files directly in secrets/, which several hosts can read
+    # The files directly in secrets/, which several hosts can read: those
+    # there, and those a host declares, so that sops can create them
     entries = builtins.readDir "${secrets}/secrets";
-    sharedFiles = map (name: "secrets/${name}") (lib.attrNames (lib.filterAttrs (_: type: type == "regular") entries));
+    existingFiles = map (name: "secrets/${name}") (lib.attrNames (lib.filterAttrs (_: type: type == "regular") entries));
+    declaredFile = secret: builtins.match ".*/(secrets/[^/]+)" (toString secret.sopsFile);
+    declaredFiles = lib.concatMap (secret: lib.defaultTo [] (declaredFile secret)) (lib.concatMap hostSecrets hostNames);
+    sharedFiles = lib.unique (existingFiles ++ declaredFiles);
     sharedRule = file: rule file (admins ++ lib.filter (reads file) hostNames);
 
     # A host with a key has its own secrets and its stored SSH key
