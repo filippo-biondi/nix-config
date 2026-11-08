@@ -9,7 +9,7 @@ pkgs.buildGoModule {
   # This is the checksum of your Go modules.
   # Set it to lib.fakeHash or a dummy string initially.
   # When you run the build, Nix will error out and tell you the actual hash.
-  vendorHash = "sha256-7K17JaXFsjf163g5PXCb5ng2gYdotnZ2IDKk8KFjNj0=";
+  vendorHash = "sha256-zZdqPkNuWs4n3LejxRPqArv+SnLKJsgasQNEkZfy0hk=";
 
   # We need this utility to install completions to the correct system paths
   nativeBuildInputs = [pkgs.installShellFiles pkgs.makeWrapper];
@@ -24,8 +24,8 @@ pkgs.buildGoModule {
       --fish <($out/bin/sys completion fish)
   '';
 
-  # secrets-sync runs these
+  # secrets-sync and add-host run these
   postFixup = ''
-    wrapProgram $out/bin/sys --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.sops]}
+    wrapProgram $out/bin/sys --prefix PATH : ${pkgs.lib.makeBinPath (with pkgs; [mkpasswd sops ssh-to-age])}
   '';
 }

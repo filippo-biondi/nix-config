@@ -72,9 +72,9 @@ sys clean                # optimise and garbage collect the Nix store
 sys deploy <host> [user] # build here and switch a remote NixOS host over SSH (user defaults to filippo)
 sys image <host> [variant] [arch] # build an image of a host into images/, e.g. sys image installer sd-card aarch64-linux
 sys secrets-sync         # regenerate secrets/.sops.yaml and re-encrypt the secrets whose readers changed
+sys add-host <host> <address> # set up a machine booted from the installer as <host>: host key, secrets, first deploy
 ```
 
-`sys add-host` is a placeholder and does nothing yet.
 
 ### 3. Without `sys`
 

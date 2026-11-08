@@ -22,11 +22,13 @@ func warn(message string) {
 	fmt.Printf(":: %s\n", message)
 }
 
+// One reader for every prompt, so that none buffers away another's input
+var stdin = bufio.NewReader(os.Stdin)
+
 func confirm(prompt string) bool {
-	reader := bufio.NewReader(os.Stdin)
 	for {
 		fmt.Printf(":: %s (y/n): ", prompt)
-		input, _ := reader.ReadString('\n')
+		input, _ := stdin.ReadString('\n')
 		input = strings.ToLower(strings.TrimSpace(input))
 		if input == "y" || input == "yes" {
 			return true
@@ -260,24 +262,22 @@ age key, forwarded over SSH to ~/.sops-keyservice.sock.`,
 	rootCmd.AddCommand(secretsSyncCmd)
 
 	var addHostCmd = &cobra.Command{
-		Use:   "add-host [host_name] [target_host]",
-		Short: "Interactive script to bootstrap a new host (placeholder).",
-		Args:  cobra.MaximumNArgs(2), // Allows 0, 1, or 2 arguments
+		Use:   "add-host <host> <address>",
+		Short: "Set up a machine booted from the installer as one of the hosts.",
+		Long: `Set up the machine at <address>, booted from the installer, as <host>:
+give it an SSH host key, add it to nix-secrets with its own secrets and
+push them, deploy it, and commit the update to nix-config. Run it in
+nix-config, connected with the sops key service forwarded.`,
+		Args: cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
-			warn("The 'add-host' command is complex and currently a placeholder.")
-			hostName := "N/A"
-			targetHost := "N/A"
-
-			if len(args) > 0 {
-				hostName = args[0]
+			user, _ := cmd.Flags().GetString("user")
+			if err := addHost(args[0], args[1], user); err != nil {
+				fmt.Printf("Error setting up %s: %v\n", args[0], err)
+				os.Exit(1)
 			}
-			if len(args) > 1 {
-				targetHost = args[1]
-			}
-			fmt.Printf("  HOST_NAME: %s, TARGET_HOST: %s\n", hostName, targetHost)
-			os.Exit(1)
 		},
 	}
+	addHostCmd.Flags().String("user", os.Getenv("USER"), "user to log in to the installer as")
 	rootCmd.AddCommand(addHostCmd)
 
 	// cobra.Command has a default 'completion' command built-in.
