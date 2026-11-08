@@ -261,6 +261,23 @@ age key, forwarded over SSH to ~/.sops-keyservice.sock.`,
 	}
 	rootCmd.AddCommand(secretsSyncCmd)
 
+	var secretsPushCmd = &cobra.Command{
+		Use:   "secrets-push",
+		Short: "Commit and push nix-secrets, then point nix-config's main at it.",
+		Long: `Show the changes in the nix-secrets checkout in secrets/, commit them with
+the message you give and push them. Then update the secrets input and the
+submodule, and commit and push that to nix-config's main, without review.
+Stops if nix-config has uncommitted changes or isn't on main.`,
+		Args: cobra.NoArgs,
+		Run: func(cmd *cobra.Command, args []string) {
+			if err := secretsPush(); err != nil {
+				fmt.Printf("Error pushing the secrets: %v\n", err)
+				os.Exit(1)
+			}
+		},
+	}
+	rootCmd.AddCommand(secretsPushCmd)
+
 	var addHostCmd = &cobra.Command{
 		Use:   "add-host <host> <address>",
 		Short: "Set up a machine booted from the installer as one of the hosts.",
