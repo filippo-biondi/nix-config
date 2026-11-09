@@ -44,4 +44,13 @@
       };
     }
   );
+
+  # Something that delivers a message to you, such as
+  # config.ccg.notify.telegram.notifier, passed to what has things to report
+  notifierType = lib.types.submodule {
+    options.send = lib.mkOption {
+      type = lib.types.path;
+      description = "A program, run as root and with nothing on PATH: send <text>";
+    };
+  };
 }

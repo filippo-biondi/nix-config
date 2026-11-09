@@ -1,6 +1,7 @@
 {
   host,
   config,
+  inputs,
   ...
 }: {
   imports = [
@@ -14,7 +15,14 @@
   ccg.system.base.enable = true;
 
   ccg.hardware.battery.enable = true;
-  ccg.hardware.smartd.enable = true;
+  ccg.notify.telegram = {
+    enable = true;
+    sopsFile = "${inputs.secrets}/secrets/telegram.yaml";
+  };
+  ccg.hardware.smartd = {
+    enable = true;
+    notifier = config.ccg.notify.telegram.notifier;
+  };
 
   ccg.users = config.ccg.usersCatalog.${host};
   ccg.openssh.enable = true;
