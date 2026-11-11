@@ -16,5 +16,7 @@ in
       ssh-to-age
       age
       git
+      # Deploys packages/backups-stack
+      awscli2
     ];
   }
