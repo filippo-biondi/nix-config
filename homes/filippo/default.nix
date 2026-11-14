@@ -22,5 +22,9 @@ in {
     user = "biondifilippo00@gmail.com";
   };
 
+  # sops reaches the age key on the MacBook through its key service, which
+  # connecting through a -keys host forwards to this socket
+  home.sessionVariables.SOPS_KEYSERVICE = "unix://${config.home.homeDirectory}/.sops-keyservice.sock";
+
   home.stateVersion = "24.05";
 }
