@@ -191,7 +191,11 @@ func addHost(host, address, user string) error {
 	// boot rather than switch: the machine keeps running the installer, with its
 	// passwordless sudo and its hostname, until it reboots into its configuration
 	log(fmt.Sprintf("Deploying %s to %s...", host, address))
-	deploy := exec.Command("nixos-rebuild", "boot", "--flake", ".#"+host,
+	system, err := buildForDeploy(host)
+	if err != nil {
+		return err
+	}
+	deploy := exec.Command("nixos-rebuild", "boot", "--store-path", system,
 		"--target-host", target, "--sudo", "--use-substitutes")
 	deploy.Env = append(os.Environ(), "NIX_SSHOPTS="+strings.Join(installerSSH, " "))
 	deploy.Stdin, deploy.Stdout, deploy.Stderr = os.Stdin, os.Stdout, os.Stderr
