@@ -3,11 +3,11 @@
     "claude-plugins": {
       "flake": false,
       "locked": {
-        "lastModified": 1794153967,
-        "narHash": "sha256-okltUq4sdUtmEcv1o4qo5J6jjftnReY9EpW4y8DUVo8=",
+        "lastModified": 1794648633,
+        "narHash": "sha256-F/t7I62Y8ivpwP3qoycyrnt1qdGOrLeIMWbeoiS1IBU=",
         "ref": "refs/heads/main",
-        "rev": "0154c616d197e6f3a648a7945f9694b18b8beec5",
-        "revCount": 10,
+        "rev": "9723ad34120c6786018a15401eea8db3c688e9bc",
+        "revCount": 13,
         "type": "git",
         "url": "ssh://git@github.com/filippo-biondi/claude-plugins.git"
       },
