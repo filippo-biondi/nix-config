@@ -21,6 +21,5 @@ in {
         StreamLocalBindUnlink = true;
       };
     };
-    programs.ssh.startAgent = true;
   };
 }
