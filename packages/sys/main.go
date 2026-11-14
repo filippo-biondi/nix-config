@@ -48,15 +48,6 @@ func runCmd(name string, args ...string) error {
 	return cmd.Run()
 }
 
-func runSudoCmd(name string, args ...string) error {
-	sudoArgs := append([]string{name}, args...)
-	cmd := exec.Command("sudo", sudoArgs...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	log(fmt.Sprintf("Running: sudo %s %s", name, strings.Join(args, " ")))
-	return cmd.Run()
-}
-
 func main() {
 	var rootCmd = &cobra.Command{
 		Use:   "sys",
@@ -68,8 +59,10 @@ func main() {
 		Aliases: []string{"r"},
 		Short:   "Rebuild the system.",
 		Run: func(cmd *cobra.Command, args []string) {
+			// As the user, with the forwarded SSH agent, which fetches the private
+			// inputs: only activating uses sudo
 			log("Rebuilding NixOS configuration...")
-			if err := runSudoCmd("nixos-rebuild", "switch", "--flake", ".#"); err != nil {
+			if err := runCmd("nixos-rebuild", "switch", "--flake", ".#", "--sudo"); err != nil {
 				fmt.Printf("Error rebuilding NixOS: %v\n", err)
 				os.Exit(1)
 			}
@@ -84,7 +77,7 @@ func main() {
 		Short:   "Test configuration.",
 		Run: func(cmd *cobra.Command, args []string) {
 			log("Testing NixOS configuration...")
-			if err := runSudoCmd("nixos-rebuild", "test", "--flake", ".#"); err != nil {
+			if err := runCmd("nixos-rebuild", "test", "--flake", ".#", "--sudo"); err != nil {
 				fmt.Printf("Error testing NixOS: %v\n", err)
 				os.Exit(1)
 			}
