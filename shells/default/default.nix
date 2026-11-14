@@ -15,6 +15,8 @@ in
       sops
       ssh-to-age
       age
+      # Encrypts to the age key in the MacBook's Secure Enclave
+      age-plugin-se
       git
       # Deploys packages/backups-stack
       awscli2

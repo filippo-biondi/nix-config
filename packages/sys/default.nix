@@ -26,6 +26,6 @@ pkgs.buildGoModule {
 
   # secrets-sync and add-host run these
   postFixup = ''
-    wrapProgram $out/bin/sys --prefix PATH : ${pkgs.lib.makeBinPath (with pkgs; [mkpasswd sops ssh-to-age])}
+    wrapProgram $out/bin/sys --prefix PATH : ${pkgs.lib.makeBinPath (with pkgs; [age-plugin-se mkpasswd sops ssh-to-age])}
   '';
 }
