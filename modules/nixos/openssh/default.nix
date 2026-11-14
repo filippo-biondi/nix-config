@@ -9,6 +9,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     services.openssh = {
+      # Only the keys in nix-config, not ones added by hand to ~/.ssh/authorized_keys
+      authorizedKeysInHomedir = false;
       enable = true;
       settings = {
         PermitRootLogin = "no";
