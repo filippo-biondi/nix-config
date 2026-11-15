@@ -61,6 +61,9 @@ in {
       path = with pkgs; [age coreutils gnutar systemd zstd];
       serviceConfig = {
         Type = "oneshot";
+        # A hang fails it, and alerts, instead of blocking the next month's run.
+        # The first one took 3.5 hours, most of them uploading
+        TimeoutStartSec = "12h";
         ExecStart = "${backup} ${settings}";
         EnvironmentFile = config.sops.templates."aws-backup.env".path;
       };
