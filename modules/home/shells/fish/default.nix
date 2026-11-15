@@ -45,6 +45,15 @@ in {
         set fish_cursor_replace_one underscore
         set fish_cursor_visual block
 
+        # Delete a word backward with alt+backspace or ctrl+backspace (ctrl-h), and
+        # forward with alt+delete, as on the MacBook: vi's insert mode has none of them.
+        # Both as legacy escape codes and as the key names of terminals with modern key
+        # reporting
+        bind --mode insert \b backward-kill-word
+        bind --mode insert \e\x7f backward-kill-word
+        bind --mode insert alt-backspace backward-kill-word
+        bind --mode insert \e\[3\;3~ kill-word
+
         bind --mode default super-right end-of-line
         bind --mode visual super-right end-of-line
         bind --mode default super-left beginning-of-line
