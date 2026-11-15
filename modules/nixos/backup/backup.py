@@ -59,9 +59,15 @@ def archive_to_s3(settings):
 
         tarball = f"{work}/archive.tar.zst"
         log.info("Archiving %s and the copies", ", ".join(settings["paths"]))
-        subprocess.run(["tar", "--create", "--zstd", "--file", tarball,
-                        "--directory", "/", *(path.lstrip("/") for path in settings["paths"]),
-                        "--directory", staging, "."], check=True)
+        status = subprocess.run(["tar", "--create", "--zstd", "--file", tarball,
+                                 "--directory", "/", *(path.lstrip("/") for path in settings["paths"]),
+                                 "--directory", staging, "."]).returncode
+        # 1 when files changed while tar read them, such as a photo uploaded
+        # meanwhile: the rest is archived, and next month's archive has them whole
+        if status == 1:
+            log.warning("Some files changed while being archived")
+        elif status != 0:
+            raise subprocess.CalledProcessError(status, "tar")
         log.info("Encrypting the archive, %s", size(tarball))
         subprocess.run(["age", "--recipients-file", settings["recipients"],
                         "--output", f"{tarball}.age", tarball], check=True)
