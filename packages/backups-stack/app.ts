@@ -35,12 +35,17 @@ const bucket = new s3.Bucket(stack, "Bucket", {
   removalPolicy: RemovalPolicy.RETAIN,
 });
 
-// The hosts' key may only upload: not read, list, overwrite or delete. The key
-// itself is made after deploying, so that its secret is never in the stack
+// The hosts' key may only upload, and list what's there to check that their
+// backups arrive: not read, overwrite or delete. The key itself is made after
+// deploying, so that its secret is never in the stack
 const writer = new iam.User(stack, "Writer", {userName: "backup-writer"});
 writer.addToPolicy(new iam.PolicyStatement({
   actions: ["s3:PutObject", "s3:AbortMultipartUpload", "s3:ListMultipartUploadParts"],
   resources: [bucket.arnForObjects("*")],
+}));
+writer.addToPolicy(new iam.PolicyStatement({
+  actions: ["s3:ListBucket"],
+  resources: [bucket.bucketArn],
 }));
 
 // An email once the account's costs pass $4 in a month; the backups cost well under $1
