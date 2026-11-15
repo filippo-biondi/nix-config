@@ -195,7 +195,7 @@ func addHost(host, address, user string) error {
 	if err != nil {
 		return err
 	}
-	deploy := exec.Command("nixos-rebuild", "boot", "--store-path", system,
+	deploy := exec.Command("nixos-rebuild", "boot", "--store-path", system, "--no-reexec",
 		"--target-host", target, "--sudo", "--use-substitutes")
 	deploy.Env = append(os.Environ(), "NIX_SSHOPTS="+strings.Join(installerSSH, " "))
 	deploy.Stdin, deploy.Stdout, deploy.Stderr = os.Stdin, os.Stdout, os.Stderr

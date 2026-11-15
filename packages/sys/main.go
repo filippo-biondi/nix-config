@@ -190,6 +190,8 @@ func main() {
 			// Runs as the user, so SSH uses their keys and agent: only the target needs root
 			rebuild := []string{"switch",
 				"--store-path", system,
+				// It would build itself from the configuration first, which --store-path has none of
+				"--no-reexec",
 				"--target-host", target,
 				"--sudo",
 				// The target downloads what the binary cache has instead of receiving it from here
