@@ -48,6 +48,23 @@ func runCmd(name string, args ...string) error {
 	return cmd.Run()
 }
 
+// buildForDeploy builds host's system with a GC root in
+// ~/.local/state/sys/deploys, which the next deploy of the host replaces: until
+// then, garbage collection keeps what was built for it, slow emulated builds
+// included. It returns the root, for nixos-rebuild's --store-path
+func buildForDeploy(host string) (string, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+	root := filepath.Join(home, ".local", "state", "sys", "deploys", host)
+	if err := os.MkdirAll(filepath.Dir(root), 0o755); err != nil {
+		return "", err
+	}
+	return root, runCmd("nix", "build", "--out-link", root,
+		fmt.Sprintf(".#nixosConfigurations.%s.config.system.build.toplevel", host))
+}
+
 func main() {
 	var rootCmd = &cobra.Command{
 		Use:   "sys",
@@ -165,9 +182,14 @@ func main() {
 			target := fmt.Sprintf("%s@%s", user, address)
 			log(fmt.Sprintf("Deploying flake .#%s to %s...", host, target))
 
+			system, err := buildForDeploy(host)
+			if err != nil {
+				fmt.Printf("Error building %s: %v\n", host, err)
+				os.Exit(1)
+			}
 			// Runs as the user, so SSH uses their keys and agent: only the target needs root
 			if err := runCmd("nixos-rebuild", "switch",
-				"--flake", fmt.Sprintf(".#%s", host),
+				"--store-path", system,
 				"--target-host", target,
 				"--sudo",
 				"--ask-elevate-password",
