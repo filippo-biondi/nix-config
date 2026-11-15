@@ -18,6 +18,10 @@
     libraries = [pkgs.python3Packages.boto3];
     flakeIgnore = ["E501"];
   } (builtins.readFile ./backup.py);
+  check = pkgs.writers.writePython3 "check" {
+    libraries = [pkgs.python3Packages.boto3];
+    flakeIgnore = ["E501"];
+  } (builtins.readFile ./check.py);
   settings = pkgs.writeText "backup.json" (builtins.toJSON {
     inherit (cfg) paths services dumps;
     bucket = lib.ccg.backupBucket;
@@ -85,7 +89,34 @@ in {
       };
     };
 
-    # The key of backup-writer, which may only upload into the bucket
+    # Every day, that the latest archive is in S3: also when the monthly
+    # backup didn't run at all, or hung
+    systemd.services.backup-check = {
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      onFailure = ["backup-check-failed.service"];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${check} ${settings}";
+        EnvironmentFile = config.sops.templates."aws-backup.env".path;
+      };
+    };
+    systemd.timers.backup-check = {
+      wantedBy = ["timers.target"];
+      timerConfig = {
+        OnCalendar = "daily";
+        Persistent = true;
+        RandomizedDelaySec = "1h";
+      };
+    };
+    systemd.services.backup-check-failed = {
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${cfg.notifier.send} 'no recent backup archive in S3, see journalctl -u backup-check'";
+      };
+    };
+
+    # The key of backup-writer, which may only upload into the bucket, and list it
     sops.secrets = lib.genAttrs ["aws-backup/access-key-id" "aws-backup/secret-access-key"] (_: {
       sopsFile = "${inputs.secrets}/secrets/aws-backup.yaml";
     });
