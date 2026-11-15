@@ -1,6 +1,7 @@
 {
   config,
   host,
+  inputs,
   lib,
   modulesPath,
   ...
@@ -27,6 +28,15 @@
     withKey = true;
     # An exit through wherever the Pi is
     exitNode = true;
+  };
+
+  ccg.notify.telegram = {
+    enable = true;
+    sopsFile = "${inputs.secrets}/secrets/telegram.yaml";
+  };
+  ccg.monitoring.health = {
+    enable = true;
+    notifier = config.ccg.notify.telegram.notifier;
   };
 
   # Watches the other servers, from outside them

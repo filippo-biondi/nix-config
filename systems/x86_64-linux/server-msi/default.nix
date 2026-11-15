@@ -23,6 +23,10 @@
     enable = true;
     notifier = config.ccg.notify.telegram.notifier;
   };
+  ccg.monitoring.health = {
+    enable = true;
+    notifier = config.ccg.notify.telegram.notifier;
+  };
 
   ccg.users = config.ccg.usersCatalog.${host};
   ccg.openssh.enable = true;
