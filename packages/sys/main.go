@@ -188,20 +188,33 @@ func main() {
 				os.Exit(1)
 			}
 			// Runs as the user, so SSH uses their keys and agent: only the target needs root
-			if err := runCmd("nixos-rebuild", "switch",
+			rebuild := []string{"switch",
 				"--store-path", system,
 				"--target-host", target,
 				"--sudo",
-				"--ask-elevate-password",
 				// The target downloads what the binary cache has instead of receiving it from here
 				"--use-substitutes",
-			); err != nil {
+			}
+			// sudo on the target accepts a signature by the forwarded agent, with a key
+			// from nix-config, instead of the password: Touch ID for the MacBook's. The
+			// password without an agent, or with --password for a host that doesn't yet
+			password, _ := cmd.Flags().GetBool("password")
+			if password || os.Getenv("SSH_AUTH_SOCK") == "" {
+				rebuild = append(rebuild, "--ask-elevate-password")
+			} else {
+				os.Setenv("NIX_SSHOPTS", strings.TrimSpace(os.Getenv("NIX_SSHOPTS")+" -o ForwardAgent=yes"))
+			}
+			if err := runCmd("nixos-rebuild", rebuild...); err != nil {
 				fmt.Printf("Error deploying to %s: %v\n", target, err)
+				if !password {
+					fmt.Println("If its sudo doesn't accept the SSH agent yet, deploy with --password")
+				}
 				os.Exit(1)
 			}
 		},
 	}
 	deployCmd.Flags().String("to", "", "address to deploy to instead of the host name")
+	deployCmd.Flags().Bool("password", false, "ask for the target's sudo password instead of using the SSH agent")
 	rootCmd.AddCommand(deployCmd)
 
 	var imageCmd = &cobra.Command{
