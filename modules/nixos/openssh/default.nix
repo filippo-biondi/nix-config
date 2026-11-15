@@ -21,5 +21,8 @@ in {
         StreamLocalBindUnlink = true;
       };
     };
+    # sudo accepts a signature from the forwarded SSH agent, by a key from
+    # nix-config, instead of the password: the MacBook's asks for Touch ID
+    security.pam.sshAgentAuth.enable = true;
   };
 }
