@@ -23,6 +23,13 @@
   programs.claude-code = {
     plugins.core = "${inputs.claude-plugins}/plugins/core";
 
+    # Read-only, so that Claude can't change its own settings. What it should
+    # remember goes into the plugin, for review, not into notes of its own
+    settings = {
+      autoMemoryEnabled = false;
+      theme = "dark";
+    };
+
     context = ''
       You are running on the NixOS host ${host}, as the `claude` user.
       The host's configuration is nix-config, checked out in ~/workspace/nix-config.
