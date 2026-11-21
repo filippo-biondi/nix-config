@@ -91,6 +91,10 @@
         description = "nvim-config, mirrored to GitHub";
         mirror = true;
       };
+      workout-watch = {
+        description = "Workout timer and log for Wear OS, mirrored to GitHub";
+        mirror = true;
+      };
     };
   };
   # ccg.self-hosting.proxmox.enable = true;
